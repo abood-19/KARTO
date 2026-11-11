@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KARTO · صاحب الشركة</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="./icon-192.png"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#123D27"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><style>a[href="/staff/kds"],a[href="/staff/pos"],a[href="/staff/tv"],a[href="/admin"],.st-bar a[href="/"],.ad-ext{display:none!important}</style>
+<link rel="stylesheet" href="./assets/index-BwPlixjC.css"><link rel="stylesheet" href="./assets/karto-lite.css">
+<style>.acc-btns{position:fixed;z-index:300;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:8px}
+.acc-btns button{min-height:44px;padding:0 16px;border-radius:999px;border:3px solid var(--ink);background:var(--yellow);font-family:var(--display);font-weight:900;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
+.modal{position:fixed;inset:0;z-index:400;background:rgba(18,61,39,.7);display:grid;place-items:center;padding:16px}.modal .kl-box{width:min(560px,100%);max-height:90vh;overflow:auto}</style>
+</head><body>
+<section id="gate" class="kl-center" hidden><div class="kl-box">
+  <span class="kl-logo" style="font-size:34px">KARTO</span>
+  <div data-langbar style="margin:10px 0"></div><h2 id="gTitle" style="font-family:var(--display);margin:10px 0 4px"></h2>
+  <p id="gLead" style="margin:0 0 16px;font-weight:700;color:var(--ink-2)"></p>
+  <form id="fLogin" class="kl-form" hidden>
+    <label><span>اسم المستخدم</span><input name="username" autocomplete="username" required></label>
+    <label><span>كلمة السر</span><input name="password" type="password" autocomplete="current-password" required></label>
+    <button class="btn btn--yellow btn--block">دخول</button>
+    <button type="button" class="kl-link" data-go="forgot">نسيت كلمة السر؟</button>
+  </form>
+  <form id="fSetup" class="kl-form" hidden>
+    <label id="keyRow" hidden><span>رمز التجهيز (بيطلع بشاشة السيرفر أول تشغيل)</span><input name="setupKey" dir="ltr"></label>
+    <label><span>اسم المستخدم</span><input name="username" autocomplete="username" minlength="3" required></label>
+    <label><span>كلمة السر (8 أحرف أو أكثر)</span><input name="password" type="password" autocomplete="new-password" minlength="8" required></label>
+    <label><span>البريد الإلكتروني (لاسترجاع كلمة السر)</span><input name="email" type="email" dir="ltr"></label>
+    <label><span>رقم التلفون</span><input name="phone" dir="ltr" placeholder="+998 90 123 45 67"></label>
+    <label><span>Telegram chat ID (اختياري — بيوصلك رمز الاسترجاع على تيليغرام)</span><input name="telegram" dir="ltr"></label>
+    <button class="btn btn--yellow btn--block">إنشاء الحساب</button>
+  </form>
+  <form id="fForgot" class="kl-form" hidden>
+    <label><span>اسم المستخدم أو الإيميل أو التلفون</span><input name="login" required dir="auto"></label>
+    <button class="btn btn--yellow btn--block">ابعتلي رمز</button>
+    <button type="button" class="kl-link" data-go="login">رجوع للدخول</button>
+  </form>
+  <form id="fReset" class="kl-form" hidden>
+    <label><span>الرمز (6 أرقام)</span><input name="code" inputmode="numeric" dir="ltr" required></label>
+    <label><span>كلمة سر جديدة</span><input name="password" type="password" autocomplete="new-password" minlength="8" required></label>
+    <button class="btn btn--yellow btn--block">غيّر كلمة السر</button>
+    <button type="button" class="kl-link" data-go="login">رجوع للدخول</button>
+  </form>
+  <p class="kl-err" id="gErr"></p><p class="kl-ok" id="gOk"></p>
+</div></section>
+<div id="root"></div>
+<script src="./config.js"></script>
+<script>(function(){var b=(window.KARTO_API||'').replace(/\/$/,'');if(!b)return;window.KARTO_SERVER=true;var f=window.fetch.bind(window);window.fetch=function(u,o){if(typeof u==='string'&&u.indexOf('/api')===0)u=b+u;return f(u,o)};var E=window.EventSource;window.EventSource=function(u,c){if(typeof u==='string'&&u.indexOf('/api')===0)u=b+u;return new E(u,c)}})();
+if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js').catch(function(){});
+(function(){try{var q=new URLSearchParams(location.search);if(q.get('from')==='hub')sessionStorage.setItem('karto-hub',document.referrer||'../index.html');var h=sessionStorage.getItem('karto-hub');if(!h)return;var go=function(){if(document.getElementById('karto-back'))return;var a=document.createElement('a');a.href=h;a.textContent='← النظام';a.setAttribute('style','position:fixed;z-index:9999;bottom:calc(86px + env(safe-area-inset-bottom,0px));left:10px;background:#FFC21A;color:#241A14;border:3px solid #241A14;border-radius:999px;padding:6px 14px;font:800 14px/1.2 system-ui,sans-serif;box-shadow:3px 3px 0 #241A14;text-decoration:none;direction:rtl');document.body.appendChild(a)};document.readyState==='loading'?addEventListener('DOMContentLoaded',go):go()}catch(e){}})();</script>
+<script src="./assets/karto-i18n.js"></script>
+<script src="./assets/karto-lite.js"></script>
+<script>
+const $ = (i) => document.getElementById(i), TK = 'karto-staff-token';
+const srv = !!(window.KARTO_SERVER || window.KARTO_API);
+const V = { login: ['دخول صاحب الشركة', 'لصاحب الشركة فقط. بعد 5 محاولات غلط الحساب بيتقفل 15 دقيقة.'], setup: ['أول تشغيل: أنشئ حساب صاحب الشركة', 'هاد الحساب الوحيد اللي بيتحكم بكل المشروع. مدير الفرع والموظفين بيضلوا بالـ PIN.'], forgot: ['استرجاع كلمة السر', 'بنبعتلك رمز على الإيميل أو تيليغرام المسجّل.'], reset: ['رمز الاسترجاع', 'الرمز صالح 15 دقيقة.'] };
+function view(v) { $('gate').hidden = false; ['Login', 'Setup', 'Forgot', 'Reset'].forEach((x) => ($('f' + x).hidden = x.toLowerCase() !== v)); $('gTitle').textContent = KARTO.t(V[v][0]); $('gLead').textContent = KARTO.t(V[v][1]); $('gErr').textContent = ''; }
+document.querySelectorAll('[data-go]').forEach((b) => (b.onclick = () => view(b.dataset.go)));
+const data = (f) => Object.fromEntries(new FormData(f));
+function enter(r) { localStorage.setItem(TK, r.token); localStorage.setItem('karto-staff', JSON.stringify(r.staff)); boot(); }
+async function guard(f, fn) { const b = f.querySelector('button:not([type=button])'); b.disabled = true; $('gErr').textContent = ''; try { await fn(); } catch (e) { $('gErr').textContent = e.message; } b.disabled = false; }
+$('fLogin').onsubmit = (e) => { e.preventDefault(); guard(e.target, async () => enter(await KARTO.api('/auth/admin-login', { method: 'POST', body: data(e.target) }))); };
+$('fSetup').onsubmit = (e) => { e.preventDefault(); guard(e.target, async () => enter(await KARTO.api('/auth/admin-setup', { method: 'POST', body: data(e.target) }))); };
+$('fForgot').onsubmit = (e) => { e.preventDefault(); guard(e.target, async () => { const r = await KARTO.api('/auth/admin-forgot', { method: 'POST', body: data(e.target) }); view('reset');
+  $('gOk').textContent = r._code ? KARTO.t('نسخة تجريبية: الرمز هو {c}', { c: r._code }) : r.via && r.via.length ? KARTO.t('انبعت الرمز على: {v}', { v: r.via.join(', ') }) : KARTO.t('إذا البيانات صح، بيوصلك الرمز خلال دقيقة.'); }); };
+$('fReset').onsubmit = (e) => { e.preventDefault(); guard(e.target, async () => { await KARTO.api('/auth/admin-reset', { method: 'POST', body: data(e.target) }); view('login'); $('gOk').textContent = KARTO.t('تغيّرت كلمة السر. ادخل هلأ.'); }); };
+$('keyRow').hidden = !srv;
+
+let loaded = false;
+async function boot() {
+  try { await KARTO.api('/admin/account'); } catch (e) {
+    localStorage.removeItem(TK); localStorage.removeItem('karto-staff');
+    try { const s = await KARTO.api('/auth/admin-status'); view(s.setup ? 'login' : 'setup'); } catch (er) { view('login'); $('gErr').textContent = er.message; }
+    return;
+  }
+  $('gate').hidden = true; if (loaded) return; loaded = true;
+  document.documentElement.dir = 'ltr'; document.documentElement.lang = 'uz'; window.KARTO_START = '/admin'; window.KARTO_SINGLE = true; window.KARTO_ADMIN = true;
+  const s = document.createElement('script'); s.type = 'module'; s.src = './assets/index--3ulsPoV.js'; document.body.appendChild(s);
+  const bar = document.createElement('div'); bar.className = 'acc-btns'; bar.innerHTML = '<button type="button" id="bPromo">📣 العروض</button><button type="button" id="bInbox">📥 طلبات الفرع <span id="nInbox"></span></button><button type="button" id="bTeam">⏱️ الحضور</button><button type="button" id="bLocks">🔒 الأقسام</button><span data-langbar style="display:inline-flex"></span><button type="button" id="bAcc">👤 حسابي</button><a id="bSys" style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:3px solid var(--ink);background:#fff;font-family:var(--display);font-weight:900;box-shadow:3px 3px 0 var(--ink);color:var(--ink);text-decoration:none">🧩 النظام كامل</a>'; document.body.appendChild(bar);
+  $('bAcc').onclick = account; $('bTeam').onclick = team; $('bInbox').onclick = inbox; $('bLocks').onclick = locks; $('bPromo').onclick = promos; bar.querySelector('[data-langbar]').innerHTML = KARTO.langBar(); KARTO.translate(bar);
+  $('bSys').href = './system.html';
+  const badge = async () => { try { const d = await KARTO.api('/mgr/inbox'); const n = [...d.requests, ...d.notes].filter((x) => x.status === 'new').length; $('nInbox').textContent = n ? '(' + n + ')' : ''; } catch {} };
+  badge(); KARTO.live((m) => { if (m.type === 'inbox' || m.type === 'tick') badge(); });
+}
+function modal(html) { const m = document.createElement('div'); m.className = 'modal'; m.innerHTML = `<div class="kl-box">${html}<button type="button" class="btn btn--ghost btn--sm" style="border-color:var(--ink);color:var(--ink);margin-top:12px" data-x>إغلاق</button></div>`; m.onclick = (e) => { if (e.target === m || e.target.hasAttribute('data-x')) m.remove(); }; document.body.appendChild(m); return m; }
+async function account() {
+  const a = await KARTO.api('/admin/account').catch(() => ({}));
+  const m = modal(`<h2 style="font-family:var(--display);margin:0 0 12px">حسابي</h2><form class="kl-form" id="fAcc">
+  <label><span>اسم المستخدم</span><input name="username" value="${KARTO.esc(a.username)}"></label>
+  <label><span>البريد الإلكتروني</span><input name="email" type="email" dir="ltr" value="${KARTO.esc(a.email)}"></label>
+  <label><span>التلفون</span><input name="phone" dir="ltr" value="${KARTO.esc(a.phone)}"></label>
+  <label><span>Telegram chat ID</span><input name="telegram" dir="ltr" value="${KARTO.esc(a.telegram)}"></label>
+  <label><span>كلمة سر جديدة (اتركها فاضية إذا ما بدك تغيّر)</span><input name="password" type="password" autocomplete="new-password"></label>
+  <label><span>كلمة السر الحالية (للتأكيد)</span><input name="currentPassword" type="password" autocomplete="current-password" required></label>
+  <button class="btn btn--yellow btn--block">حفظ</button><p class="kl-err" id="aErr"></p></form>`);
+  m.querySelector('#fAcc').onsubmit = async (e) => { e.preventDefault(); const d = data(e.target); if (!d.password) delete d.password;
+    try { await KARTO.api('/admin/account', { method: 'PUT', body: d }); m.querySelector('#aErr').className = 'kl-ok'; m.querySelector('#aErr').textContent = 'انحفظ ✓'; } catch (er) { m.querySelector('#aErr').className = 'kl-err'; m.querySelector('#aErr').textContent = er.message; } };
+}
+const ROLE = { cashier: 'كاشير', kitchen: 'مطبخ', manager: 'مدير فرع', courier: 'مندوب' };
+const dt = (x) => (x ? new Date(x).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '—');
+const geoTxt = (g) => !g ? '—' : !g.located ? KARTO.t('بدون موقع') : `${g.inShop === true ? KARTO.t('✅ بالمطعم') : g.inShop === false ? KARTO.t('⚠️ برّا ({d} م)', { d: g.dist }) : '📍'} <a target="_blank" rel="noopener" href="https://maps.google.com/?q=${g.lat},${g.lng}">${KARTO.t('خريطة')}</a>`;
+async function team() {
+  const d = await KARTO.api('/admin/team').catch(() => ({ attendance: [], logs: [] }));
+  const m = modal(`<h2 style="font-family:var(--display);margin:0 0 12px">الحضور والانصراف</h2>
+  <div class="kl-panel" style="padding:14px;margin-bottom:14px"><b>📍 موقع المطعم:</b> <span id="gNow">${d.geo ? `${KARTO.t('محفوظ (نطاق {r} م)', { r: d.geo.radius })} <a target="_blank" href="https://maps.google.com/?q=${d.geo.lat},${d.geo.lng}">${KARTO.t('خريطة')}</a>` : KARTO.t('مش محدد — الحضور بيتسجّل بدون «داخل/خارج المطعم»')}</span>
+  <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><input id="gRad" type="number" value="${d.geo ? d.geo.radius : 150}" style="width:110px;padding:8px;border:3px solid var(--ink);border-radius:10px;font-weight:700"> <span style="align-self:center;font-weight:700">متر</span><button type="button" class="btn btn--yellow btn--sm" id="gSet">احفظ موقعي الحالي كموقع المطعم</button></div><small style="font-weight:700">اكبسها وإنت جوا المطعم.</small></div>
+  <div style="overflow:auto"><table class="kl-table"><thead><tr><th>الموظف</th><th>الدور</th><th>التلفون</th><th>حضور</th><th>الموقع</th><th>انصراف</th><th>الموقع</th><th>ساعات</th></tr></thead><tbody>${d.attendance.slice().reverse().map((v) => `<tr><td>${KARTO.esc(v.staff)}</td><td>${KARTO.t(ROLE[v.role] || v.role || '')}</td><td dir="ltr">${v.phone ? `<a href="tel:${KARTO.esc(v.phone)}">${KARTO.esc(v.phone)}</a>` : '—'}</td><td dir="ltr">${dt(v.in)}</td><td>${geoTxt(v.inGeo)}</td><td dir="ltr">${dt(v.out)}</td><td>${v.out ? geoTxt(v.outGeo) : '—'}</td><td>${(((v.out ? new Date(v.out) : new Date()) - new Date(v.in)) / 36e5).toFixed(1)}</td></tr>`).join('') || '<tr><td>لا يوجد</td></tr>'}</tbody></table></div>
+  <h2 style="font-family:var(--display);margin:18px 0 12px">سجل الزيت والحرارة والقوائم</h2><table class="kl-table"><tbody>${d.logs.slice().reverse().map((l) => `<tr><td dir="ltr">${dt(l.at)}</td><td>${KARTO.esc(l.type)} ${KARTO.esc(l.value)}</td><td>${KARTO.esc(l.staff)}</td></tr>`).join('') || '<tr><td>لا يوجد</td></tr>'}</tbody></table>`);
+  m.querySelector('.kl-box').style.width = 'min(980px,100%)';
+  m.querySelector('#gSet').onclick = () => { if (!navigator.geolocation) return; navigator.geolocation.getCurrentPosition(async (p) => { try { const g = await KARTO.api('/admin/geo', { method: 'PUT', body: { lat: p.coords.latitude, lng: p.coords.longitude, radius: +m.querySelector('#gRad').value } }); m.querySelector('#gNow').textContent = KARTO.t('محفوظ (نطاق {r} م)', { r: g.radius }) + ' ✓'; } catch (e) { m.querySelector('#gNow').textContent = e.message; } }, () => { m.querySelector('#gNow').textContent = KARTO.t('اسمح للمتصفح بالموقع وجرّب ثاني'); }, { enableHighAccuracy: true, timeout: 10000 }); };
+}
+async function promos() {
+  const T = [['site', 'الموقع الإلكتروني'], ['app', 'تطبيق الزبون'], ['tv', 'شاشة العرض'], ['pos', 'الكاشير'], ['kitchen', 'المطبخ'], ['courier', 'التوصيل'], ['team', 'الموظفين'], ['manager', 'مدير الفرع']];
+  const m = modal(`<h2 style="font-family:var(--display);margin:0 0 4px">${KARTO.t('📣 العروض')}</h2><p style="margin:0 0 12px;font-weight:700;color:var(--ink-2)">${KARTO.t('انشر عرض مرة وحدة — بيظهر بكل مكان تختاره فوراً.')}</p>
+  <form class="kl-form" id="pf">
+    <label><span>${KARTO.t('عنوان العرض')}</span><input name="title" required maxlength="80" placeholder="${KARTO.t('مثلاً: كبير + عصير بـ 35 000')}"></label>
+    <label><span>${KARTO.t('التفاصيل')}</span><textarea name="text" rows="2" maxlength="300" style="width:100%;box-sizing:border-box;font:inherit;font-weight:700;padding:10px;border:3px solid var(--ink);border-radius:14px"></textarea></label>
+    <label><span>${KARTO.t('سعر العرض (اختياري)')}</span><input name="price" type="number" min="0" step="500" inputmode="numeric"></label>
+    <label><span>${KARTO.t('صورة أو فيديو')}</span><input name="file" type="file" accept="image/*,video/*"></label>
+    <label><span>${KARTO.t('أو رابط فيديو (YouTube أو mp4)')}</span><input name="link" type="url" dir="ltr" placeholder="https://"></label>
+    <small style="font-weight:700;color:var(--ink-2)">${KARTO.t(srv ? 'الملف لحد 80MB.' : 'بالنسخة التجريبية: الملف لحد 1.5MB. للفيديو الكبير حط رابط.')}</small>
+    <div><span style="display:block;font-weight:800;font-size:14px;margin-bottom:6px">${KARTO.t('وين ينعرض؟')}</span><div style="display:flex;flex-wrap:wrap;gap:6px">${T.map(([k, n]) => `<label class="kl-tag" style="direction:inherit;font-size:13px;cursor:pointer"><input type="checkbox" name="t" value="${k}" checked> ${KARTO.t(n)}</label>`).join('')}</div></div>
+    <label><span>${KARTO.t('ينتهي بتاريخ (اختياري)')}</span><input name="until" type="datetime-local"></label>
+    <p class="kl-err" id="pErr"></p>
+    <button class="btn btn--green btn--block">${KARTO.t('🚀 انشر العرض')}</button>
+  </form>
+  <div class="kl-sec">${KARTO.t('العروض المنشورة')}</div><div id="pList" style="display:grid;gap:8px"></div>`);
+  const list = async () => { const L = await KARTO.api('/admin/promos').catch(() => []); const now = Date.now();
+    m.querySelector('#pList').innerHTML = L.map((P) => `<div class="kl-staff" style="align-items:flex-start"><div style="display:flex;gap:10px;align-items:center;min-width:0">${P.media ? (P.mediaType === 'video' ? '<span style="font-size:30px">🎬</span>' : `<img src="${KARTO.esc(KARTO.mediaUrl(P.media))}" style="width:54px;height:54px;object-fit:cover;border-radius:10px;border:2px solid var(--ink)">`) : '<span style="font-size:30px">🎉</span>'}<div><b>${KARTO.esc(P.title)}</b><div style="font-size:12px;font-weight:700;color:var(--ink-2)">${P.price ? KARTO.money(P.price) + ' · ' : ''}${P.targets.length} ${KARTO.t('أماكن')}${P.until ? ' · ' + (P.until < now ? KARTO.t('منتهي') : KARTO.t('لغاية {d}', { d: new Date(P.until).toLocaleString() })) : ''}</div></div></div>
+      <span style="display:flex;gap:6px;align-items:center"><label style="display:flex;gap:4px;align-items:center;font-weight:800;font-size:13px"><input type="checkbox" data-on="${P.id}" ${P.active ? 'checked' : ''} style="width:22px;height:22px">${KARTO.t('شغّال')}</label><button type="button" class="btn btn--sm" data-del="${P.id}" style="background:#fff">🗑️</button></span></div>`).join('') || `<p style="font-weight:700">${KARTO.t('ما في عروض لسا.')}</p>`; };
+  list();
+  m.querySelector('#pList').addEventListener('change', async (e) => { const c = e.target.closest('[data-on]'); if (c) { await KARTO.api('/admin/promos/' + c.dataset.on, { method: 'PUT', body: { active: c.checked } }).catch(() => {}); list(); } });
+  m.querySelector('#pList').addEventListener('click', async (e) => { const b = e.target.closest('[data-del]'); if (b && confirm(KARTO.t('حذف العرض؟'))) { await KARTO.api('/admin/promos/' + b.dataset.del, { method: 'DELETE' }).catch(() => {}); list(); } });
+  m.querySelector('#pf').onsubmit = async (e) => { e.preventDefault(); const f = e.target, btn = f.querySelector('button.btn--green'), err = m.querySelector('#pErr'); err.textContent = ''; btn.disabled = true;
+    try {
+      let media = (f.elements.link.value || '').trim(), mediaType = media ? (KARTO.yt(media) || /\.(mp4|webm|mov)(\?|$)/i.test(media) ? 'video' : 'image') : '';
+      const file = f.elements.file.files[0];
+      if (file) {
+        mediaType = file.type.startsWith('video') ? 'video' : 'image';
+        if (srv) { btn.textContent = KARTO.t('جاري الرفع…'); const r = await fetch((window.KARTO_API || '').replace(/\/$/, '') + '/api/upload', { method: 'POST', headers: { 'content-type': file.type, authorization: 'Bearer ' + localStorage.getItem(TK) }, body: file }); const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || 'Upload failed'); media = j.url; }
+        else { if (file.size > 1.5e6) throw new Error(KARTO.t('بالنسخة التجريبية: الملف لحد 1.5MB. للفيديو الكبير حط رابط.')); media = await new Promise((ok, no) => { const rd = new FileReader(); rd.onload = () => ok(rd.result); rd.onerror = no; rd.readAsDataURL(file); }); }
+      }
+      const targets = [...f.querySelectorAll('[name=t]:checked')].map((c) => c.value); if (!targets.length) throw new Error(KARTO.t('اختار مكان واحد على الأقل'));
+      await KARTO.api('/admin/promos', { method: 'POST', body: { title: f.elements.title.value, text: f.elements.text.value, price: +f.elements.price.value || 0, media, mediaType, targets, until: f.elements.until.value ? new Date(f.elements.until.value).getTime() : 0 } });
+      f.reset(); f.querySelectorAll('[name=t]').forEach((c) => (c.checked = true)); err.className = 'kl-ok'; err.textContent = KARTO.t('✓ انتشر العرض بكل الأماكن المختارة'); list();
+    } catch (x) { err.className = 'kl-err'; err.textContent = x.message; }
+    btn.disabled = false; btn.textContent = KARTO.t('🚀 انشر العرض'); };
+}
+async function locks() {
+  const st = await KARTO.api('/status').catch(() => ({})); const L = st.locks || {};
+  const S = [['pos', 'الكاشير'], ['kitchen', 'المطبخ'], ['tv', 'شاشة العرض'], ['courier', 'التوصيل'], ['team', 'الموظفين'], ['manager', 'مدير الفرع'], ['app', 'تطبيق الزبون'], ['site', 'الموقع الإلكتروني']];
+  const m = modal(`<h2 style="font-family:var(--display);margin:0 0 12px">${KARTO.t('فتح وإغلاق الأقسام')}</h2><div style="display:grid;gap:8px">${S.map(([k, n]) => `<label class="kl-staff" style="cursor:pointer"><b>${KARTO.t(n)}</b><span style="display:flex;gap:8px;align-items:center"><span data-s="${k}">${KARTO.t(L[k] ? 'مقفل' : 'مفتوح')}</span><input type="checkbox" data-k="${k}" ${L[k] ? '' : 'checked'} style="width:26px;height:26px"></span></label>`).join('')}</div><p class="kl-ok" id="lkMsg"></p>`);
+  m.addEventListener('change', async () => { const body = {}; m.querySelectorAll('[data-k]').forEach((c) => (body[c.dataset.k] = !c.checked));
+    try { await KARTO.api('/admin/locks', { method: 'PUT', body }); m.querySelectorAll('[data-s]').forEach((x) => (x.textContent = KARTO.t(body[x.dataset.s] ? 'مقفل' : 'مفتوح'))); m.querySelector('#lkMsg').textContent = KARTO.t('انحفظ ✓'); } catch (e) { m.querySelector('#lkMsg').textContent = e.message; } });
+}
+async function inbox() {
+  const d = await KARTO.api('/mgr/inbox').catch(() => ({ requests: [], notes: [] }));
+  const ST = { new: KARTO.t('جديد'), seen: KARTO.t('انشاف'), ordered: KARTO.t('انطلب'), done: KARTO.t('تم') };
+  const fmt = (i) => (i.unit === 'kg' ? (i.qty >= 1 ? +(+i.qty).toFixed(2) + ' kg' : Math.round(i.qty * 1000) + ' g') : i.qty + (i.unit === 'L' ? ' L' : ' ' + KARTO.t('قطعة')));
+  const all = [...d.requests.map((r) => ({ ...r, k: 'request' })), ...d.notes.map((n) => ({ ...n, k: 'note' }))].sort((a, b) => (a.at < b.at ? 1 : -1));
+  const m = modal(`<h2 style="font-family:var(--display);margin:0 0 12px">طلبات وملاحظات مدير الفرع</h2><div style="display:grid;gap:10px">${all.map((r) => `<div style="border:3px solid var(--ink);border-radius:14px;padding:12px;background:${r.status === 'new' ? '#FFF6CC' : '#fff'}">
+  <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><b>${r.k === 'request' ? KARTO.t('📦 نواقص #{n}', { n: r.id }) + (r.urgent ? KARTO.t(' · 🔴 مستعجل') : '') : (r.kind === 'message' ? '✉️ ' : '📝 ') + KARTO.t({ staff: 'عن موظف', shop: 'عن المطعم', problem: 'مشكلة', customer: 'عن زبون', message: 'رسالة', waste: 'تالف', handover: 'تسليم وردية' }[r.kind] || '') + (r.staff ? ': ' + KARTO.esc(r.staff) : '')}</b><small dir="ltr">${dt(r.at)} · ${KARTO.esc(r.by)}</small></div>
+  <div style="font-weight:700;margin:6px 0">${r.k === 'request' ? r.items.map((i) => KARTO.esc(i.name) + ': <b dir="ltr">' + fmt(i) + '</b>').join('<br>') : KARTO.esc(r.text)}</div>${r.note ? `<div style="color:var(--ink-2);font-weight:700">${KARTO.esc(r.note)}</div>` : ''}
+  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${Object.entries(ST).map(([k, v]) => `<button type="button" class="kl-tag" style="cursor:pointer;${r.status === k ? 'background:var(--yellow)' : ''}" data-k="${r.k}" data-id="${r.id}" data-s="${k}">${v}</button>`).join('')}
+  <input placeholder="ردّ لمدير الفرع" value="${KARTO.esc(r.reply)}" data-k="${r.k}" data-id="${r.id}" data-reply style="flex:1;min-width:160px;padding:6px 10px;border:2px solid var(--ink);border-radius:10px;font-weight:700"></div></div>`).join('') || '<p>ما في طلبات.</p>'}</div>`);
+  m.querySelector('.kl-box').style.width = 'min(760px,100%)';
+  m.addEventListener('click', async (e) => { const b = e.target.closest('[data-s]'); if (!b) return; await KARTO.api(`/admin/inbox/${b.dataset.k}/${b.dataset.id}`, { method: 'PATCH', body: { status: b.dataset.s } }).catch(() => {}); m.remove(); inbox(); });
+  m.addEventListener('change', async (e) => { const i = e.target.closest('[data-reply]'); if (!i) return; await KARTO.api(`/admin/inbox/${i.dataset.k}/${i.dataset.id}`, { method: 'PATCH', body: { reply: i.value } }).catch(() => {}); });
+}
+boot();
+</script>
+</body></html>

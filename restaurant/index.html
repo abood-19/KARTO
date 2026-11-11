@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KARTO · نظام المطعم</title>
+<link rel="icon" href="./icon-192.png"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#EE6A1F"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="./assets/index-BwPlixjC.css"><link rel="stylesheet" href="./assets/karto-lite.css">
+<style>
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.tile{display:flex;flex-direction:column;gap:10px;padding:22px;border:3px solid var(--ink);border-radius:var(--r);box-shadow:6px 6px 0 var(--ink);text-decoration:none;color:var(--ink);min-height:170px;transition:transform .15s}
+.tile:active{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
+.tile .ic{font-size:44px;line-height:1}.tile b{font-family:var(--display);font-size:26px}.tile span{font-weight:700;opacity:.85}
+.t1{background:var(--orange);color:#fff}.t2{background:var(--red);color:#fff}.t3{background:var(--ink);color:var(--yellow)}.t4{background:#8EC5FF}.t5{background:var(--cream-d)}.t6{background:var(--yellow)}
+</style>
+</head><body>
+<header class="kl-top"><div class="wrap"><div><span class="kl-logo">KARTO</span><h1>نظام المطعم</h1><p>اختار قسمك، وادخل الـ PIN تبعك. كل قسم بيفتح شغله بس.</p></div><div style="display:grid;gap:10px;justify-items:end"><div data-langbar="dark"></div><b id="clock" style="font-family:var(--display);font-size:42px;direction:ltr"></b></div></div></header>
+<div class="kl-check"></div>
+<main class="kl-main"><div class="wrap">
+<div class="tiles">
+  <a class="tile t1" href="./pos.html"><span class="ic">🧾</span><b>الكاشير</b><span>بيع، دفع، فاتورة، طلبات التطبيق، الوردية</span></a>
+  <a class="tile t2" href="./kitchen.html"><span class="ic">🍟</span><b>المطبخ</b><span>الطلبات بتوصل لحالها: جديد ← تحضير ← جاهز</span></a>
+  <a class="tile t3" href="./tv.html"><span class="ic">📺</span><b>شاشة العرض</b><span>المنيو بالصور وأرقام الطلبات الجاهزة</span></a>
+  <a class="tile t4" href="./courier.html"><span class="ic">🛵</span><b>التوصيل</b><span>استلام ← بالطريق ← تم التوصيل</span></a>
+  <a class="tile t5" href="./team.html"><span class="ic">⏱️</span><b>الموظفين</b><span>حضور وانصراف مع الموقع، زيت، حرارة، قوائم</span></a>
+  <a class="tile t6" href="./manager.html"><span class="ic">🧑‍💼</span><b>مدير الفرع</b><span>نواقص، ملاحظات، حضور، اتصال بالإدارة</span></a>
+</div>
+</div></main>
+<script src="./config.js"></script>
+<script>(function(){var b=(window.KARTO_API||'').replace(/\/$/,'');if(!b)return;window.KARTO_SERVER=true;var f=window.fetch.bind(window);window.fetch=function(u,o){if(typeof u==='string'&&u.indexOf('/api')===0)u=b+u;return f(u,o)};var E=window.EventSource;window.EventSource=function(u,c){if(typeof u==='string'&&u.indexOf('/api')===0)u=b+u;return new E(u,c)}})();
+if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js').catch(function(){});
+(function(){try{var q=new URLSearchParams(location.search);if(q.get('from')==='hub')sessionStorage.setItem('karto-hub',document.referrer||'../index.html');var h=sessionStorage.getItem('karto-hub');if(!h)return;var go=function(){if(document.getElementById('karto-back'))return;var a=document.createElement('a');a.href=h;a.textContent='← النظام';a.setAttribute('style','position:fixed;z-index:9999;bottom:calc(86px + env(safe-area-inset-bottom,0px));left:10px;background:#FFC21A;color:#241A14;border:3px solid #241A14;border-radius:999px;padding:6px 14px;font:800 14px/1.2 system-ui,sans-serif;box-shadow:3px 3px 0 #241A14;text-decoration:none;direction:rtl');document.body.appendChild(a)};document.readyState==='loading'?addEventListener('DOMContentLoaded',go):go()}catch(e){}})();</script>
+<script src="./assets/karto-i18n.js"></script>
+<script src="./assets/karto-lite.js"></script>
+<script>KARTO.ready.then(async()=>{try{const s=await KARTO.api("/status");const L=s.locks||{};document.querySelectorAll(".tile").forEach(a=>{const k=a.getAttribute("href").replace("./","").replace(".html","");if(L[k]){a.style.opacity=.45;a.insertAdjacentHTML("beforeend","<span>🔒 "+KARTO.t("مقفل")+"</span>")}})}catch{}});
+setInterval(function(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})},1000)</script>
+</body></html>
