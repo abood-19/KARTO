@@ -33,6 +33,10 @@ installDemoServer();
 const api = globalThis.fetch; globalThis.fetch = nativeFetch;
 const db = () => { try { return JSON.parse(store[KEY] || 'null'); } catch { return null; } };
 await api('/api/menu'); // creates the database on first start
+// first start: replace the sample PINs with private random ones (owner sees and changes them in Xodimlar)
+{ const d = db(); if (d && !d.pinsReady) { const used = new Set(); for (const st of d.staff) { if (st.role === 'owner') { st.pin = crypto.randomBytes(8).toString('hex'); continue; } let p; do { p = String(crypto.randomInt(1000, 10000)); } while (used.has(p)); used.add(p); st.pin = p; }
+  d.pinsReady = true; store[KEY] = JSON.stringify(d); save();
+  fs.writeFileSync(path.join(DATA_DIR, 'first-pins.txt'), d.staff.filter((x) => x.role !== 'owner').map((x) => `${x.role}: ${x.pin}`).join('\n') + '\n'); } }
 
 // ---- secrets kept in data/ ----
 const secret = (file, make) => { const f = path.join(DATA_DIR, file); try { return fs.readFileSync(f, 'utf8').trim(); } catch { const v = make(); fs.writeFileSync(f, v); return v; } };
@@ -132,5 +136,5 @@ http.createServer(async (req, res) => {
 }).listen(PORT, () => {
   const d = db() || {};
   console.log(`\n  KARTO is running\n  Website:  http://localhost:${PORT}/site/\n  Restaurant: http://localhost:${PORT}/restaurant/\n  Owner + full system: http://localhost:${PORT}/${ADMIN_PATH}/  (keep this link private)`);
-  if (!d.admin) console.log(`  First admin setup key: ${SETUP_KEY}\n`);
+  if (!d.admin) console.log(`  First admin setup key: ${SETUP_KEY}\n  First staff PINs: data/first-pins.txt (change them in Owner → Xodimlar)\n`);
 });

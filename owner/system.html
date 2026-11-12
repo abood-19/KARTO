@@ -21,13 +21,13 @@
   <a class="tile d" href="./photos.html"><span class="ic">🎨</span><b>صور المنتجات</b><span>KARTO</span></a>
   <a class="tile d" href="./shop3d.html"><span class="ic">🧊</span><b>مجسم المحل 3D</b><span>KARTO</span></a>
 </div>
-<div class="kl-panel" style="margin-top:28px"><h2>أرقام الدخول التجريبية</h2>
+<div class="kl-panel" id="demoPanel" style="margin-top:28px"><h2>أرقام الدخول التجريبية</h2>
 <table class="kl-table"><tbody><tr><td>صاحب الشركة</td><td>بتعمل اسم مستخدم وكلمة سر أول مرة</td></tr><tr><td>مدير الفرع</td><td>2222</td></tr><tr><td>الكاشير</td><td>3333</td></tr><tr><td>المطبخ</td><td>4444</td></tr><tr><td>المندوب</td><td>5555</td></tr></tbody></table>
 <p style="font-weight:700;color:var(--ink-2)" id="demoNote">البيانات التجريبية بتنحفظ بهاد المتصفح بس.</p><button class="btn btn--ghost btn--sm" id="reset" type="button" style="border-color:var(--ink);color:var(--ink)">امسح البيانات التجريبية</button></div>
 </div></main>
 <script src="./config.js"></script>
 <script src="./assets/karto-i18n.js"></script>
 <script src="./assets/karto-lite.js"></script>
-<script>if (window.KARTO_SERVER || window.KARTO_API) { reset.hidden = true; demoNote.hidden = true; }
+<script>if (window.KARTO_SERVER || window.KARTO_API) { demoPanel.hidden = true; }
 reset.onclick = async () => { await KARTO.ready; KARTO.reset && KARTO.reset(); try { Object.keys(localStorage).filter((k) => k.startsWith('karto') && k !== 'karto-lang').forEach((k) => localStorage.removeItem(k)); } catch {} location.reload(); };</script>
 </body></html>

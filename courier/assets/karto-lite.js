@@ -49,6 +49,7 @@
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', start) : start();
   // ---------- section locks (owner can close any section) ----------
   K.guard = async (section) => {
+    if (/\/restaurant\//.test(location.pathname) && ['pos', 'kitchen', 'tv', 'courier', 'team', 'manager'].includes(section)) K.device(section);
     try { const s = await K.api('/status'); if (s.locks && s.locks[section]) {
       const o = document.createElement('div'); o.className = 'kl-center'; o.style.cssText = 'position:fixed;inset:0;z-index:99999';
       o.innerHTML = `<div class="kl-box" style="text-align:center"><div style="font-size:56px">🔒</div><h2 style="font-family:var(--display)">${K.t('هذا القسم مقفل من الإدارة')}</h2><p style="font-weight:700">${K.t('تواصل مع صاحب الشركة لفتحه.')}</p></div>`;
@@ -101,7 +102,7 @@
 .kp-tag{display:inline-block;background:#E8452C;color:#fff;border:2px solid #241A14;border-radius:999px;padding:2px 10px;font-weight:900;font-size:13px}
 .kp-price{font-family:var(--display,system-ui);font-weight:900;font-size:24px;color:#1D5A3A}
 .kp-tv{position:fixed;inset:0;z-index:99996;background:#123D27;color:#FFF4E0;display:grid;grid-template-rows:1fr auto;opacity:0;pointer-events:none;transition:opacity .6s}
-.kp-tv.on{opacity:1}.kp-tv .kp-media{min-height:0;position:relative;display:grid;place-items:center;overflow:hidden}.kp-tv .kp-media>img,.kp-tv .kp-media>video,.kp-tv .kp-media>iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;aspect-ratio:auto}
+.kp-tv.on{opacity:1}.kp-tv .kp-media{min-height:0;position:relative;display:grid;place-items:center;overflow:hidden}.kp-tv .kp-media>img,.kp-tv .kp-media>video,.kp-tv .kp-media>iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;aspect-ratio:auto}
 .kp-pill.kp-staff{bottom:calc(140px + env(safe-area-inset-bottom,0px))}
 .kp-tv .kp-foot{padding:22px 40px;display:flex;align-items:center;gap:24px;border-top:6px solid #FFC83D;background:#0E2F1E}
 .kp-tv .kp-foot>div:first-child{flex:1}.kp-tv .kp-foot h3{font-family:var(--display,system-ui);font-size:clamp(32px,4vw,64px);margin:0}.kp-tv .kp-foot p{margin:4px 0 0;font-weight:800;font-size:clamp(18px,1.8vw,30px);opacity:.9}
@@ -139,6 +140,30 @@
     };
     K.ready.then(() => load());
     K.live((m) => { if (m.type === 'promo') load(true); });
+  };
+
+  // ---------- restaurant device lock: each device opens its own section only; changing it needs the branch manager PIN ----------
+  K.device = (sec) => {
+    const SS = sessionStorage, LS = localStorage;
+    if (/[?&]from=hub/.test(location.search) || SS.getItem('karto-hub')) return; // opened by the owner from the full-system page
+    try { if (!SS.getItem('karto-mgr')) LS.setItem('karto-device', sec); } catch {}
+    const go = () => { try { LS.removeItem('karto-device'); } catch {} location.href = './index.html'; };
+    const b = document.createElement('button'); b.type = 'button'; b.id = 'karto-switch'; b.textContent = '⇄'; b.title = K.t('تغيير القسم');
+    b.setAttribute('style', 'position:fixed;z-index:9998;left:10px;bottom:calc(86px + env(safe-area-inset-bottom,0px));width:40px;height:40px;border-radius:50%;background:#FFF4E0;color:#241A14;border:3px solid #241A14;box-shadow:2px 2px 0 #241A14;font:900 18px/1 system-ui;cursor:pointer;opacity:.75');
+    b.onclick = () => {
+      if (SS.getItem('karto-mgr')) return go();
+      const m = document.createElement('div'); m.className = 'kl-center'; m.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(18,61,39,.85)';
+      m.innerHTML = `<form class="kl-box kl-form"><h2 style="font-family:var(--display);margin:0">⇄ ${K.t('تغيير القسم')}</h2><p style="margin:0;font-weight:700">${K.t('ادخل PIN مدير الفرع')}</p><input type="password" inputmode="numeric" autocomplete="off" maxlength="8" required style="font-size:28px;text-align:center;letter-spacing:8px" dir="ltr"><p class="kl-err"></p><div style="display:flex;gap:8px"><button class="btn btn--green" style="flex:1">${K.t('دخول')}</button><button type="button" class="btn btn--yellow" data-x>${K.t('إلغاء')}</button></div></form>`;
+      m.querySelector('[data-x]').onclick = () => m.remove();
+      m.querySelector('form').onsubmit = async (e) => { e.preventDefault(); const er = m.querySelector('.kl-err');
+        try { const r = await K.api('/auth/login', { method: 'POST', body: { pin: m.querySelector('input').value } });
+          if (r.staff.role !== 'manager') throw new Error(K.t('هذا الرمز ليس لمدير الفرع'));
+          [['karto-staff-token', 'karto-staff'], ['karto-courier-token', 'karto-courier'], ['karto-manager-token', 'karto-manager']].forEach(([t, s]) => { LS.setItem(t, r.token); LS.setItem(s, JSON.stringify(r.staff)); });
+          SS.setItem('karto-mgr', '1'); go();
+        } catch (x) { er.textContent = x.message; m.querySelector('input').value = ''; } };
+      document.body.appendChild(m); m.querySelector('input').focus(); K.translate && K.translate(m);
+    };
+    const put = () => document.body.appendChild(b); document.readyState === 'loading' ? addEventListener('DOMContentLoaded', put) : put();
   };
   K.time = (iso) => { try { return new Date(iso).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }); } catch { return ''; } };
 })();
