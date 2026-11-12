@@ -4,7 +4,11 @@
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="./icon-192.png"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#123D27"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><style>a[href="/staff/kds"],a[href="/staff/pos"],a[href="/staff/tv"],a[href="/admin"],.st-bar a[href="/"],.ad-ext{display:none!important}</style>
 <link rel="stylesheet" href="./assets/index-BwPlixjC.css"><link rel="stylesheet" href="./assets/karto-lite.css">
-<style>.acc-btns{position:fixed;z-index:300;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:8px}
+<style>.acc-btns.in-side{position:static;flex-direction:column;gap:4px;margin-top:12px;padding-top:12px;border-top:2px solid #ffffff22;z-index:auto}
+.acc-btns.in-side button,.acc-btns.in-side #bSys{min-height:42px;width:100%;display:flex!important;align-items:center;justify-content:flex-start;text-align:start;background:#ffffff12!important;color:var(--cream)!important;border:0!important;box-shadow:none!important;border-radius:14px!important;padding:0 14px!important;font-family:var(--body)!important;font-weight:800!important;font-size:15px}
+.acc-btns.in-side button:hover,.acc-btns.in-side #bSys:hover{background:#ffffff22!important}.acc-btns.in-side #bSys{background:var(--yellow)!important;color:var(--ink)!important}
+.acc-btns.in-side [data-langbar]{display:none!important}.ad-side{overflow-y:auto}
+.acc-btns{position:fixed;z-index:300;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:8px}
 .acc-btns button{min-height:44px;padding:0 16px;border-radius:999px;border:3px solid var(--ink);background:var(--yellow);font-family:var(--display);font-weight:900;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
 .modal{position:fixed;inset:0;z-index:400;background:rgba(18,61,39,.7);display:grid;place-items:center;padding:16px}.modal .kl-box{width:min(560px,100%);max-height:90vh;overflow:auto}</style>
 </head><body>
@@ -74,7 +78,7 @@ async function boot() {
   document.documentElement.dir = 'ltr'; document.documentElement.lang = 'uz'; window.KARTO_START = '/admin'; window.KARTO_SINGLE = true; window.KARTO_ADMIN = true;
   const s = document.createElement('script'); s.type = 'module'; s.src = './assets/index--3ulsPoV.js'; document.body.appendChild(s);
   const bar = document.createElement('div'); bar.className = 'acc-btns'; bar.innerHTML = '<button type="button" id="bPromo">📣 العروض</button><button type="button" id="bInbox">📥 طلبات الفرع <span id="nInbox"></span></button><button type="button" id="bTeam">⏱️ الحضور</button><button type="button" id="bLocks">🔒 الأقسام</button><span data-langbar style="display:inline-flex"></span><button type="button" id="bAcc">👤 حسابي</button><a id="bSys" style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:3px solid var(--ink);background:#fff;font-family:var(--display);font-weight:900;box-shadow:3px 3px 0 var(--ink);color:var(--ink);text-decoration:none">🧩 النظام كامل</a>'; document.body.appendChild(bar);
-  $('bAcc').onclick = account; $('bTeam').onclick = team; $('bInbox').onclick = inbox; $('bLocks').onclick = locks; $('bPromo').onclick = promos; bar.querySelector('[data-langbar]').innerHTML = KARTO.langBar(); KARTO.translate(bar);
+  $('bAcc').onclick = account; $('bTeam').onclick = team; $('bInbox').onclick = inbox; $('bLocks').onclick = locks; $('bPromo').onclick = promos; bar.querySelector('[data-langbar]').innerHTML = KARTO.langBar(); KARTO.translate(bar); const dock = () => { const nav = document.querySelector('.ad-side nav'); if (!nav) return setTimeout(dock, 300); nav.after(bar); bar.classList.add('in-side'); }; dock();
   $('bSys').href = './system.html';
   const badge = async () => { try { const d = await KARTO.api('/mgr/inbox'); const n = [...d.requests, ...d.notes].filter((x) => x.status === 'new').length; $('nInbox').textContent = n ? '(' + n + ')' : ''; } catch {} };
   badge(); KARTO.live((m) => { if (m.type === 'inbox' || m.type === 'tick') badge(); });

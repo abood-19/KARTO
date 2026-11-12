@@ -48,3 +48,14 @@ body{margin:0}.kl-page,body:not(:has(#root)){background:var(--cream);color:var(-
 .kl-dot{width:12px;height:12px;border-radius:50%;display:inline-block;border:2px solid var(--ink)}
 [hidden]{display:none!important}
 @media (max-width:640px){.kl-top .wrap{flex-direction:column-reverse;align-items:flex-start}}
+/* customer app on computers: full-width screen (no phone frame), content laid out for a big screen */
+@media (min-width:900px){
+.app-shell{padding:0!important}.app{max-width:none!important;box-shadow:none!important;border-radius:0!important;min-height:100dvh!important}
+.app__top{padding-inline:max(32px,calc((100% - 1200px)/2 + 32px))!important}
+.app__body{width:100%;max-width:1200px;margin-inline:auto;box-sizing:border-box;padding:28px 32px 130px!important}
+.tabbar{max-width:none!important;grid-template-columns:repeat(4,minmax(0,200px))!important;justify-content:center}
+.cta-bar{max-width:640px!important}
+.promo{min-height:300px}.promo img{width:42%!important;left:40px!important;bottom:-60px!important}.promo h2{font-size:44px}
+.combos{grid-auto-columns:minmax(0,1fr)!important;grid-auto-flow:row!important;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));overflow:visible!important;margin-inline:0!important;padding-inline:0!important}
+.opt-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}.combo img{aspect-ratio:4/3!important}
+}
