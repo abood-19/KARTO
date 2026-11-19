@@ -1,0 +1,66 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KARTO Menu</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lalezar&family=IBM+Plex+Sans+Arabic:wght@500;700&family=Rubik:wght@500;800&display=swap">
+<style>
+:root{--g:#123D27;--y:#FFC83D;--r:#E8452C;--c:#FFF4E0;--ink:#1E1A14}
+*{box-sizing:border-box}body{margin:0;background:var(--c);color:var(--ink);font-family:"IBM Plex Sans Arabic","Rubik",system-ui,sans-serif}
+[dir=ltr] body,html[dir=ltr]{font-family:"Rubik","IBM Plex Sans Arabic",system-ui,sans-serif}
+header{background:var(--g);color:var(--c);padding:22px max(16px,4vw);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-family:"Lalezar",sans-serif;font-size:56px;color:var(--y);line-height:1;direction:ltr;text-shadow:3px 3px 0 #000}
+.tag{font-weight:700;opacity:.9}
+.langs{display:flex;gap:6px}.langs button{font:700 14px inherit;font-family:inherit;padding:6px 12px;border-radius:999px;border:2px solid var(--y);background:transparent;color:var(--c);cursor:pointer}
+.langs button.on{background:var(--y);color:var(--ink)}
+.check{height:14px;background:repeating-conic-gradient(var(--r) 0 25%,#fff 0 50%) 0 0/14px 14px}
+main{padding:24px max(16px,4vw) 40px;display:grid;gap:26px;max-width:1300px;margin:0 auto}
+h2{font-family:"Lalezar","Rubik",sans-serif;font-weight:400;font-size:34px;margin:0 0 12px;color:var(--g)}
+.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.size{background:#fff;border:3px solid var(--ink);border-radius:22px;box-shadow:6px 6px 0 var(--ink);padding:16px;text-align:center}
+.size img{height:150px;object-fit:contain;width:100%}
+.size b{display:block;font-size:24px}.size .g{opacity:.7;font-weight:700}
+.price{font-family:"Rubik",sans-serif;font-weight:800;font-size:30px;color:var(--r);direction:ltr;display:inline-block}
+.row{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.item{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:10px;display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:center}
+.item img{width:64px;height:64px;object-fit:cover;border-radius:12px}
+.item b{display:block;font-size:15px;line-height:1.3}.item .price{font-size:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chips span{background:var(--y);border:2px solid var(--ink);border-radius:999px;padding:4px 12px;font-weight:700}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;counter-reset:s}
+.how div{background:var(--g);color:var(--c);border-radius:16px;padding:14px;font-weight:700}
+.how div::before{counter-increment:s;content:counter(s);display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--y);color:var(--ink);margin-inline-end:8px}
+footer{text-align:center;padding:16px;font-weight:700;opacity:.7}
+@media (max-width:700px){.sizes,.how{grid-template-columns:1fr}}
+@media print{.langs{display:none}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head><body>
+<header><div><div class="logo">KARTO</div><div class="tag" data-t="tag"></div></div><div class="langs" id="langs"></div></header>
+<div class="check"></div>
+<main>
+<section><h2 data-t="fries"></h2><div class="sizes" id="sizes"></div></section>
+<section><h2 data-t="how"></h2><div class="how" id="how"></div></section>
+<section><h2 data-t="seas"></h2><div class="chips" id="seas"></div><p style="font-weight:700" data-t="extra"></p></section>
+<section><h2 data-t="sauces"></h2><div class="row" id="sauces"></div></section>
+<section><h2 data-t="drinks"></h2><div class="row" id="drinks"></div></section>
+<section><h2 data-t="shakers"></h2><div class="row" id="shakers"></div></section>
+</main><footer dir="ltr">@karto.uz · 10:00 – 23:00</footer>
+<script>
+const L={ar:{dir:"rtl",tag:"بطاطا مش عادية",fries:"البطاطا",how:"اطلبها بطريقتك",seas:"البهارات (لحد 3 مجاناً)",extra:"بهار إضافي: 2 000 سوم",sauces:"الصوصات · 30 مل",drinks:"المشروبات",shakers:"علب البهار للبيت",steps:["اختار الحجم","اختار التغليف: قمع، صحن خلط، أو صينية صوص","اختار لحد 3 بهارات وصوص"],sizes:["صغير","وسط","كبير"],g:"غ",cur:"سوم"},
+uz:{dir:"ltr",tag:"Oddiy emas kartoshka",fries:"Kartoshka fri",how:"O‘zingizcha buyurtma qiling",seas:"Ziravorlar (3 tagacha bepul)",extra:"Qo‘shimcha ziravor: 2 000 so‘m",sauces:"Souslar · 30 ml",drinks:"Ichimliklar",shakers:"Uy uchun ziravor idishlari",steps:["O‘lchamni tanlang","Qadoqni tanlang: konus, aralashtirish kosasi yoki sousli patnis","3 tagacha ziravor va sous tanlang"],sizes:["Kichik","O‘rta","Katta"],g:"g",cur:"so‘m"},
+ru:{dir:"ltr",tag:"Картошка не как у всех",fries:"Картофель фри",how:"Собери свой заказ",seas:"Специи (до 3 бесплатно)",extra:"Доп. специя: 2 000 сум",sauces:"Соусы · 30 мл",drinks:"Напитки",shakers:"Шейкеры специй домой",steps:["Выбери размер","Выбери упаковку: рожок, чаша или лоток для соусов","Выбери до 3 специй и соус"],sizes:["Маленький","Средний","Большой"],g:"г",cur:"сум"},
+en:{dir:"ltr",tag:"Beyond Ordinary Potatoes",fries:"Fries",how:"Build your order",seas:"Seasonings (up to 3 free)",extra:"Extra seasoning: 2,000 UZS",sauces:"Sauces · 30 ml",drinks:"Drinks",shakers:"Seasoning shakers to take home",steps:["Pick a size","Pick your pack: cone, shake bowl or sauce tray","Pick up to 3 seasonings and a sauce"],sizes:["Small","Medium","Large"],g:"g",cur:"UZS"}};
+const S=[["cone",100,18000],["bowl",150,25000],["tray",200,32000]];
+const SEAS={ar:["ملح وفلفل","باربكيو","قشطة وبصل","شيدر","شطة حارة","بيري بيري","ثوم وبارميزان"],uz:["Tuz va qalampir","BBQ","Smetana va piyoz","Chedder","Achchiq chili","Peri-Peri","Sarimsoq va parmezan"],ru:["Соль и перец","Барбекю","Сметана и лук","Чеддер","Острый чили","Пери-пери","Чеснок и пармезан"],en:["Salt & Pepper","BBQ","Sour Cream & Onion","Cheddar","Spicy Chili","Peri-Peri","Garlic Parmesan"]};
+const SAU={ar:["كاتشب","مايونيز","باربكيو","حار"],uz:["Ketchup","Mayonez","BBQ","Achchiq"],ru:["Кетчуп","Майонез","BBQ","Острый"],en:["Ketchup","Mayo","BBQ","Spicy"]};
+const SAUI=["ketchup","mayo","bbq","spicy"],SH=["classic","bbq","sour","cheddar","chili","peri","parmesan"];
+const DR={ar:["عصير Golden Sun","عصير Ruby Pom","عصير Green Mint","ماي 0.5 لتر"],uz:["Golden Sun sharbati","Ruby Pom sharbati","Green Mint sharbati","Suv 0,5 L"],ru:["Сок Golden Sun","Сок Ruby Pom","Сок Green Mint","Вода 0,5 л"],en:["Golden Sun juice","Ruby Pom juice","Green Mint juice","Water 0.5 L"]};
+const DRI=["juice-golden","juice-ruby","juice-mint","water"],DRP=[15000,15000,15000,5000];
+const f=n=>n.toLocaleString("ru-RU");
+function draw(l){const t=L[l];document.documentElement.lang=l;document.documentElement.dir=t.dir;
+document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t[e.dataset.t]);
+sizes.innerHTML=S.map((s,i)=>`<div class="size"><img src="./img/${s[0]}.webp" alt=""><b>${t.sizes[i]}</b><div class="g">${s[1]} ${t.g}</div><span class="price">${f(s[2])}</span> ${t.cur}</div>`).join("");
+how.innerHTML=t.steps.map(s=>`<div>${s}</div>`).join("");
+seas.innerHTML=SEAS[l].map(s=>`<span>${s}</span>`).join("");
+const it=(img,n,p)=>`<div class="item"><img src="./img/${img}.webp" alt=""><div><b>${n}</b><span class="price">${f(p)}</span> ${t.cur}</div></div>`;
+sauces.innerHTML=SAU[l].map((n,i)=>it("sauce-"+SAUI[i],n,4000)).join("");
+drinks.innerHTML=DR[l].map((n,i)=>it(DRI[i],n,DRP[i])).join("");
+shakers.innerHTML=SEAS[l].map((n,i)=>it("shaker-"+SH[i],n,5000)).join("");
+langs.innerHTML=Object.keys(L).map(k=>`<button class="${k===l?"on":""}" onclick="draw('${k}')">${{ar:"عربي",uz:"O‘zbek",ru:"Рус",en:"Eng"}[k]}</button>`).join("");}
+draw(new URLSearchParams(location.search).get("lang")||"ru");
+</script></body></html>
