@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KARTO · Kuryer</title>
+<link rel="icon" href="./icon-192.png"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#3F86D9"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="./assets/index-BwPlixjC.css"><link rel="stylesheet" href="./assets/karto-lite.css">
+</head><body>
+<section id="login" class="kl-center"><div class="kl-box">
+  <span class="kl-logo" style="font-size:34px">KARTO</span><h2 style="font-family:var(--display);margin:10px 0 4px">التوصيل · Kuryer</h2>
+  <p style="margin:0 0 14px;font-weight:700;color:var(--ink-2)">ادخل الـ PIN تبعك</p><div data-langbar style="margin-bottom:12px"></div>
+  <div class="kl-dots" id="dots"></div><div class="kl-err" id="lerr"></div>
+  <div class="kl-pin" id="pad"></div>
+</div></section>
+<section id="main" hidden>
+  <header class="kl-top" style="padding:16px 0"><div class="wrap" style="flex-direction:row;align-items:center">
+    <div><span class="kl-logo" style="font-size:28px">KARTO</span> <b id="who" style="margin-inline-start:10px"></b></div>
+    <div style="display:flex;gap:8px;align-items:center"><div data-langbar="dark"></div><button class="btn btn--yellow btn--sm" id="out" type="button">خروج</button></div></div></header>
+  <div class="kl-check"></div>
+  <main class="kl-main" style="padding-top:20px"><div class="wrap">
+    <div class="kl-sec" style="margin-top:0">جاهزة للاستلام</div><div class="kl-grid" id="ready"></div>
+    <div class="kl-sec">معي بالطريق</div><div class="kl-grid" id="mine"></div>
+    <p class="kl-err" id="err"></p>
+  </div></main>
+</section>
+<script src="./config.js"></script>
+<script>(function(){var b=(window.KARTO_API||'').replace(/\/$/,'');if(!b)return;window.KARTO_SERVER=true;var f=window.fetch.bind(window);window.fetch=function(u,o){if(typeof u==='string'&&u.indexOf('/api')===0)u=b+u;return f(u,o)};var E=window.EventSource;window.EventSource=function(u,c){if(typeof u==='string'&&u.indexOf('/api')===0)u=b+u;return new E(u,c)}})();
+if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js').catch(function(){});
+(function(){try{var q=new URLSearchParams(location.search);if(q.get('from')==='hub')sessionStorage.setItem('karto-hub',document.referrer||'../index.html');var h=sessionStorage.getItem('karto-hub');if(!h)return;var go=function(){if(document.getElementById('karto-back'))return;var a=document.createElement('a');a.href=h;a.textContent='← النظام';a.setAttribute('style','position:fixed;z-index:9999;bottom:calc(86px + env(safe-area-inset-bottom,0px));left:10px;background:#FFC21A;color:#241A14;border:3px solid #241A14;border-radius:999px;padding:6px 14px;font:800 14px/1.2 system-ui,sans-serif;box-shadow:3px 3px 0 #241A14;text-decoration:none;direction:rtl');document.body.appendChild(a)};document.readyState==='loading'?addEventListener('DOMContentLoaded',go):go()}catch(e){}})();</script>
+<script src="./assets/karto-i18n.js"></script>
+<script src="./assets/karto-lite.js"></script>
+<script>
+const TK = 'karto-courier-token', $ = (i) => document.getElementById(i);
+let pin = '', me = null;
+try { me = JSON.parse(localStorage.getItem('karto-courier') || 'null'); } catch {}
+const pad = $('pad'); ['1','2','3','4','5','6','7','8','9','⌫','0','✓'].forEach((k) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = k; b.onclick = () => press(k); pad.appendChild(b); });
+function press(k) { if (k === '⌫') pin = pin.slice(0, -1); else if (k === '✓') return login(); else if (pin.length < 8) pin += k; $('dots').textContent = '•'.repeat(pin.length); $('lerr').textContent = ''; if (pin.length >= 4 && k !== '⌫') {} }
+async function login() {
+  try { const r = await KARTO.api('/auth/login', { method: 'POST', body: { pin } });
+    if (!['courier', 'manager'].includes(r.staff.role)) throw new Error('هاد الـ PIN مش لمندوب');
+    localStorage.setItem(TK, r.token); localStorage.setItem('karto-courier', JSON.stringify(r.staff)); me = r.staff; show();
+  } catch (e) { $('lerr').textContent = e.message; pin = ''; $('dots').textContent = ''; }
+}
+$('out').onclick = () => { localStorage.removeItem(TK); localStorage.removeItem('karto-courier'); me = null; pin = ''; $('dots').textContent = ''; $('main').hidden = true; $('login').hidden = false; };
+function card(o, mine) {
+  const c = o.customer || {}, pay = o.paymentStatus === 'paid' ? '<span class="kl-badge" style="background:#BDF0C8">مدفوع</span>' : `<span class="kl-badge" style="background:var(--yellow)">${KARTO.t('حصّل {m}',{m:'<bdi dir="ltr">'+KARTO.money(o.total)+'</bdi>'})}</span>`;
+  const items = o.items.map((i) => `${i.qty}× ${i.size.toUpperCase()} ${i.grams}g`).join(' · ');
+  return `<div class="kl-order"><h3>#${o.number} ${pay}</h3>
+  <div style="font-weight:800">${KARTO.esc(c.name)} · <a href="tel:${KARTO.esc(c.phone)}" dir="ltr">${KARTO.esc(c.phone)}</a></div>
+  <div style="font-weight:700">📍 ${KARTO.esc(c.address)} ${c.address ? `<a href="https://yandex.uz/maps/?text=${encodeURIComponent('Tashkent ' + c.address)}" target="_blank" rel="noopener">${KARTO.t('خريطة')}</a>` : ''}</div>
+  ${c.note ? `<div style="font-weight:700;color:var(--ink-2)">📝 ${KARTO.esc(c.note)}</div>` : ''}
+  <div style="font-size:13px;font-weight:700;color:var(--ink-2)">${items} · ${KARTO.esc(o.invoiceNo)}</div>
+  ${mine ? `<button class="btn btn--green btn--block" data-id="${o.id}" data-s="completed" data-paid="1">تم التوصيل ✓</button>` : `<button class="btn btn--yellow btn--block" data-id="${o.id}" data-s="out">استلمت — بالطريق</button>`}</div>`;
+}
+async function load() {
+  if (!me) return;
+  try { const all = await KARTO.api('/staff/orders?scope=active', {}, TK); const d = all.filter((o) => o.mode === 'delivery');
+    const r = d.filter((o) => o.status === 'ready'), m = d.filter((o) => o.status === 'out' && (!o.courier || o.courier === me.name));
+    $('ready').innerHTML = r.map((o) => card(o, false)).join('') || '<p style="font-weight:700">ما في طلبات جاهزة هلأ.</p>';
+    $('mine').innerHTML = m.map((o) => card(o, true)).join('') || '<p style="font-weight:700">ولا طلب معك.</p>'; $('err').textContent = '';
+  } catch (e) { if (e.status === 401) $('out').onclick(); else $('err').textContent = e.message; }
+}
+document.addEventListener('click', async (e) => { const b = e.target.closest('button[data-id]'); if (!b) return; b.disabled = true;
+  try { await KARTO.api('/staff/orders/' + b.dataset.id, { method: 'PATCH', body: { status: b.dataset.s, ...(b.dataset.paid ? { paymentStatus: 'paid' } : {}) } }, TK); } catch (er) { $('err').textContent = er.message; } load(); });
+function show() { $('login').hidden = true; $('main').hidden = false; $('who').textContent = me.name; load(); }
+KARTO.guard('courier'); KARTO.promos('courier'); KARTO.contact(TK);
+KARTO.live((m) => { if (m.type === 'order' || m.type === 'tick') load(); });
+if (me && localStorage.getItem(TK)) show();
+</script>
+</body></html>

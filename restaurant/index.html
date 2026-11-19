@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KARTO · نظام المطعم</title>
+<link rel="icon" href="./icon-192.png"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#EE6A1F"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="./assets/index-BwPlixjC.css"><link rel="stylesheet" href="./assets/karto-lite.css">
+<style>
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.tile{display:flex;flex-direction:column;gap:10px;padding:22px;border:3px solid var(--ink);border-radius:var(--r);box-shadow:6px 6px 0 var(--ink);text-decoration:none;color:var(--ink);min-height:170px;transition:transform .15s}
+.tile:active{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
+.tile .ic{font-size:44px;line-height:1}.tile b{font-family:var(--display);font-size:26px}.tile span{font-weight:700;opacity:.85}
+.t1{background:var(--orange);color:#fff}.t2{background:var(--red);color:#fff}.t3{background:var(--ink);color:var(--yellow)}.t4{background:#8EC5FF}.t5{background:var(--cream-d)}.t6{background:var(--yellow)}
+</style>
+</head><body>
+<header class="kl-top"><div class="wrap"><div><span class="kl-logo">KARTO</span><h1>نظام المطعم</h1><p id="sub">ادخل الـ PIN تبعك — بيفتح لك قسمك بس.</p></div><div style="display:grid;gap:10px;justify-items:end"><div data-langbar="dark"></div><b id="clock" style="font-family:var(--display);font-size:42px;direction:ltr"></b></div></div></header>
+<div class="kl-check"></div>
+<main class="kl-main"><div class="wrap">
+<section id="login" style="display:grid;place-items:center"><div class="kl-box">
+  <div class="kl-dots" id="dots"></div><div class="kl-err" id="lerr"></div>
+  <div class="kl-pin" id="pad"></div>
+</div></section>
+<section id="mgr" hidden>
+<div class="tiles">
+  <a class="tile t1" href="./pos.html"><span class="ic">🧾</span><b>الكاشير</b><span>بيع، دفع، فاتورة، طلبات التطبيق، الوردية</span></a>
+  <a class="tile t2" href="./kitchen.html"><span class="ic">🍟</span><b>المطبخ</b><span>الطلبات بتوصل لحالها: جديد ← تحضير ← جاهز</span></a>
+  <a class="tile t3" href="./tv.html"><span class="ic">📺</span><b>شاشة العرض</b><span>المنيو بالصور وأرقام الطلبات الجاهزة</span></a>
+  <a class="tile t4" href="./courier.html"><span class="ic">🛵</span><b>التوصيل</b><span>استلام ← بالطريق ← تم التوصيل</span></a>
+  <a class="tile t5" href="./team.html"><span class="ic">⏱️</span><b>الموظفين</b><span>حضور وانصراف مع الموقع، زيت، حرارة، قوائم</span></a>
+  <a class="tile t6" href="./manager.html"><span class="ic">🧑‍💼</span><b>مدير الفرع</b><span>نواقص، ملاحظات، حضور، اتصال بالإدارة</span></a>
+</div>
+<div class="kl-panel" style="margin-top:24px"><h2>📌 تثبيت هذا الجهاز على قسم</h2>
+<p style="margin:0 0 12px;font-weight:700;color:var(--ink-2)">بعد التثبيت الجهاز بيفتح هالقسم بس كل مرة. التغيير بيحتاج PIN مدير الفرع.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><select id="dev" class="kl-form" style="flex:1;min-width:200px;font:inherit;font-weight:800;padding:12px;border:3px solid var(--ink);border-radius:14px">
+<option value="pos">الكاشير</option><option value="kitchen">المطبخ</option><option value="tv">شاشة العرض</option><option value="courier">التوصيل</option><option value="team">الموظفين</option><option value="manager">مدير الفرع</option></select>
+<button class="btn btn--green" id="pin1" type="button">📌 ثبّت وافتح</button><button class="btn btn--yellow" id="mout" type="button">خروج</button></div></div>
+</section>
+</div></main>
+<script src="./config.js"></script>
+<script>(function(){var b=(window.KARTO_API||'').replace(/\/$/,'');if(!b)return;window.KARTO_SERVER=true;var f=window.fetch.bind(window);window.fetch=function(u,o){if(typeof u==='string'&&u.indexOf('/api')===0)u=b+u;return f(u,o)};var E=window.EventSource;window.EventSource=function(u,c){if(typeof u==='string'&&u.indexOf('/api')===0)u=b+u;return new E(u,c)}})();
+if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js').catch(function(){});
+(function(){try{var q=new URLSearchParams(location.search);if(q.get('from')==='hub')sessionStorage.setItem('karto-hub',document.referrer||'../index.html');var h=sessionStorage.getItem('karto-hub');if(!h)return;var go=function(){if(document.getElementById('karto-back'))return;var a=document.createElement('a');a.href=h;a.textContent='← النظام';a.setAttribute('style','position:fixed;z-index:9999;bottom:calc(86px + env(safe-area-inset-bottom,0px));left:10px;background:#FFC21A;color:#241A14;border:3px solid #241A14;border-radius:999px;padding:6px 14px;font:800 14px/1.2 system-ui,sans-serif;box-shadow:3px 3px 0 #241A14;text-decoration:none;direction:rtl');document.body.appendChild(a)};document.readyState==='loading'?addEventListener('DOMContentLoaded',go):go()}catch(e){}})();</script>
+<script src="./assets/karto-i18n.js"></script>
+<script src="./assets/karto-lite.js"></script>
+<script>
+const $ = (i) => document.getElementById(i), LS = localStorage, SS = sessionStorage;
+const MAP = { cashier: 'pos', kitchen: 'kitchen', courier: 'courier', manager: null };
+const OWNER = !!SS.getItem('karto-hub') || /[?&]from=hub/.test(location.search);
+try { const d = LS.getItem('karto-device'); if (d && !SS.getItem('karto-mgr') && !OWNER) location.replace('./' + d + '.html'); } catch {}
+let pin = '';
+['1','2','3','4','5','6','7','8','9','⌫','0','✓'].forEach((k) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = k; b.onclick = () => press(k); $('pad').appendChild(b); });
+function press(k) { if (k === '⌫') pin = pin.slice(0, -1); else if (k === '✓') return login(); else if (pin.length < 8) pin += k; $('dots').textContent = '•'.repeat(pin.length); $('lerr').textContent = ''; }
+addEventListener('keydown', (e) => { if ($('login').hidden) return; if (/^\d$/.test(e.key)) press(e.key); else if (e.key === 'Backspace') press('⌫'); else if (e.key === 'Enter') press('✓'); });
+function save(r, keys) { keys.forEach(([t, s]) => { LS.setItem(t, r.token); LS.setItem(s, JSON.stringify(r.staff)); }); }
+async function login() {
+  try { const r = await KARTO.api('/auth/login', { method: 'POST', body: { pin } }); const role = r.staff.role;
+    if (role === 'manager') { save(r, [['karto-staff-token', 'karto-staff'], ['karto-courier-token', 'karto-courier'], ['karto-manager-token', 'karto-manager']]); SS.setItem('karto-mgr', '1'); return showMgr(); }
+    const sec = MAP[role] || 'team';
+    if (sec === 'courier') save(r, [['karto-courier-token', 'karto-courier']]); else if (sec !== 'team') save(r, [['karto-staff-token', 'karto-staff']]);
+    LS.setItem('karto-device', sec); location.href = './' + sec + '.html';
+  } catch (e) { $('lerr').textContent = e.message; pin = ''; $('dots').textContent = ''; }
+}
+function showMgr() { $('login').hidden = true; $('mgr').hidden = false; $('sub').textContent = KARTO.t(OWNER ? 'صاحب الشركة — كل أقسام المطعم' : 'مدير الفرع — كل أقسام المطعم'); if (!OWNER) LS.removeItem('karto-device'); else { $('pin1').closest('.kl-panel').hidden = true; }
+  KARTO.api('/status').then((s) => { const L = s.locks || {}; document.querySelectorAll('.tile').forEach((a) => { const k = a.getAttribute('href').replace('./', '').replace('.html', ''); if (L[k] && !a.dataset.l) { a.dataset.l = 1; a.style.opacity = .45; a.insertAdjacentHTML('beforeend', '<span>🔒 ' + KARTO.t('مقفل') + '</span>'); } }); }).catch(() => {}); }
+$('pin1').onclick = () => { const d = $('dev').value; SS.removeItem('karto-mgr'); LS.setItem('karto-device', d); location.href = './' + d + '.html'; };
+$('mout').onclick = () => { SS.removeItem('karto-mgr'); ['karto-staff-token', 'karto-staff', 'karto-courier-token', 'karto-courier', 'karto-manager-token', 'karto-manager'].forEach((k) => LS.removeItem(k)); location.reload(); };
+if (SS.getItem('karto-mgr') || OWNER) showMgr();
+setInterval(function(){ $('clock').textContent = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }); }, 1000);
+</script>
+</body></html>

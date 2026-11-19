@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>دليل كارتو</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,600;0,800;0,900;1,900&display=swap">
+<style>
+/* Field manual: one long column, sticky chapter index, recipe cards as tables */
+:root{--green:#1D5A3A;--green-d:#123D27;--orange:#EE6A1F;--red:#D7332A;--yellow:#FFC21A;--cream:#FFF4E0;--cream-d:#F5E4C3;--paper:#FFFBF2;--ink:#241A14;--ink-2:#5B4B3F;--line:#E6D4B4;
+  --f:'Rubik',system-ui,sans-serif;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--f);font-size:17px;line-height:1.75}
+.lay{display:grid;grid-template-columns:250px minmax(0,1fr);gap:40px;max-width:1180px;margin:0 auto;padding-block:30px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (max-width:900px){.lay{grid-template-columns:1fr}.toc{position:static!important}}
+.toc{position:sticky;top:20px;align-self:start;font-size:15px}.toc a{display:block;color:var(--ink-2);text-decoration:none;padding:4px 0;font-weight:600}.toc a:hover{color:var(--orange)}
+.logo{font-weight:900;font-style:italic;color:var(--yellow);-webkit-text-stroke:.06em var(--ink);paint-order:stroke fill;text-shadow:.05em .07em 0 var(--ink);font-size:56px;line-height:1;direction:ltr;display:inline-block}
+h1{font-size:40px;margin:10px 0 4px;line-height:1.2}h2{font-size:28px;margin:56px 0 12px;line-height:1.25;scroll-margin-top:20px;display:flex;gap:12px;align-items:baseline}
+h2 span{font-size:14px;color:var(--orange);font-weight:900}h3{font-size:20px;margin:28px 0 8px}
+p,li{max-width:72ch}main{min-width:0}
+.note{background:var(--paper);border:2px solid var(--ink);border-radius:16px;padding:14px 18px;margin:16px 0}
+.warn{background:#FFE9D6;border-color:var(--orange)}
+.tw{overflow-x:auto;margin:12px 0;border:2px solid var(--ink);border-radius:16px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:15px}th{background:var(--green);color:var(--cream);text-align:start;padding:9px 12px;font-weight:800;white-space:nowrap}
+td{padding:8px 12px;border-top:1px solid var(--line);vertical-align:top}td.n{font-variant-numeric:tabular-nums;white-space:nowrap;direction:ltr;text-align:end}
+.ru{color:var(--ink-2);font-size:13.5px;direction:ltr;unicode-bidi:isolate}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.rc{background:var(--paper);border:2px solid var(--ink);border-radius:16px;padding:14px 16px}.rc h4{margin:0 0 6px;font-size:18px}.rc ul{margin:6px 0;padding-inline-start:18px;font-size:15px}
+.flow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.flow b{background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:4px 14px;font-size:15px}
+.flow i{font-style:normal;align-self:center;color:var(--orange);font-weight:900}
+a{color:var(--green);font-weight:700}code{background:var(--cream-d);padding:1px 6px;border-radius:6px;direction:ltr;unicode-bidi:isolate}
+.src li{font-size:14px;direction:ltr;text-align:left;unicode-bidi:isolate}
+</style></head><body>
+<div class="lay">
+<nav class="toc" aria-label="الفهرس"><span class="logo">KARTO</span>
+<a href="#sys">١. النظام والبرامج</a><a href="#num">٢. أرقام الطلبات</a><a href="#pay">٣. الدفع والفواتير</a><a href="#space">٤. المكان والمساحة</a><a href="#eq">٥. المعدات من A لـ Z</a>
+<a href="#raw">٦. المواد الأولية والكميات</a><a href="#spice">٧. خلطات البهارات</a><a href="#sauce">٨. الصوصات</a><a href="#juice">٩. العصائر الثلاثة</a><a href="#pack">١٠. التغليف والكاسات</a>
+<a href="#extra">١١. أشياء ما ذكرتها</a><a href="#legal">١٢. التراخيص</a><a href="#team">١٣. الفريق والورديات</a><a href="#plan">١٤. خطة الافتتاح</a><a href="#deploy">١٥. النشر والتشغيل</a><a href="#src">المصادر</a></nav>
+<main>
+<span class="logo">KARTO</span>
+<h1>دليل تشغيل المحل من A لـ Z</h1>
+<p>كل اللي بتحتاجه لتفتح كارتو رسمياً: البرامج، المكان، المعدات، الخلطات، المصادر، والخطوات. الأسعار تقريبية وبتتغير؛ اطلب عرض سعر مكتوب من كل مورد قبل الشراء.</p>
+
+<h2 id="sys"><span>١</span>النظام: 8 تطبيقات على شبكة وحدة</h2>
+<p>كل تطبيق بمجلده وأيقونته وإعداداته، وبينزل على الموبايل أو التابلت كتطبيق. كلهم مربوطين بنفس السيرفر، فأي طلب بيظهر فوراً بكل الشاشات:</p>
+<div class="flow"><b>تطبيق الزبون / الكاشير</b><i>←</i><b>الكاشير يأكد</b><i>←</i><b>المطبخ: قيد التحضير</b><i>←</i><b>جاهز</b><i>←</i><b>التلفزيون: رقمه بيطلع</b><i>←</i><b>تسليم + نقاط</b></div>
+<div class="flow"><b>طلب توصيل</b><i>←</i><b>المطبخ</b><i>←</i><b>جاهز</b><i>←</i><b>المندوب: استلم ← بالطريق</b><i>←</i><b>تم التوصيل</b></div>
+<div class="tw"><table><thead><tr><th>المجلد</th><th>التطبيق</th><th>مين بيستعمله</th><th>على أي جهاز</th></tr></thead><tbody>
+<tr><td><code>site/</code></td><td>موقع الشركة (UZ · RU · EN)</td><td>الزبائن</td><td>الإنترنت</td></tr>
+<tr><td><code>app/</code></td><td>تطبيق الطلب: 3 أحجام، 3 طرق تقديم، حتى 3 بهارات، صوصات، عصير، ماي، علب بهار، توصيل/استلام، تتبع، فاتورة، نقاط</td><td>الزبائن</td><td>موبايل</td></tr>
+<tr><td><code>tv/</code></td><td>المنيو بالصور وأرقام الطلبات</td><td>الزبائن بالمحل</td><td>تلفزيون 43–55″</td></tr>
+<tr><td><code>pos/</code></td><td>الكاشير: بيع، باقي، فواتير، قبول طلبات التطبيق، الوردية</td><td>الكاشير · PIN</td><td>شاشة لمس + طابعة 80mm</td></tr>
+<tr><td><code>kitchen/</code></td><td>شاشة المطبخ مع صوت، والمتأخر بالأحمر</td><td>المطبخ · PIN</td><td>تابلت على الحائط</td></tr>
+<tr><td><code>courier/</code></td><td>التوصيل: استلام ← بالطريق ← تم، مع العنوان والمبلغ</td><td>المندوب · PIN</td><td>موبايل المندوب</td></tr>
+<tr><td><code>team/</code></td><td>حضور/انصراف، قوائم الفتح والإغلاق، الزيت، الحرارة، التنظيف</td><td>كل الموظفين · PIN</td><td>تابلت الموظفين</td></tr>
+<tr><td><code>admin/</code></td><td>المدير: أرباح، فواتير، إلغاء/استرجاع بسبب، المنيو والأسعار، المخزون، المصاريف، الموظفين، الحضور، سجل التدقيق، الصيانة</td><td>المالك · اسم مستخدم وكلمة سر</td><td>لابتوب / موبايل</td></tr>
+</tbody></table></div>
+<ul><li><b>رقم الطلب:</b> من 101 كل يوم (توقيت طشقند). <b>رقم الفاتورة:</b> دائم ومتسلسل <code>KARTO-000001</code>.</li>
+<li><b>المدير:</b> حساب Admin باسم مستخدم وكلمة سر، رابط سري، قفل بعد 5 محاولات غلط، ونسيت كلمة السر برمز على الإيميل أو تيليغرام.</li>
+<li><b>الإلغاء والاسترجاع:</b> بس بموافقة المدير، ولازم سبب، وبينحفظ بسجل التدقيق.</li></ul>
+
+<h2 id="num"><span>٢</span>أرقام الطلبات: شو اخترت ولليش</h2>
+<p><b>رقم الطلب اليومي يبدأ من 101 ويرجع لـ 101 كل يوم</b> (وبعد 999 بيرجع من الأول). وجنبه <b>رقم فاتورة دائم ما بيتكرر</b>: <code>KARTO-000001</code>.</p>
+<ul><li>3 أرقام سهلة تنادى بصوت عالي وتنقرأ من بعيد على التلفزيون.</li><li>ما بتنخلط مع الكمية أو رقم الطاولة (1، 2، 3).</li><li>الزبون ما بيعرف إنك بلشت اليوم، فالمحل بيبين شغال.</li><li>رقم الفاتورة الدائم هو اللي بتحتاجه للمحاسبة والمرتجعات.</li></ul>
+<p>بتقدر تغيّر البداية والنهاية والبادئة من الإعدادات.</p>
+
+<h2 id="pay"><span>٣</span>الدفع والفواتير</h2>
+<div class="tw"><table><thead><tr><th>الطريقة</th><th>شو بتحتاج</th><th>داخل النظام</th></tr></thead><tbody>
+<tr><td>كاش</td><td>درج نقود تحت الكاشير</td><td>الكاشير بيدخل المبلغ وبيطلع الباقي لحاله</td></tr>
+<tr><td>Click</td><td>عقد تاجر مع Click ← بياخدوا <code>service_id</code> و<code>merchant_id</code></td><td>بتحطهم بالإعدادات، وتطبيق الزبون بيفتح صفحة دفع Click للمبلغ ورقم الطلب</td></tr>
+<tr><td>Payme</td><td>عقد تاجر مع Payme ← <code>merchant_id</code></td><td>نفس الشي، رابط دفع Payme</td></tr>
+<tr><td>Uzcard / Humo</td><td>جهاز POS من البنك</td><td>الكاشير بيختار الطريقة بعد ما يمر الكرت</td></tr>
+<tr><td>Visa / Master</td><td>نفس جهاز البنك إذا بيدعمها (اسأل البنك)</td><td>نفس الشي</td></tr></tbody></table></div>
+<div class="note warn"><b>مهم قانونياً:</b> بأوزبكستان كل بيع للناس لازم يتسجل عبر كاشير أونلاين (онлайн-ККМ) مع فيسكال موديول أو كاشير افتراضي مرتبط بالضرائب (OFD). الفاتورة اللي بيطبعها كارتو فاتورة داخلية مرتبة عليها الشعار ورقم الطلب، بس <b>مش بديل عن الشيك الضريبي</b>. حل عملي: جهاز online-ККМ معتمد جنب الكاشير، أو ربط النظام لاحقاً مع مزوّد كاشير افتراضي. وتأكيد دفع Click/Payme التلقائي بيحتاج سيرفر صغير يستقبل إشعاراتهم (Shop API) — لحد ما تعمله، الكاشير بيضغط «مدفوع» بعد ما يشوف الدفع.</div>
+<h3>شكل الفاتورة</h3>
+<p>عرض 80mm للطابعة الحرارية: اسم KARTO كبير، الشعار، رقم الطلب داخل إطار، رقم الفاتورة، الأصناف مع الإضافات، الضريبة 12%، طريقة الدفع والباقي، ورسالة شكر وحساباتكم. شوف نموذجها في صفحة التصاميم.</p>
+
+<h2 id="space"><span>٤</span>المكان: خذ وامشي (بدون جلسات)</h2>
+<div class="tw"><table><thead><tr><th>المنطقة</th><th>محل شارع</th><th>كشك في مول</th></tr></thead><tbody>
+<tr><td>المطبخ ورا الجدار الفاصل (2 ماكينة، ثلاجتين، فريزر، تجهيز، مغسلة)</td><td class="n">12–15 m²</td><td class="n">8–10 m²</td></tr>
+<tr><td>كاونتر الكاشير + كاونتر التبهير والتسليم (قدام الناس)</td><td class="n">5–6 m²</td><td class="n">3–4 m²</td></tr>
+<tr><td>منطقة وقوف الزبائن والدور</td><td class="n">6–8 m²</td><td class="n">ممر المول</td></tr>
+<tr><td>مخزن ناشف + كراتين</td><td class="n">3 m²</td><td class="n">1–2 m²</td></tr>
+<tr><td>مغسلة/حمام موظفين</td><td class="n">3 m²</td><td class="n">مشترك بالمول</td></tr>
+<tr><td><b>المجموع</b></td><td class="n"><b>30–36 m²</b></td><td class="n"><b>12–18 m²</b></td></tr></tbody></table></div>
+<ul><li><b>الترتيب:</b> الكاشير وشاشة العرض قدام الناس. جنب الكاشير كاونتر التبهير: الموظف بيستلم البطاطا من شباك المطبخ، بيبهّرها، بيحط الصوص، وبيسلّمها للزبون. المطبخ والقلي ورا جدار فاصل ما بيشوفه الزبون.</li>
+<li><b>الكهرباء:</b> اطلب 3 فاز 380V وقدرة لا تقل عن 25–30 kW للمحل كله. اسأل المورد عن قدرة كل ماكينة بالضبط قبل توقيع عقد الإيجار.</li>
+<li><b>الماي:</b> ماي بارد وسخن، تصريف أرضي، ومصيدة دهون (жироуловитель) تحت المغسلة.</li>
+<li><b>التهوية:</b> الماكينات المغلقة (ventless) فيها فلتر داخلي، بس المحل بده تهوية عامة ومكيف.</li>
+<li><b>الموقع:</b> ممر مشاة قوي، قرب جامعات أو مول، ومكان واضح للمندوبين يوقفوا فيه.</li></ul>
+<p>المجسم 3D في <code>shop3d.html</code> مبني على 6 × 6 متر.</p>
+
+<h2 id="eq"><span>٥</span>المعدات من A لـ Z</h2>
+<div class="tw"><table><thead><tr><th>المعدة</th><th>العدد</th><th>ملاحظة</th><th>سعر تقريبي</th></tr></thead><tbody>
+<tr><td>ماكينة قلي أوتوماتيك مغلقة (نوع AutoFry MTI-40C) <div class="ru">автоматическая фритюрница закрытого типа</div></td><td class="n">2</td><td>وحدة للمحل ووحدة للتوصيل والضغط. وحدة كفاية لو الميزانية ضيقة، بس الثانية بتحميك لو وحدة خربت</td><td class="n">$3,000–4,000 /pc</td></tr>
+<tr><td>فريزر واقف −18°C للبطاطا المجمدة <div class="ru">морозильный шкаф</div></td><td class="n">1</td><td>يكفي 150–200 كغ</td><td class="n">$700–1,200</td></tr>
+<tr><td>ثلاجة بابين +2…+6°C (صوصات، فواكه، عصير) <div class="ru">холодильный шкаф</div></td><td class="n">1</td><td>مع ميزان حرارة رقمي</td><td class="n">$600–1,000</td></tr>
+<tr><td>طاولة تجهيز مبردة تحت الكاونتر <div class="ru">холодильный стол</div></td><td class="n">1 (اختياري)</td><td>للصوصات الجاهزة جنب منطقة التعبئة</td><td class="n">$600–900</td></tr>
+<tr><td>محطة تقليب وتبهير مع لمبة تسخين <div class="ru">станция для картофеля фри с подогревом</div></td><td class="n">1</td><td>البطاطا بتنزل فيها، بتتبهر وبتتعبى. ≤ 7 دقائق</td><td class="n">$300–600</td></tr>
+<tr><td>طاسات تقليب ستانلس + مغارف تعبئة + ملاقط</td><td class="n">6 / 4 / 4</td><td>طاسة لكل بهار حتى ما تختلط الطعمات</td><td class="n">$80</td></tr>
+<tr><td>ميزان رقمي 5 كغ / 0.1 غ</td><td class="n">2</td><td>واحد للبطاطا وواحد للبهارات والخلطات</td><td class="n">$40</td></tr>
+<tr><td>عصّارة حمضيات + عصّارة بطيئة للجزر والتفاح <div class="ru">соковыжималка</div></td><td class="n">1 + 1</td><td>تجارية، مش منزلية</td><td class="n">$300–900</td></tr>
+<tr><td>خلاط قوي (Blender)</td><td class="n">1</td><td>للعصير الأخضر</td><td class="n">$150–400</td></tr>
+<tr><td>ماكينة ثلج <div class="ru">льдогенератор</div></td><td class="n">1</td><td>20–30 كغ يومياً</td><td class="n">$500–900</td></tr>
+<tr><td>مغسلة يدين منفصلة</td><td class="n">1</td><td>شرط صحي</td><td class="n">$80</td></tr>
+<tr><td>مغسلة حوضين للأدوات + مغسلة تجهيز</td><td class="n">1 + 1</td><td>ستانلس</td><td class="n">$250–400</td></tr>
+<tr><td>سخان ماي 80 لتر + فلتر ماي</td><td class="n">1</td><td></td><td class="n">$200–350</td></tr>
+<tr><td>طاولات ستانلس + رفوف</td><td class="n">2 + 3</td><td>للتجهيز والتخزين، ورف بعيد عن الأرض 15 سم</td><td class="n">$400–700</td></tr>
+<tr><td>مقياس جودة الزيت TPM (مثل Testo 270)</td><td class="n">1</td><td>غيّر الزيت لما يوصل 24–25% TPM</td><td class="n">$300–450</td></tr>
+<tr><td>ورق فلترة زيت + برميل زيت مستعمل</td><td class="n">—</td><td>اتفق مع شركة بتجمع الزيت المستعمل</td><td class="n">—</td></tr>
+<tr><td>شاشة كاشير لمس 15″ + طابعة حرارية 80mm + درج نقود</td><td class="n">1</td><td>أي جهاز Windows/Android عليه Chrome</td><td class="n">$500–900</td></tr>
+<tr><td>شاشة صغيرة للزبون جنب الكاشير</td><td class="n">1</td><td>بتفتح <code>display.html</code> بوضع cart</td><td class="n">$100–200</td></tr>
+<tr><td>تلفزيون 43–55″ للمنيو وأرقام الطلبات</td><td class="n">1–2</td><td>Smart TV أو TV box</td><td class="n">$300–600</td></tr>
+<tr><td>تابلت للمطبخ 10–13″ + حامل حائط</td><td class="n">1</td><td></td><td class="n">$200–350</td></tr>
+<tr><td>online-ККМ + فيسكال موديول</td><td class="n">1</td><td>شرط ضريبي</td><td class="n">~3–4 مليون سوم + اشتراك</td></tr>
+<tr><td>جهاز POS بنكي Uzcard/Humo + ستاند QR لـ Click/Payme</td><td class="n">1</td><td>من البنك</td><td class="n">حسب البنك</td></tr>
+<tr><td>راوتر + إنترنت احتياطي 4G + UPS</td><td class="n">1</td><td>حتى ما يوقف البيع لو قطعت الكهرباء أو النت</td><td class="n">$150–250</td></tr>
+<tr><td>كاميرات مراقبة 4 + مسجّل</td><td class="n">1 طقم</td><td></td><td class="n">$250–400</td></tr>
+<tr><td>طفاية Class F/K للزيت + CO₂ + بطانية حريق + علبة إسعاف</td><td class="n">—</td><td>شرط الدفاع المدني</td><td class="n">$120</td></tr>
+<tr><td>كاونترين (كاشير + تبهير)، جدار فاصل، يافطة مضيئة، إضاءة</td><td class="n">—</td><td>حسب التصميم</td><td class="n">$2,000–5,000</td></tr>
+<tr><td>يونيفورم، كفوف، شبكات شعر، مرايل</td><td class="n">—</td><td>بلون كارتو</td><td class="n">$200</td></tr>
+</tbody></table></div>
+
+<h2 id="raw"><span>٦</span>المواد الأولية والكميات</h2>
+<p>مثال لـ 150 صحن يومياً بمتوسط 190 غرام:</p>
+<div class="tw"><table><thead><tr><th>المادة</th><th>يومياً</th><th>شهرياً (30 يوم)</th><th>مين يورّدها</th></tr></thead><tbody>
+<tr><td>بطاطا مجمدة مقطعة (straight cut 9–10 mm) <div class="ru">картофель фри замороженный</div></td><td class="n">~29 kg</td><td class="n">~860 kg</td><td>Solanuz (مصنع بطاشكند)، ALLMAKON GROUP (موزع McCain + زيت قلي)، Lutosa عبر Frozen Food HoReCa</td></tr>
+<tr><td>زيت قلي (عالي الثبات: نخيل مكرر أو دوار شمس عالي الأوليك) <div class="ru">фритюрное масло</div></td><td class="n">2–3 L تعبئة</td><td class="n">80–100 L + تغييرات كاملة</td><td>ALLMAKON GROUP، موردين الزيت على prom.uz</td></tr>
+<tr><td>خلطات البهارات</td><td class="n">~0.35 kg</td><td class="n">~10 kg</td><td>تحضير داخلي من بهارات Spice Expert / سوق تشورسو</td></tr>
+<tr><td>صوصات</td><td class="n">~4 kg</td><td class="n">~120 kg</td><td>قاعدة مايونيز وكاتشب من موزعين HoReCa + تحضير داخلي</td></tr>
+<tr><td>فواكه وخضار العصير</td><td class="n">حسب المبيع</td><td class="n">—</td><td>سوق Оloy، تشورسو، سوق الجملة Куйлюк</td></tr>
+<tr><td>كاسات S/M/L، كياس عصير، علب صوص، أكياس توصيل</td><td class="n">—</td><td class="n">طلب كل 1–2 شهر</td><td>Paper Can، Eco Paper Cup، Royal Pack، FOOD UPAK MARKET (شلمونات)</td></tr></tbody></table></div>
+<p>أوزان الحصص (موجودة بالنظام): صغير 130 غ، وسط 190 غ، كبير 260 غ بطاطا قبل القلي. الكمية من الكاسة لازم تكون ثابتة، استعمل الميزان أول أسبوعين لحد ما يتعود الفريق.</p>
+
+<h2 id="spice"><span>٧</span>خلطات البهارات (لكل 1 كغ خلطة)</h2>
+<p><b>الجرعة خفيفة مثل الشيبس:</b> صغير 1.5 غ، وسط 2.3 غ، كبير 3 غ (تقريباً 1.2% من وزن البطاطا). البهار بينحط والبطاطا سخنة خلال أول 30 ثانية حتى يلصق. اطحن الملح ناعم جداً (مثل البودرة) حتى يتوزع.</p>
+<div class="grid">
+<div class="rc"><h4>١. ملح بحري كلاسيك</h4><ul><li>ملح بحري ناعم 850 غ</li><li>دكستروز 100 غ</li><li>بصل بودرة 30 غ</li><li>فلفل أبيض 20 غ</li></ul></div>
+<div class="rc"><h4>٢. جبنة شيدر</h4><ul><li>بودرة جبنة شيدر 550 غ</li><li>بودرة لبن (buttermilk) 100 غ</li><li>ملح ناعم 120 غ</li><li>دكستروز 80 غ</li><li>بصل بودرة 60 غ</li><li>ثوم بودرة 30 غ · بابريكا 30 غ</li><li>خردل بودرة 20 غ · حمض الليمون 10 غ</li></ul></div>
+<div class="rc"><h4>٣. كريمة وأعشاب</h4><ul><li>بودرة كريمة حامضة 400 غ</li><li>بودرة لبن 150 غ</li><li>ملح 130 غ · بصل بودرة 100 غ</li><li>دكستروز 70 غ · ثوم 40 غ</li><li>شبت ناشف 50 غ · بقدونس ناشف 40 غ</li><li>حمض الليمون 20 غ</li></ul></div>
+<div class="rc"><h4>٤. باربكيو مدخن</h4><ul><li>بابريكا مدخنة 250 غ · بابريكا حلوة 100 غ</li><li>سكر بني ناعم 220 غ · ملح 180 غ</li><li>بصل 80 غ · ثوم 70 غ</li><li>كمون 20 غ · فلفل أسود 20 غ</li><li>خردل 20 غ · فلفل حار 10 غ</li><li>بودرة طماطم 30 غ</li></ul></div>
+<div class="rc"><h4>٥. تشيلي ليمون</h4><ul><li>ملح 250 غ · سكر 150 غ</li><li>بودرة ليمون/لايم 120 غ</li><li>تشيلي بودرة 150 غ · بابريكا 100 غ</li><li>ثوم 80 غ · بصل 80 غ</li><li>كمون 30 غ · كزبرة ناشفة 40 غ</li></ul></div>
+<div class="rc"><h4>٦. ثوم وأعشاب</h4><ul><li>ثوم بودرة 250 غ · ملح 250 غ</li><li>بقدونس ناشف 100 غ · بصل 100 غ</li><li>بودرة بارميزان 100 غ</li><li>أوريغانو 60 غ · ريحان 60 غ</li><li>زعتر 40 غ · فلفل أسود 40 غ</li></ul></div>
+<div class="rc"><h4>٧. بابريكا حلوة</h4><ul><li>بابريكا حلوة 350 غ</li><li>ملح 220 غ · سكر 200 غ</li><li>بصل 100 غ · ثوم 80 غ</li><li>بودرة طماطم 50 غ</li></ul></div>
+</div>
+<div class="note">خزّن كل خلطة بعلبة محكمة مع ورقة: الاسم، تاريخ الخلط، مين خلطها. صلاحية 3 أشهر بمكان ناشف. أضف 1% سيليكون دايوكسيد (مانع تكتل) إذا الجو رطب. <b>المصدر:</b> بهارات الأساس من Spice Expert (طشقند، يونس آباد، بوغيشامول 160)، أو صفوف البهارات بسوق تشورسو. بودرة الجبنة والكريمة الحامضة من موردي المكونات الغذائية (روبريك «пищевые добавки» بـ Golden Pages) أو استيراد من الصين/روسيا.</div>
+
+<h2 id="sauce"><span>٨</span>الصوصات (دفعة 1 كغ)</h2>
+<div class="grid">
+<div class="rc"><h4>مايونيز بالثوم</h4><ul><li>قاعدة مايونيز مبسترة 800 غ</li><li>ثوم مشوي مهروس 60 غ</li><li>عصير ليمون 40 غ</li><li>بقدونس ناعم 15 غ · ملح 5 غ · فلفل أبيض 2 غ</li><li>ماي 78 غ للقوام</li></ul></div>
+<div class="rc"><h4>صوص الجبنة</h4><ul><li>حليب 500 غ · جبنة شيدر مبشورة 300 غ</li><li>زبدة 40 غ · طحين 30 غ</li><li>سيترات صوديوم 12 غ (بيخلي الصوص ناعم وما بيتكتل)</li><li>بابريكا 3 غ · خردل 10 غ · ملح 5 غ</li><li>اطبخ على 70–75°C، وقدّمه دافي</li></ul></div>
+<div class="rc"><h4>باربكيو</h4><ul><li>كاتشب 500 غ · سكر بني 150 غ</li><li>خل تفاح 100 غ · خردل 40 غ</li><li>صوص ورشستر 30 غ · بابريكا مدخنة 15 غ</li><li>ثوم 10 غ · بصل 10 غ · ماي 145 غ</li><li>اغليه 15 دقيقة على نار هادية</li></ul></div>
+<div class="rc"><h4>صوص كارتو الخاص</h4><ul><li>مايونيز 500 غ · كاتشب 250 غ</li><li>مخلل مفروم ناعم 100 غ · ماي المخلل 30 غ</li><li>خردل 50 غ · سكر 20 غ · عصير ليمون 30 غ</li><li>بابريكا مدخنة 10 غ · ثوم 10 غ</li></ul></div>
+<div class="rc"><h4>تشيلي حلو</h4><ul><li>سكر 400 غ · ماي 300 غ · خل رز 200 غ</li><li>فلفل أحمر طازج مفروم 60 غ · ثوم 30 غ</li><li>نشا 20 غ مذاب بشوي ماي</li><li>اغليه لحد ما يتماسك</li></ul></div>
+<div class="rc"><h4>كاتشب</h4><ul><li>اشتري جاهز (Heinz أو ماركة محلية جيدة) بعبوات HoReCa 1–5 كغ</li><li>أرخص وأثبت من تصنيعه</li></ul></div>
+</div>
+<div class="note warn"><b>سلامة الغذاء:</b> استعمل قاعدة مايونيز مبسترة جاهزة، مش بيض ني. الصوصات الباردة بتنحفظ تحت 4°C وبتنرمى بعد 48 ساعة، وصوص الجبنة لا تتركه بين 5 و60°C أكثر من ساعتين. <b>المصادر:</b> Heinz وCalve عبر موزعين HoReCa (مثلاً HD HORECA DISTRIBUTION، تشيلانزار، أرناساي 76A)، Makro، Korzinka للكميات الصغيرة.</div>
+
+<h2 id="juice"><span>٩</span>العصائر الثلاثة (كيس 350 مل)</h2>
+<div class="grid">
+<div class="rc"><h4>Golden Sun · برتقالي</h4><ul><li>عصير جزر طازج 170 مل</li><li>عصير برتقال 140 مل</li><li>زنجبيل طازج 5 غ (بالعصارة)</li><li>ليمون 15 مل · ثلج</li></ul></div>
+<div class="rc"><h4>Ruby Pom · أحمر</h4><ul><li>عصير رمان 160 مل</li><li>عصير تفاح 160 مل</li><li>ليمون 15 مل · 3 ورقات نعنع</li><li>شراب سكر 15 مل (حسب حلاوة الرمان)</li></ul></div>
+<div class="rc"><h4>Green Mint · أخضر</h4><ul><li>ماي بارد 220 مل · ليمون 45 مل</li><li>شراب سكر 45 مل · نعنع 6 غ</li><li>خيار 50 غ</li><li>اخلط وصفّي</li></ul></div>
+</div>
+<p>العصير الطازج بينحفظ 24 ساعة على 0–4°C. اعمل دفعات صغيرة كل 3–4 ساعات، واكتب الوقت على الإبريق. شراب السكر: سكر وماي 1:1 مغلي ومبرد. السعر بالنظام: 15,000 سوم لكل كيس 350 مل (ماي KARTO ‏5,000 · علبة بهار 3,000)، وبالكومبو أوفر.</p>
+
+<h2 id="pack"><span>١٠</span>التغليف والكاسات</h2>
+<ul>
+<li><b>كاسات البطاطا S/M/L:</b> نفس ألوان الأحجام (أصفر، برتقالي، أحمر) حتى المطبخ والزبون والتلفزيون كلهم يحكوا نفس اللغة. أحجام مقترحة: 300 / 420 / 560 مل.</li>
+<li><b>ملمس مريح للإيد:</b> كرتون مزدوج (double wall) أو مموج (ripple) مع طبقة Soft-touch مطفية، وشعار KARTO محفور بارز (emboss). بتنمسك سخنة بدون ما تحرق وبتحس إنها شي غالي.</li>
+<li><b>كيس العصير:</b> كيس واقف (stand-up pouch) 350–400 مل، قاعدته منفوخة (W-gusset) حتى يوقف على الطاولة، ومن فوق بيضيق، فيه فتحة للشلمونة أو غطاء بخيط. بلون العصير، ونافذة شفافة صغيرة تبين اللون، والشعار بالنص. اطلبه من الصين (حد أدنى عادة 5,000–10,000 قطعة) أو من مصنعين dой-пак.</li>
+<li><b>كاسة المشروبات الغازية والعصير بالكاسة:</b> كاسة PET شفافة بغطاء قبة، أو ورقية مزدوجة مموجة بنفس ملمس كاسة البطاطا.</li>
+<li><b>«كاسة الترحيب» مع كل صحن:</b> علبة صغيرة 30 مل فيها صوص مجاني بوجه البطاطا الضاحكة على الغطاء، اسمها «Hello KARTO». تكلفتها ~400 سوم، وبتعطي الزبون إحساس الهدية، وبتعرّفه على صوص جديد يشتريه المرة الجاية.</li>
+<li><b>كيس التوصيل:</b> كيس كرافت بمقبض، ستيكر إغلاق عليه رقم الطلب.</li></ul>
+<p>كل التصاميم بصفحة <code>design.html</code>.</p>
+
+<h2 id="extra"><span>١١</span>أشياء ما ذكرتها وبتلزمك</h2>
+<ul>
+<li><b>منصات التوصيل:</b> Yandex Eats، Uzum Tezkor، Wolt. حطوا الطلبات منهم بالكاشير كقناة توصيل.</li>
+<li><b>الخرائط:</b> سجّل المحل على Yandex Maps وGoogle Maps و2GIS مع صور وساعات.</li>
+<li><b>QR:</b> على الكاونتر والبروشور والكيس، بيفتح <code>app.html</code>.</li>
+<li><b>شركة مكافحة حشرات</b> بعقد شهري (بيطلبوه بالتفتيش الصحي).</li>
+<li><b>تجميع الزيت المستعمل</b> بعقد، ولا ترميه بالمجاري.</li>
+<li><b>دفاتر صحية</b> لكل موظف (медкнижка).</li>
+<li><b>قائمة الحساسية</b> (جبنة، حليب، غلوتين بالطحين، خردل) معلقة عند الكاشير.</li>
+<li><b>سجلات الجودة اليومية:</b> حرارة الثلاجات، تغيير الزيت، النظافة. موجودة ببرنامج الموظفين.</li>
+<li><b>تأمين</b> على المعدات والحريق.</li>
+<li><b>تسجيل العلامة التجارية KARTO</b> قبل ما تكبر.</li>
+<li><b>برنامج ولاء بسيط:</b> كل 6 صحون الـ7 مجاناً (ستامب على الكيس) لحد ما نضيف النقاط للتطبيق.</li>
+<li><b>موسيقى خلفية</b> مرخصة، ويافطة مضيئة مرئية من بعيد.</li></ul>
+
+<h2 id="legal"><span>١٢</span>التراخيص والخطوات القانونية</h2>
+<ol><li>تسجيل الشركة (فرد مستثمر/ИП أو ООО) عبر my.gov.uz أو مركز الخدمات الحكومية.</li><li>فتح حساب بنكي تجاري.</li><li>عقد الإيجار وتسجيله.</li><li>الإشعار الصحي (СЭС) وشروط المطبخ.</li><li>فحص الدفاع المدني للحريق.</li><li>online-ККМ وتسجيله بالضرائب (soliq.uz / ofd.uz).</li><li>عقود التاجر: البنك (Uzcard/Humo)، Click، Payme.</li><li>إذن اليافطة من الحكومة المحلية إذا خارج مول.</li><li>تسجيل العلامة التجارية.</li></ol>
+<div class="note">القوانين بتتغير، فاشتغل مع محاسب محلي من أول يوم. أنا مش محامي ولا محاسب، وهاي قائمة لتجهيز أسئلتك.</div>
+
+<h2 id="team"><span>١٣</span>الفريق والورديات</h2>
+<p>وردتين (مثلاً 10:00–16:30 و16:30–23:00). كل وردية: كاشير + طباخ. مندوب واحد بأوقات الذروة، أو اعتمد على منصات التوصيل بالبداية. مدير وردية من الفريق بياخد رمز «مدير». الحضور والساعات بينحسبوا تلقائياً ببرنامج الموظفين، والراتب بيطلع بلوحة المدير (راتب شهري + أجر ساعة إذا بدك).</p>
+
+<h2 id="plan"><span>١٤</span>خطة الافتتاح (8 أسابيع)</h2>
+<div class="tw"><table><thead><tr><th>الأسبوع</th><th>المهمة</th></tr></thead><tbody>
+<tr><td class="n">1–2</td><td>اختيار المكان، فحص الكهرباء والماي، تسجيل الشركة، طلب عروض أسعار الماكينات</td></tr>
+<tr><td class="n">2–3</td><td>طلب الماكينات من الصين (الشحن بياخد 3–6 أسابيع)، طلب التغليف المطبوع</td></tr>
+<tr><td class="n">3–5</td><td>تجهيز المكان والديكور، الكهرباء، المغاسل، اليافطة</td></tr>
+<tr><td class="n">5–6</td><td>تركيب المعدات، online-ККМ، عقود الدفع، تشغيل السيرفر ونشر البرامج</td></tr>
+<tr><td class="n">6–7</td><td>توظيف وتدريب، تجربة الخلطات والأوزان، تصوير المنتجات الحقيقية</td></tr>
+<tr><td class="n">7</td><td>افتتاح تجريبي للأصحاب 3 أيام، توزيع البروشورات</td></tr>
+<tr><td class="n">8</td><td>الافتتاح الرسمي + عرض الأسبوع الأول</td></tr></tbody></table></div>
+
+<h2 id="deploy"><span>١٥</span>النشر والتشغيل الرسمي</h2>
+<ol><li>نزّل Node.js 20 أو أحدث. على ويندوز اكبس مرتين على <code>start-karto.bat</code>، أو <code>npm start</code>.</li>
+<li>شاشة السيرفر بتعطيك: رابط الموقع، رابط كل التطبيقات <code>/hub/</code>، <b>رابط المدير السري</b>، و<b>رمز التجهيز</b> لأول حساب Admin.</li>
+<li>أجهزة المحل على نفس الواي فاي: <code>http://IP-الكمبيوتر:4000/pos/</code>، <code>/kitchen/</code>، <code>/tv/</code>، <code>/team/</code>، <code>/courier/</code> — وكل جهاز «إضافة للشاشة الرئيسية».</li>
+<li>للإنترنت: Render أو Railway أو VPS بالـ <code>Dockerfile</code>، مع دومين وHTTPS. البيانات بـ <code>data/karto-db.json</code>: نسخة احتياطية يومياً.</li>
+<li>تطبيق مستضاف بمكان ثاني؟ حط عنوان السيرفر بـ <code>config.js</code> تبعه.</li>
+<li>GitHub Pages: نسخة عرض وتجربة بس (البيانات بمتصفح كل جهاز).</li></ol>
+
+<h2 id="src"><span>✦</span>المصادر</h2>
+<ul class="src">
+<li><a href="https://www.afisha.uz/ru/gorod/2019/04/04/solanuz" target="_blank" rel="noopener">Solanuz frozen fries plant, Tashkent — afisha.uz</a></li>
+<li><a href="https://www.goldenpages.uz/company/?Id=89558" target="_blank" rel="noopener">ALLMAKON GROUP — frozen fries, frying oil (Golden Pages)</a></li>
+<li><a href="https://glotr.uz/lutosa-kartofelnie-dolki-p-915461/" target="_blank" rel="noopener">Lutosa via Frozen Food HoReCa — glotr.uz</a></li>
+<li><a href="https://www.prom.uz/section/frityurnitsy/" target="_blank" rel="noopener">Fryers in Tashkent — prom.uz</a> · <a href="https://glotr.uz/showcase/ooo-idealkitchen135/mebel/" target="_blank" rel="noopener">IDEAL KITCHEN equipment</a></li>
+<li><a href="https://www.prom.uz/section/maslo-rastitelnoe/" target="_blank" rel="noopener">Vegetable oil suppliers — prom.uz</a></li>
+<li><a href="https://www.goldenpages.uz/rubrics/?Id=103678" target="_blank" rel="noopener">SPICE EXPERT, Tashkent — Golden Pages</a></li>
+<li><a href="https://www.goldenpages.uz/company/?Id=108824" target="_blank" rel="noopener">HD HORECA DISTRIBUTION — Golden Pages</a> · <a href="https://www.prom.uz/section/sousy-ketchupy-tomatnaya-pasta/" target="_blank" rel="noopener">Sauces — prom.uz</a></li>
+<li><a href="https://www.goldenpages.uz/company/?Id=80401" target="_blank" rel="noopener">PAPER CAN packaging</a> · <a href="https://www.yellowpages.uz/teg/proizvodstvo-bumazhnyh-stakanov" target="_blank" rel="noopener">ECO PAPER CUP</a> · <a href="https://www.prom.uz/company/ooo-paper-cup/dom/" target="_blank" rel="noopener">OOO Paper cup</a></li>
+<li><a href="https://glotr.uz/trubochki-dlya-napitkov-p-1134097/" target="_blank" rel="noopener">Straws — FOOD UPAK MARKET</a></li>
+<li><a href="https://docs.click.uz/en/?p=101" target="_blank" rel="noopener">Click payment button docs</a></li>
+<li><a href="https://www.spot.uz/ru/2020/11/25/online/" target="_blank" rel="noopener">Online cash registers in Uzbekistan — spot.uz</a> · <a href="https://buxgalter.uz/publish/doc/text150475_kak_zaregistrirovat_fiskalnyy_modul_i_primenyat_onlayn-kkm" target="_blank" rel="noopener">Fiscal module registration — buxgalter.uz</a></li>
+</ul>
+</main></div>
+</body></html>

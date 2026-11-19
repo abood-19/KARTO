@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>مجسم محل كارتو</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,600;0,800;0,900;1,900&display=swap">
+<style>
+/* Full-viewport 3D scene with a legend rail */
+:root{--green:#1D5A3A;--green-d:#123D27;--yellow:#FFC21A;--cream:#FFF4E0;--ink:#241A14;color-scheme:dark}
+html,body{height:100%;margin:0;overflow:hidden;background:var(--green-d);color:var(--cream);font-family:'Rubik',system-ui,sans-serif}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block}
+.ui{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));width:min(330px,calc(100% - 24px));max-height:calc(100% - 24px);overflow:auto;background:rgba(18,61,39,.92);border:2px solid var(--yellow);border-radius:18px;padding:14px 16px}
+.logo{font-weight:900;font-style:italic;color:var(--yellow);-webkit-text-stroke:.06em var(--ink);paint-order:stroke fill;text-shadow:.05em .07em 0 var(--ink);font-size:36px;direction:ltr;display:inline-block}
+.ui h1{font-size:18px;margin:4px 0}.ui p{font-size:13px;opacity:.85;margin:4px 0 10px}
+.ui ol{margin:0;padding-inline-start:22px;font-size:13.5px;line-height:1.55}.ui li{cursor:pointer}.ui li:hover,.ui li.on{color:var(--yellow)}
+.ui .btns{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.ui button{font:inherit;font-weight:800;font-size:13px;border:2px solid var(--yellow);background:transparent;color:var(--cream);border-radius:999px;padding:4px 12px;cursor:pointer}
+.ui button[aria-pressed=true]{background:var(--yellow);color:var(--ink)}
+[hidden]{display:none!important}
+#err{position:fixed;inset:0;display:grid;place-items:center;text-align:center;padding:20px}
+@media (max-width:640px){.ui{top:auto;bottom:calc(12px + env(safe-area-inset-bottom,0px));max-height:42%}}
+</style></head><body>
+<canvas id="c" aria-label="3D model of the KARTO shop"></canvas>
+<div id="err" hidden>جاري تحميل المجسم…</div>
+<aside class="ui"><a href="./" style="float:left;color:#FFC21A;font-weight:800;font-size:13px">← النظام</a><span class="logo">KARTO</span><h1>محل خذ وامشي · 6 × 6 م</h1><p>اسحب للتدوير، عجلة الماوس للتقريب. اضغط على أي قطعة بالقائمة.</p>
+<div class="btns"><button data-v="iso" aria-pressed="true">منظور</button><button data-v="top">من فوق</button><button data-v="front">الواجهة</button><button data-v="kitchen">المطبخ ورا</button><button data-v="cut" aria-pressed="true">قص الجدار</button></div>
+<ol id="legend"></ol></aside>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function () {
+if (!window.THREE) { const e = document.getElementById('err'); e.hidden = false; e.textContent = 'المجسم بحاجة اتصال بالإنترنت لتحميل مكتبة 3D.'; return; }
+const cv = document.getElementById('c');
+const R = new THREE.WebGLRenderer({ canvas: cv, antialias: true }); R.setPixelRatio(Math.min(2, devicePixelRatio)); R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap;
+R.outputEncoding = THREE.sRGBEncoding;
+const S = new THREE.Scene(); S.background = new THREE.Color('#123D27'); S.fog = new THREE.Fog('#123D27', 18, 34);
+const cam = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+const ctl = new THREE.OrbitControls(cam, cv); ctl.enableDamping = true; ctl.maxPolarAngle = Math.PI * 0.49; ctl.minDistance = 3; ctl.maxDistance = 20; ctl.target.set(0, 0.8, 0);
+S.add(new THREE.HemisphereLight('#FFF4E0', '#2E7A50', 0.75));
+const sun = new THREE.DirectionalLight('#fff', 0.8); sun.position.set(5, 9, 7); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -6, right: 6, top: 6, bottom: -6 }); S.add(sun);
+const mat = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: o.r ?? 0.7, metalness: o.m ?? 0, transparent: !!o.t, opacity: o.t ?? 1, emissive: o.e || '#000', emissiveIntensity: o.ei ?? 1 });
+const M = { cream: mat('#FFF4E0'), green: mat('#1D5A3A'), greenL: mat('#2E7A50'), orange: mat('#EE6A1F'), red: mat('#D7332A'), yellow: mat('#FFC21A'), ink: mat('#241A14'), steel: mat('#C9CDD2', { r: 0.28, m: 0.85 }), steelD: mat('#8D949B', { r: 0.35, m: 0.8 }),
+  wood: mat('#C8925A'), glass: mat('#BFE6FF', { t: 0.22, r: 0.05 }), white: mat('#FAFAFA'), screen: mat('#111', { e: '#1D5A3A', ei: 0.6 }) };
+const box = (w, h, d, m, x, y, z, parent = S) => { const g = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); g.position.set(x, y + h / 2, z); g.castShadow = g.receiveShadow = true; parent.add(g); return g; };
+const cyl = (r, h, m, x, y, z, seg = 24) => { const g = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, seg), m); g.position.set(x, y + h / 2, z); g.castShadow = g.receiveShadow = true; S.add(g); return g; };
+const tex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = 8; return t; };
+// floor: checker tiles
+const fl = tex(512, 512, (g, w) => { const n = 12, s = w / n; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { g.fillStyle = (i + j) % 2 ? '#F5E4C3' : '#241A14'; g.fillRect(i * s, j * s, s, s); } });
+fl.wrapS = fl.wrapT = THREE.RepeatWrapping; fl.repeat.set(1.5, 1.5);
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(6, 6), new THREE.MeshStandardMaterial({ map: fl, roughness: 0.6 })); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; S.add(floor);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), mat('#16492F')); ground.rotation.x = -Math.PI / 2; ground.position.y = -0.01; ground.receiveShadow = true; S.add(ground);
+const H = 3;
+box(6, H, 0.12, M.cream, 0, 0, -3.06); box(0.12, H, 6, M.cream, -3.06, 0, 0); box(0.12, H, 6, M.cream, 3.06, 0, 0);
+box(6, 0.12, 0.12, M.green, 0, H - 0.12, 3.06); box(0.12, H, 0.12, M.green, -3.06, 0, 3.06); box(0.12, H, 0.12, M.green, 3.06, 0, 3.06);
+const front = new THREE.Mesh(new THREE.PlaneGeometry(6, H - 0.12), M.glass); front.position.set(0, (H - 0.12) / 2, 3.06); S.add(front);
+// sign
+const signT = tex(1024, 220, (g, w, h) => { g.fillStyle = '#1D5A3A'; g.fillRect(0, 0, w, h); g.font = 'italic 900 150px Rubik, Arial Black, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineWidth = 16; g.strokeStyle = '#241A14'; g.strokeText('KARTO', w / 2 + 6, h / 2 + 8); g.fillStyle = '#241A14'; g.fillText('KARTO', w / 2 + 8, h / 2 + 12); g.fillStyle = '#FFC21A'; g.fillText('KARTO', w / 2, h / 2); });
+const sign = new THREE.Mesh(new THREE.BoxGeometry(3.4, 0.72, 0.14), [M.green, M.green, M.green, M.green, new THREE.MeshStandardMaterial({ map: signT, emissive: '#ffffff', emissiveMap: signT, emissiveIntensity: 0.35 }), M.green]);
+sign.position.set(0, H + 0.42, 3.12); S.add(sign);
+
+const items = [];
+const label = (n, ar, x, y, z, focus) => { items.push({ n, ar, pos: new THREE.Vector3(x, y, z), focus: focus || new THREE.Vector3(x, 0.6, z) });
+  const t = tex(128, 128, (g) => { g.fillStyle = '#FFC21A'; g.beginPath(); g.arc(64, 64, 54, 0, 7); g.fill(); g.lineWidth = 10; g.strokeStyle = '#241A14'; g.stroke(); g.fillStyle = '#241A14'; g.font = '900 60px Rubik, Arial'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(n, 64, 68); });
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, depthTest: false })); sp.scale.set(0.34, 0.34, 1); sp.position.set(x, y, z); sp.renderOrder = 10; S.add(sp); items[items.length - 1].sp = sp; };
+const stripes = (w, h) => tex(1024, 256, (g, W, Hh) => { for (let i = 0; i < 32; i++) { g.fillStyle = ['#1D5A3A', '#2E7A50'][i % 2]; g.fillRect(i * W / 32, 0, W / 32, Hh); } g.fillStyle = '#FFC21A'; g.fillRect(0, Hh - 26, W, 26); g.fillStyle = '#EE6A1F'; g.fillRect(0, Hh - 40, W, 14);
+  g.font = 'italic 900 120px Rubik, Arial Black'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineWidth = 14; g.strokeStyle = '#241A14'; g.strokeText('KARTO', W / 2, Hh / 2 - 10); g.fillStyle = '#FFC21A'; g.fillText('KARTO', W / 2, Hh / 2 - 10); });
+// ===== PARTITION (z=0): hides the frying kitchen. Pass window x 0.9..2.1, staff door x -3..-2.2
+const PW = mat('#1D5A3A', { t: 0.22 }); PW.depthWrite = false;
+box(3.1, H, 0.14, PW, -0.65, 0, 0);            // x -2.2 .. 0.9
+box(0.9, H, 0.14, PW, 2.55, 0, 0);             // x 2.1 .. 3.0
+box(1.2, 1.0, 0.14, PW, 1.5, 0, 0);            // under pass
+box(1.2, H - 1.55, 0.14, PW, 1.5, 1.55, 0);    // above pass
+box(0.8, H - 2.1, 0.14, PW, -2.6, 2.1, 0);     // above staff door
+box(1.3, 0.05, 0.5, M.steel, 1.5, 1.0, 0);     // pass shelf
+box(1.2, 0.06, 0.25, mat('#FF8A3D', { e: '#FF6A1F', ei: 1.4 }), 1.5, 1.5, 0); // heat lamp
+const door = box(0.76, 2.05, 0.04, M.yellow, -2.6, 0, 0.05); door.rotation.y = 0.5; door.position.x = -2.85; door.position.z = 0.2;
+label(1, 'جدار فاصل: المطبخ مخفي عن الزبائن', -0.6, 2.4, 0.1);
+label(2, 'شباك التسليم من المطبخ + لمبة تسخين', 1.5, 1.85, 0.05);
+label(3, 'باب الموظفين للمطبخ', -2.6, 2.3, 0.2);
+// ===== BACK KITCHEN (z -3..0)
+box(0.75, 2, 0.75, M.steel, -2.55, 0, -2.55); box(0.68, 1.6, 0.02, M.glass, -2.55, 0.25, -2.17); label(4, 'فريزر −18°C للبطاطا', -2.55, 2.25, -2.55);
+[-1.55, -0.6].forEach((x, i) => { box(0.8, 1.55, 0.8, M.steel, x, 0, -2.5); box(0.8, 0.12, 0.8, M.ink, x, 1.55, -2.5); box(0.5, 0.32, 0.02, M.glass, x, 0.95, -2.09); box(0.5, 0.18, 0.12, M.yellow, x, 0.55, -2.05);
+  box(0.18, 0.06, 0.02, mat('#4ADE80', { e: '#4ADE80', ei: 1 }), x + 0.2, 1.38, -2.09); label(5 + i, 'ماكينة قلي أوتوماتيك ' + (i + 1), x, 2.0, -2.5); });
+box(1.1, 0.9, 0.7, M.steel, 0.55, 0, -2.6); box(1.0, 0.08, 0.6, M.steelD, 0.55, 0.9, -2.6); label(7, 'محطة تصفية البطاطا', 0.55, 1.5, -2.6);
+box(0.9, 2, 0.72, M.steel, 1.75, 0, -2.6); box(0.8, 1.7, 0.02, M.glass, 1.75, 0.15, -2.23); label(8, 'ثلاجة 1 (+4°C)', 1.75, 2.25, -2.6);
+box(0.9, 2, 0.72, M.steel, 2.6, 0, -2.6); box(0.8, 1.7, 0.02, M.glass, 2.6, 0.15, -2.23); label(9, 'ثلاجة 2 (+4°C) صوصات وفواكه', 2.6, 2.25, -2.15);
+box(0.7, 0.9, 1.3, M.steel, -2.65, 0, -1.25); box(0.5, 0.12, 0.5, M.steelD, -2.65, 0.82, -1.5); box(0.5, 0.12, 0.5, M.steelD, -2.65, 0.82, -0.95); cyl(0.03, 0.35, M.steel, -2.9, 0.92, -1.25); label(10, 'مغسلة حوضين + سخان', -2.65, 1.6, -1.25);
+box(0.4, 0.25, 0.35, M.steel, -2.75, 0.85, -0.4); label(11, 'مغسلة يدين', -2.75, 1.45, -0.4);
+box(1.4, 0.9, 0.7, M.steel, -0.6, 0, -1.2); box(0.5, 0.03, 0.35, M.white, -0.85, 0.9, -1.2); box(0.3, 0.12, 0.3, M.ink, -0.25, 0.9, -1.2); label(12, 'طاولة تجهيز + ميزان', -0.6, 1.4, -1.2);
+box(0.7, 0.9, 1.5, M.steel, 2.65, 0, -1.0); cyl(0.13, 0.42, M.orange, 2.65, 0.9, -1.5); cyl(0.11, 0.38, M.ink, 2.65, 0.9, -1.0); box(0.25, 0.42, 0.25, M.greenL, 2.65, 0.9, -0.55); label(13, 'محطة العصير', 2.65, 1.6, -1.0);
+box(2.0, 0.04, 0.35, M.steel, -1.0, 2.15, -2.85); box(2.0, 0.04, 0.35, M.steel, -1.0, 2.5, -2.85);
+const ktab = box(0.3, 0.2, 0.02, mat('#111', { e: '#FFC21A', ei: 0.4 }), 0.9, 1.45, -0.09); label(14, 'تابلت المطبخ (الطلبات)', 0.9, 1.95, -0.3);
+// ===== FRONT SERVICE (z 0.15..1.4) : staff aisle then counter at z=1.15
+const CZ = 1.15;
+// cashier counter (left) x -2.9..-0.2
+box(2.7, 1.0, 0.6, M.green, -1.55, 0, CZ); box(2.8, 0.06, 0.7, M.wood, -1.55, 1.0, CZ);
+const f1 = new THREE.Mesh(new THREE.PlaneGeometry(2.7, 0.95), new THREE.MeshStandardMaterial({ map: stripes() })); f1.position.set(-1.55, 0.5, CZ + 0.305); S.add(f1);
+box(0.4, 0.04, 0.3, M.ink, -1.6, 1.06, CZ - 0.05); const pos = box(0.45, 0.32, 0.03, M.screen, -1.6, 1.15, CZ - 0.1); pos.rotation.x = -0.25; label(15, 'الكاشير POS + درج نقود', -1.6, 1.8, CZ - 0.05);
+const cd = box(0.36, 0.24, 0.03, mat('#111', { e: '#EE6A1F', ei: 0.5 }), -1.1, 1.2, CZ + 0.2); label(16, 'شاشة الزبون (السلة والسعر)', -1.1, 1.7, CZ + 0.25);
+box(0.2, 0.15, 0.22, M.white, -2.1, 1.06, CZ - 0.05); label(17, 'طابعة فواتير 80mm', -2.1, 1.5, CZ - 0.05);
+box(0.3, 0.03, 0.2, M.ink, -0.65, 1.06, CZ + 0.15); label(18, 'جهاز الدفع (Click · Visa · Uzcard)', -0.65, 1.45, CZ + 0.2);
+// seasoning & handoff counter (right) x -0.1..3.0
+box(3.0, 0.95, 0.6, M.orange, 1.45, 0, CZ); box(3.1, 0.06, 0.7, M.wood, 1.45, 0.95, CZ);
+const f2 = new THREE.Mesh(new THREE.PlaneGeometry(3.0, 0.9), new THREE.MeshStandardMaterial({ map: stripes() })); f2.position.set(1.45, 0.47, CZ + 0.305); S.add(f2);
+box(1.2, 0.1, 0.45, M.steelD, 0.7, 1.01, CZ - 0.05); [0.3, 0.55, 0.8, 1.05].forEach((x, i) => cyl(0.06, 0.13, [M.yellow, M.red, M.orange, M.cream][i], x, 1.11, CZ - 0.05)); label(19, 'محطة التبهير: 7 بهارات + شيكر', 0.7, 1.6, CZ - 0.05);
+box(0.5, 0.12, 0.3, M.white, 1.65, 1.01, CZ - 0.05); [1.5, 1.62, 1.74].forEach((x, i) => cyl(0.035, 0.05, [M.red, M.cream, M.orange][i], x, 1.13, CZ - 0.05)); label(20, 'علب الصوص 30 مل بغطاء متحرك', 1.65, 1.55, CZ - 0.05);
+box(1.0, 0.04, 0.35, M.steel, 2.45, 1.4, CZ); box(1.0, 0.06, 0.2, mat('#FF8A3D', { e: '#FF6A1F', ei: 1.2 }), 2.45, 1.85, CZ); [2.15, 2.45, 2.75].forEach((x, i) => cyl(0.06, 0.16, [M.yellow, M.orange, M.red][i], x, 1.44, CZ)); label(21, 'رف تسليم الطلب للزبون', 2.45, 2.2, CZ);
+// TV menu board facing customers, hung on partition
+const tvT = tex(1024, 576, (g, w, h) => { g.fillStyle = '#1D5A3A'; g.fillRect(0, 0, w * 0.62, h); g.fillStyle = '#17120E'; g.fillRect(w * 0.62, 0, w, h);
+  [['#FFC21A', 'S', '18 000'], ['#EE6A1F', 'M', '25 000'], ['#D7332A', 'L', '32 000']].forEach(([c, t, p], i) => { g.fillStyle = c; g.fillRect(40 + i * 200, 150, 170, 260); g.fillStyle = '#241A14'; g.font = '900 90px Rubik, Arial'; g.fillText(t, 95 + i * 200, 270); g.font = '800 34px Rubik, Arial'; g.fillText(p, 60 + i * 200, 370); });
+  g.font = 'italic 900 90px Rubik, Arial Black'; g.fillStyle = '#FFC21A'; g.fillText('KARTO', 40, 105);
+  g.fillStyle = '#EE6A1F'; g.fillRect(w * 0.62, 0, w, 70); g.fillStyle = '#fff'; g.font = '900 34px Rubik, Arial'; g.fillText('PREPARING', w * 0.64, 48);
+  g.fillStyle = '#FFC21A'; g.fillRect(w * 0.62, 300, w, 70); g.fillStyle = '#241A14'; g.fillText('READY', w * 0.64, 348);
+  g.font = '900 64px Rubik, Arial'; g.fillStyle = '#FFF4E0'; g.fillText('128  129', w * 0.64, 170); g.fillRect(w * 0.64, 400, 150, 100); g.fillStyle = '#241A14'; g.fillText('127', w * 0.66, 474); });
+const tvMat = new THREE.MeshStandardMaterial({ map: tvT, emissive: '#fff', emissiveMap: tvT, emissiveIntensity: 0.5 });
+[-1.3, 0.2].forEach((x) => { const tv = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.8, 0.06), [M.ink, M.ink, M.ink, M.ink, tvMat, M.ink]); tv.position.set(x, 2.35, 0.12); S.add(tv); });
+label(22, 'شاشات المنيو وأرقام الطلبات (قدام الناس)', -0.55, 2.95, 0.2);
+// ===== CUSTOMER ZONE (z 1.5..3): standing queue only, no seating
+[-2.4, -1.4, -0.4].forEach((x) => { cyl(0.04, 0.95, M.ink, x, 0, 2.0); cyl(0.07, 0.03, M.ink, x, 0, 2.0); });
+box(2.0, 0.05, 0.03, M.red, -1.4, 0.9, 2.0); label(23, 'خط الدور (بدون جلسات · خذ وامشي)', -1.4, 1.35, 2.0);
+const mT = tex(256, 256, (g) => { g.fillStyle = '#E9B04C'; g.strokeStyle = '#241A14'; g.lineWidth = 10; g.beginPath(); g.ellipse(128, 140, 90, 100, 0, 0, 7); g.fill(); g.stroke(); g.fillStyle = '#241A14'; g.beginPath(); g.ellipse(96, 128, 12, 16, 0, 0, 7); g.ellipse(160, 128, 12, 16, 0, 0, 7); g.fill(); g.lineWidth = 9; g.beginPath(); g.arc(128, 160, 36, 0.2, Math.PI - 0.2); g.stroke(); });
+const ms = new THREE.Sprite(new THREE.SpriteMaterial({ map: mT })); ms.scale.set(0.9, 0.9, 1); ms.position.set(2.5, 0.5, 2.5); S.add(ms); label(24, 'ستاند البطاطا الضاحكة + QR للطلب', 2.5, 1.15, 2.5);
+const door2 = box(1.0, 2.2, 0.04, M.glass, 1.2, 0, 3.0); label(25, 'باب الدخول الزجاجي', 1.2, 2.45, 3.0);
+[-1.5, 0.8, 2.2].forEach((x) => { cyl(0.18, 0.12, M.yellow, x, H - 0.4, 1.9); const p = new THREE.PointLight('#FFD28A', 0.35, 6); p.position.set(x, H - 0.5, 1.9); S.add(p); });
+// legend
+const lg = document.getElementById('legend');
+lg.innerHTML = items.map((it, i) => `<li data-i="${i}">${it.ar}</li>`).join('');
+const views = { cut: null, iso: [[-5.2, 8.2, 8.6], [1.6, 0.6, 0.3]], top: [[0.01, 13, 0.01], [0, 0, 0]], front: [[0, 2.2, 9], [0, 1.4, 0]], kitchen: [[0.5, 3.4, -0.2], [0, 0.8, -2.0]] };
+let anim = null;
+const go = (p, t) => { anim = { p0: cam.position.clone(), t0: ctl.target.clone(), p1: new THREE.Vector3(...p), t1: new THREE.Vector3(...t), k: 0 }; };
+cam.position.set(...views.iso[0]);
+document.querySelectorAll('[data-v]').forEach((b) => b.onclick = () => { if (b.dataset.v === 'cut') { const on = PW.opacity > 0.5; PW.opacity = on ? 0.18 : 1; PW.depthWrite = !on; b.setAttribute('aria-pressed', on); return; } document.querySelectorAll('[data-v]').forEach((x) => x.setAttribute('aria-pressed', x === b)); go(...views[b.dataset.v]); });
+lg.addEventListener('click', (e) => { const li = e.target.closest('li'); if (!li) return; const it = items[+li.dataset.i]; lg.querySelectorAll('li').forEach((x) => x.classList.toggle('on', x === li));
+  items.forEach((x) => x.sp.scale.set(0.34, 0.34, 1)); it.sp.scale.set(0.55, 0.55, 1); const f = it.focus; go([f.x + 2.2, 2.6, f.z + 2.8], [f.x, 0.9, f.z]); });
+const size = () => { const w = innerWidth, h = innerHeight; R.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); }; addEventListener('resize', size); size();
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function loop() { requestAnimationFrame(loop); if (anim) { anim.k = Math.min(1, anim.k + (reduce ? 1 : 0.04)); const e = 1 - Math.pow(1 - anim.k, 3); cam.position.lerpVectors(anim.p0, anim.p1, e); ctl.target.lerpVectors(anim.t0, anim.t1, e); if (anim.k >= 1) anim = null; } ctl.update(); R.render(S, cam); })();
+})();
+</script></body></html>
