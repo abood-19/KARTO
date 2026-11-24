@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>KARTO · مدير الفرع</title>
-<link rel="icon" href="./icon-192.png"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#EE6A1F"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
-<link rel="stylesheet" href="./assets/index-BwPlixjC.css"><link rel="stylesheet" href="./assets/karto-lite.css">
+<link rel="icon" href="./icon-192.png"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#F4B63F"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="./assets/index-BwPlixjC.css"><link rel="stylesheet" href="./assets/karto-lite.css"><link rel="stylesheet" href="./assets/karto-brand.css">
 <style>
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{border:3px solid var(--ink);border-radius:999px;padding:9px 16px;font-family:var(--display);font-weight:800;background:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}.tabs button[aria-pressed=true]{background:var(--yellow)}
 .mis{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
@@ -54,12 +54,12 @@ const KG = ['100g', '200g', '1kg', '2kg', '10kg'], KGV = { '100g': 0.1, '200g': 
 const PC = ['1', '10', '50', '100'];
 const CAT = [
   ['potato', 'بطاطا مجمدة', 'kg', './img/cone.webp'], ['oil', 'زيت قلي', 'L', null, '🛢️'],
-  ['s-classic', 'بهار: ملح وفلفل', 'kg', './img/shaker-classic.webp'], ['s-bbq', 'بهار: BBQ', 'kg', './img/shaker-bbq.webp'], ['s-sour', 'بهار: قشطة وبصل', 'kg', './img/shaker-sour.webp'],
-  ['s-cheddar', 'بهار: شيدر', 'kg', './img/shaker-cheddar.webp'], ['s-chili', 'بهار: شطة', 'kg', './img/shaker-chili.webp'], ['s-peri', 'بهار: بيري بيري', 'kg', './img/shaker-peri.webp'], ['s-parm', 'بهار: ثوم وبارميزان', 'kg', './img/shaker-parmesan.webp'],
-  ['sauce-ketchup', 'صوص كاتشب', 'kg', './img/sauce-ketchup.webp'], ['sauce-mayo', 'صوص مايونيز', 'kg', './img/sauce-mayo.webp'], ['sauce-bbq', 'صوص BBQ', 'kg', './img/sauce-bbq.webp'], ['sauce-spicy', 'صوص حار', 'kg', './img/sauce-spicy.webp'],
-  ['cups', 'علب صوص فاضية 30 مل', 'pcs', './img/sauce-mayo.webp'], ['shakers', 'علب بهار فاضية', 'pcs', './img/shaker-peri.webp'],
-  ['water', 'ماي 0.5L', 'pcs', './img/water.webp'], ['j-golden', 'مواد عصير Golden Sun', 'kg', './img/juice-golden.webp'], ['j-ruby', 'مواد عصير Ruby Pom', 'kg', './img/juice-ruby.webp'], ['j-mint', 'مواد عصير Green Mint', 'kg', './img/juice-mint.webp'], ['pouch', 'أكياس عصير فاضية', 'pcs', './img/juice-mint.webp'],
-  ['bowl', 'صحون KARTO', 'pcs', './img/bowl-sm.webp'], ['tray', 'صواني KARTO', 'pcs', './img/tray-sm.webp'], ['cone', 'أقماع KARTO', 'pcs', './img/cone-sm.webp'],
+  ['s-classic', 'بهار: كلاسيك', 'kg', './img/jar-classic.webp'], ['s-cheddar', 'بهار: جبنة', 'kg', './img/jar-cheddar.webp'], ['s-chili', 'بهار: حار', 'kg', './img/jar-chili.webp'], ['s-bbq', 'بهار: باربكيو', 'kg', './img/jar-bbq.webp'],
+  ['s-garlic', 'بهار: ثوم', 'kg', './img/jar-parmesan.webp'], ['s-herbs', 'بهار: أعشاب', 'kg', './img/jar-herbs.webp'], ['s-sour', 'بهار: قشطة', 'kg', './img/jar-sour.webp'],
+  ['sauce-ketchup', 'صوص كاتشب', 'kg', './img/sauce-ketchup.webp'], ['sauce-cheese', 'صوص جبنة', 'kg', './img/sauce-cheese.webp'], ['sauce-garlic', 'صوص ثوم', 'kg', './img/sauce-garlic.webp'], ['sauce-bbq', 'صوص باربكيو', 'kg', './img/sauce-bbq.webp'],
+  ['cups', 'كاسات صوص فاضية 30 مل', 'pcs', './img/sauce-garlic.webp'], ['shakers', 'علب بهار فاضية', 'pcs', './img/jar-classic.webp'],
+  ['water', 'مي 0.5L', 'pcs', './img/water.webp'], ['j-mango', 'مواد عصير مانجو', 'kg', './img/juice-mango.webp'], ['j-berry', 'مواد عصير توت', 'kg', './img/juice-berry.webp'], ['j-lemon', 'مواد عصير ليمون', 'kg', './img/juice-lemon.webp'], ['j-orange', 'مواد عصير برتقال', 'kg', './img/juice-orange.webp'], ['bottles', 'قناني عصير فاضية', 'pcs', './img/juice-orange.webp'],
+  ['pack', 'علب KARTO الصغيرة', 'pcs', './img/cone-sm.webp'], ['bowl', 'صحون KARTO', 'pcs', './img/bowl-sm.webp'], ['box', 'بوكسات KARTO الكبيرة', 'pcs', './img/tray-sm.webp'],
   ['napkin', 'محارم وشوك', 'pcs', null, '🧻'], ['bags', 'أكياس تسليم', 'pcs', null, '🛍️'], ['receipt', 'ورق فواتير 80mm', 'pcs', null, '🧾'], ['clean', 'مواد تنظيف', 'pcs', null, '🧽'], ['gloves', 'كفوف', 'pcs', null, '🧤'],
 ];
 const state = Object.fromEntries(CAT.map((c) => [c[0], { qty: 0, step: c[2] === 'kg' ? '1kg' : c[2] === 'L' ? '1' : '10' }]));
