@@ -134,4 +134,5 @@ const size = () => { const w = innerWidth, h = innerHeight; R.setSize(w, h, fals
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 (function loop() { requestAnimationFrame(loop); if (anim) { anim.k = Math.min(1, anim.k + (reduce ? 1 : 0.04)); const e = 1 - Math.pow(1 - anim.k, 3); cam.position.lerpVectors(anim.p0, anim.p1, e); ctl.target.lerpVectors(anim.t0, anim.t1, e); if (anim.k >= 1) anim = null; } ctl.update(); R.render(S, cam); })();
 })();
-</script></body></html>
+</script><script src="./config.js"></script><script src="./assets/karto-i18n.js"></script><script src="./assets/karto-lite.js"></script>
+</body></html>

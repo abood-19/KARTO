@@ -1,18 +1,342 @@
-<!doctype html><html lang="uz"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><link rel="stylesheet" href="./assets/karto-lite.css"><link rel="stylesheet" href="./assets/karto-brand.css"></head><body>
-<title>KARTO</title>
-<link rel="icon" href="./icon-192.png"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#F4B63F"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
-<link rel="stylesheet" href="./assets/index-BwPlixjC.css">
-<link rel="modulepreload" href="./assets/brand-Cei7wSlq.js">
-<link rel="modulepreload" href="./assets/data-CYUQQaOb.js">
-<link rel="modulepreload" href="./assets/api-JdBBqxOX.js">
-<link rel="modulepreload" href="./assets/proxy-28AzgrcL.js">
+<!doctype html>
+<html lang="uz" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KARTO · Toshkent</title>
+<meta name="description" content="KARTO — golden fries in Tashkent. Three sizes, seven spices, house sauces and fresh juices.">
+<link rel="icon" href="./icon-192.png"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#E3141B"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="./assets/karto-fonts.css">
+<style>
+:root{--red:#E3141B;--red-d:#B00E14;--yel:#FFC21A;--yel-l:#FFE7A1;--cream:#FFF8EC;--cream-2:#FBEFD9;--ink:#1C0F0D;--ink-2:#6A5148;--line:#EFE3D2;
+--disp:"Bebas Neue","Oswald","Lalezar",Impact,sans-serif;--fun:"Baloo 2","Lalezar","Nunito",sans-serif;--body:"Nunito","Tajawal",system-ui,sans-serif;--r:28px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font:600 16px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+[dir=rtl] body{font-family:"Tajawal","Nunito",system-ui,sans-serif}
+.mul{mix-blend-mode:multiply}
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,248,236,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.nav .wrap{display:flex;align-items:center;gap:22px;height:86px}
+.nav__logo img{height:60px;width:auto}
+.nav__links{display:flex;gap:4px;margin-inline-start:auto}
+.nav__links a{text-decoration:none;font:700 15px/1 var(--body);text-transform:uppercase;letter-spacing:.04em;padding:10px 14px;border-radius:999px;transition:.2s}
+[dir=rtl] .nav__links a{letter-spacing:0;font-size:16px}
+.nav__links a:hover{background:#fff;color:var(--red)}
+.lang{display:flex;background:#fff;border-radius:999px;padding:4px;gap:2px;box-shadow:0 1px 0 var(--line)}
+.lang button{border:0;background:none;font:800 12px/1 var(--body);padding:9px 10px;border-radius:999px;cursor:pointer;color:var(--ink-2)}
+.lang button.on{background:var(--yel);color:var(--ink)}
+.pill{display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:#fff;text-decoration:none;border:0;border-radius:999px;padding:7px 22px 7px 7px;font:800 15px/1 var(--body);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;transition:transform .2s,box-shadow .2s;white-space:nowrap}
+[dir=rtl] .pill{padding:7px 7px 7px 22px;letter-spacing:0}
+.pill i{width:40px;height:40px;border-radius:50%;background:var(--yel);display:grid;place-items:center;font-style:normal}
+.pill i svg{width:20px;height:20px}
+.pill:hover{transform:translateY(-2px);box-shadow:0 14px 26px -14px rgba(28,15,13,.7)}
+.pill--red{background:var(--red)}.pill--red i{background:#fff}
+.ghost{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font:800 15px/1 var(--body);text-transform:uppercase;padding:16px 22px;border-radius:999px;border:2px solid var(--ink);transition:.2s}
+.ghost:hover{background:var(--ink);color:#fff}
+.burger{display:none;border:0;background:#fff;border-radius:50%;width:44px;height:44px;font-size:20px;cursor:pointer}
+/* ---------- hero ---------- */
+.hero{position:relative;padding:34px 0 60px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1.15fr .7fr;align-items:center;gap:20px}
+.kick{display:inline-flex;align-items:center;gap:8px;font:800 13px/1 var(--body);text-transform:uppercase;letter-spacing:.12em;color:var(--red)}
+.kick::before{content:"";width:26px;height:3px;background:var(--red);border-radius:3px}
+.hero h1{font:400 clamp(58px,7.4vw,112px)/.9 var(--disp);margin:16px 0 18px;text-transform:uppercase;letter-spacing:.005em}
+[lang=ru] .hero h1{font-weight:700;font-size:clamp(46px,5.6vw,86px);line-height:.98}
+[dir=rtl] .hero h1{font-size:clamp(50px,6vw,92px);line-height:1.1}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero p.lead{max-width:430px;color:var(--ink-2);font-size:17px;margin:0 0 28px}
+.hero__cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hero__art{position:relative;aspect-ratio:1/1;display:grid;place-items:center}
+.hero__art::before{content:"";position:absolute;inset:7%;border-radius:50%;background:#fff;box-shadow:0 0 0 16px #FFE7A1,0 0 0 34px rgba(255,212,92,.35)}
+.hero__art img.main{position:relative;width:100%;animation:float 6s ease-in-out infinite}
+.hero__art::after{content:"";position:absolute;left:18%;right:18%;bottom:7%;height:26px;border-radius:50%;background:radial-gradient(closest-side,rgba(120,40,10,.28),transparent);z-index:0}
+@keyframes float{50%{transform:translateY(-12px) rotate(-1deg)}}
+.stk{position:absolute;font:800 clamp(20px,2.1vw,30px)/1 var(--fun);padding:10px 20px 6px;border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);white-space:nowrap;z-index:2}
+.stk--a{left:-4%;top:52%;background:var(--yel);transform:rotate(-8deg)}
+.stk--b{left:6%;top:65%;background:var(--red);color:#fff;transform:rotate(-4deg)}
+[dir=rtl] .stk--a{left:auto;right:-4%;transform:rotate(8deg)}[dir=rtl] .stk--b{left:auto;right:6%;transform:rotate(4deg)}
+.doodle{position:absolute;pointer-events:none}
+.d1{top:6%;right:12%;width:70px}.d2{bottom:6%;right:4%;width:46px}.d3{top:18%;left:4%;width:14px;height:14px;border-radius:50%;background:var(--ink)}.d4{bottom:22%;left:46%;width:10px;height:10px;border-radius:50%;background:var(--yel);border:2px solid var(--ink)}
+.feats{display:flex;flex-direction:column;gap:26px}
+.feat{display:grid;grid-template-columns:58px 1fr;gap:14px;align-items:center}
+.feat i{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:26px;font-style:normal;box-shadow:inset 0 -4px 0 rgba(0,0,0,.12)}
+.feat b{display:block;font:400 22px/1.05 var(--disp);text-transform:uppercase;letter-spacing:.02em}
+[lang=ru] .feat b,[dir=rtl] .feat b{font-weight:700;font-size:19px}
+.feat span{font-size:13.5px;color:var(--ink-2);line-height:1.4}
+/* ---------- section heads ---------- */
+section{position:relative}
+.sec{padding:90px 0}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.head h2{font:400 clamp(44px,5.4vw,78px)/.92 var(--disp);margin:10px 0 0;text-transform:uppercase}
+[lang=ru] .head h2{font-weight:700;font-size:clamp(36px,4.4vw,60px);line-height:1}
+[dir=rtl] .head h2{font-size:clamp(38px,4.6vw,64px);line-height:1.15}
+.head p{max-width:420px;margin:0;color:var(--ink-2)}
+.price{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums;white-space:nowrap}
+/* ---------- fries band ---------- */
+.band{margin:0 24px;border-radius:48px;background:var(--red);color:#fff;overflow:hidden;padding:80px 0 70px}
+.band::before{content:"";position:absolute;inset:-50%;background:repeating-conic-gradient(from 0deg at 50% 60%,rgba(255,255,255,.07) 0 6deg,transparent 6deg 18deg);animation:spin 80s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.band .wrap{position:relative}
+.band .kick{color:var(--yel)}.band .kick::before{background:var(--yel)}
+.band .head p{color:#FFE1D9}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.card{position:relative;background:var(--cream);color:var(--ink);border-radius:var(--r);padding:20px 22px 22px;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 30px 50px -30px rgba(0,0,0,.6)}
+.card__img{background:#fff;border-radius:20px;aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden}
+.card__img img{width:88%;height:88%;object-fit:contain;transition:transform .4s}
+.card:hover .card__img img{transform:scale(1.06) rotate(-1.5deg)}
+.card__tag{position:absolute;top:30px;inset-inline-start:32px;background:var(--yel);font:800 12px/1 var(--body);padding:7px 11px;border-radius:999px;text-transform:uppercase;letter-spacing:.06em}
+.card h3{font:400 34px/1 var(--disp);margin:18px 0 4px;text-transform:uppercase}
+[lang=ru] .card h3,[dir=rtl] .card h3{font-weight:700;font-size:26px;line-height:1.2}
+.card .meta{color:var(--ink-2);font-size:14px}
+.card .row{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:18px;gap:10px}
+.card .row b{font:400 30px/1 var(--disp)}
+[lang=ru] .card .row b,[dir=rtl] .card .row b{font-family:"Oswald",sans-serif;font-weight:700;font-size:22px}
+.btn-s{background:var(--red);color:#fff;border:0;border-radius:999px;padding:12px 18px;font:800 13px/1 var(--body);text-transform:uppercase;letter-spacing:.04em;text-decoration:none;transition:.2s}
+.btn-s:hover{background:var(--ink)}
+.rules{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.rules span{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:10px 16px;font-weight:800;font-size:14px}
+/* ---------- drinks ---------- */
+.tabs{display:inline-flex;background:#fff;border-radius:999px;padding:5px;gap:4px;box-shadow:0 1px 0 var(--line)}
+.tabs button{border:0;background:none;padding:11px 20px;border-radius:999px;font:800 14px/1 var(--body);cursor:pointer;color:var(--ink-2)}
+.tabs button.on{background:var(--ink);color:#fff}
+.drinks{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.dk{background:#fff;border-radius:24px;padding:16px 14px 18px;text-align:center;transition:transform .3s,box-shadow .3s}
+.dk:hover{transform:translateY(-5px);box-shadow:0 24px 40px -28px rgba(80,30,10,.45)}
+.dk .im{aspect-ratio:3/4;display:grid;place-items:center}
+.dk .im img{max-height:100%;width:auto;object-fit:contain;transition:opacity .25s}
+.dk h4{margin:10px 0 2px;font:800 18px/1.15 var(--fun)}
+.dk .price{font-weight:900;color:var(--red)}
+.dk--water{background:linear-gradient(180deg,#EAF6FF,#fff)}
+/* ---------- sauces & spices ---------- */
+.duo{display:grid;grid-template-columns:1fr;gap:26px}
+.panel{background:#fff;border-radius:36px;padding:34px}
+.panel h3{font:400 46px/.95 var(--disp);margin:8px 0 6px;text-transform:uppercase}
+[lang=ru] .panel h3,[dir=rtl] .panel h3{font-weight:700;font-size:34px;line-height:1.15}
+.panel>p{color:var(--ink-2);margin:0 0 20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.panel{display:grid;grid-template-columns:.8fr 2fr;gap:10px 40px;align-items:center}.panel>.kick,.panel>h3,.panel>p{grid-column:1}.panel>.grid4,.panel>.shelf{grid-column:2;grid-row:1/span 4}.panel>.note{grid-column:1}
+.mini{background:var(--cream);border-radius:20px;padding:12px;text-align:center}
+.mini img{aspect-ratio:1;object-fit:contain;width:100%}
+.mini b{display:block;font:800 16px/1.2 var(--fun);margin-top:6px}
+.mini small{color:var(--ink-2);font-weight:800}
+.shelf{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;padding:10px 0 0;border-bottom:14px solid #E9C995;border-radius:0 0 6px 6px;box-shadow:0 18px 22px -18px rgba(120,70,10,.6)}
+.shelf .j{text-align:center;transition:transform .3s}
+.shelf .j:hover{transform:translateY(-8px)}
+.shelf img{width:100%;aspect-ratio:3/4.4;object-fit:contain}
+.shelf b{display:block;font:800 15px/1.15 var(--fun);margin:6px 0 10px;min-height:34px}
+.note{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.note span{background:var(--cream);border-radius:999px;padding:9px 14px;font-weight:800;font-size:13.5px}
+/* ---------- steps ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
+.step{background:#fff;border-radius:28px;padding:26px;position:relative}
+.step::before{counter-increment:s;content:counter(s);font:400 64px/1 var(--disp);color:var(--yel);-webkit-text-stroke:2px var(--ink)}
+.step h4{font:800 20px/1.2 var(--fun);margin:8px 0 6px}
+.step p{margin:0;color:var(--ink-2);font-size:14.5px}
+/* ---------- game ---------- */
+.game{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:30px;background:var(--yel);border-radius:40px;padding:34px 44px;overflow:hidden}
+.game img{width:120px;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(-5deg)}}
+.game h3{font:400 52px/.95 var(--disp);margin:0;text-transform:uppercase}
+[lang=ru] .game h3,[dir=rtl] .game h3{font-weight:700;font-size:36px;line-height:1.15}
+.game p{margin:6px 0 0;font-weight:700}
+/* ---------- find us ---------- */
+.find{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.info{background:#fff;border-radius:24px;padding:22px}
+.info small{display:block;text-transform:uppercase;letter-spacing:.08em;color:var(--red);font-weight:900;font-size:12px;margin-bottom:8px}
+[dir=rtl] .info small{letter-spacing:0}
+.info b{font:800 18px/1.3 var(--fun);word-break:break-word}
+footer{background:var(--ink);color:#F6E9DA;margin-top:90px;padding:56px 0 34px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+footer img{height:70px}
+footer p{margin:0;opacity:.75;font-size:14px}
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+/* ---------- responsive ---------- */
+@media(max-width:1080px){.panel{grid-template-columns:1fr}.panel>.grid4,.panel>.shelf{grid-column:1;grid-row:auto}.grid4{grid-template-columns:repeat(2,1fr)}.hero .wrap{grid-template-columns:1fr 1fr}.feats{grid-column:1/-1;flex-direction:row;flex-wrap:wrap}.feat{flex:1 1 240px}.drinks{grid-template-columns:repeat(3,1fr)}.duo{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}.find{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.nav__links{display:none;position:absolute;top:86px;left:16px;right:16px;flex-direction:column;background:#fff;border-radius:24px;padding:12px;box-shadow:0 20px 40px -20px rgba(0,0,0,.3)}.nav__links.open{display:flex}.burger{display:block;margin-inline-start:auto}.nav .pill span{display:none}.nav .pill{padding:7px}
+.hero .wrap{grid-template-columns:1fr}.hero__art{order:-1;max-width:460px;margin:30px auto 0;width:86%}.cards{grid-template-columns:1fr}.band{margin:0 10px;border-radius:32px}.game{grid-template-columns:1fr;text-align:center;justify-items:center}}
+@media(max-width:560px){.wrap{padding:0 16px}.nav .wrap{gap:10px;height:74px}.nav__logo img{height:48px}.lang button{padding:8px 7px}.drinks{grid-template-columns:repeat(2,1fr)}.shelf{grid-template-columns:repeat(4,1fr);border-bottom-width:10px}.steps,.find{grid-template-columns:1fr}.sec{padding:64px 0}.panel{padding:22px}.stk{font-size:18px}}
+</style>
+</head><body>
+<header class="nav"><div class="wrap">
+  <a class="nav__logo" href="#top" aria-label="KARTO"><img src="./assets/karto-logo.png" alt="KARTO"></a>
+  <nav class="nav__links" id="links">
+    <a href="#fries" data-t="nFries"></a><a href="#drinks" data-t="nDrinks"></a><a href="#sauces" data-t="nSauces"></a><a href="#how" data-t="nHow"></a><a href="#find" data-t="nFind"></a>
+  </nav>
+  <div class="lang" id="lang"><button data-l="uz">UZ</button><button data-l="ru">RU</button><button data-l="en">EN</button><button data-l="ar">عربي</button></div>
+  <a class="pill" href="../app/index.html"><i><svg viewBox="0 0 24 24" fill="none" stroke="#1C0F0D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></i><span data-t="order"></span></a>
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+  <div class="rv">
+    <span class="kick" data-t="kick"></span>
+    <h1 data-th="h1"></h1>
+    <p class="lead" data-t="lead"></p>
+    <div class="hero__cta">
+      <a class="pill" href="../app/index.html"><i><svg viewBox="0 0 24 24" fill="none" stroke="#1C0F0D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></i><span data-t="order"></span></a>
+      <a class="ghost" href="#fries" data-t="seeMenu"></a>
+    </div>
+  </div>
+  <div class="hero__art rv">
+    <svg class="doodle d1" viewBox="0 0 70 50"><path d="M8 40 L18 10 M30 44 L36 6 M52 40 L62 14" stroke="#1C0F0D" stroke-width="5" stroke-linecap="round"/></svg>
+    <svg class="doodle d2" viewBox="0 0 46 46"><path d="M6 40 L40 6 M10 18 L28 4" stroke="#E3141B" stroke-width="5" stroke-linecap="round"/></svg>
+    <span class="doodle d3"></span><span class="doodle d4"></span>
+    <img class="main mul" src="./img/bowl.webp" alt="KARTO">
+    <span class="stk stk--a" data-t="stkA"></span><span class="stk stk--b" data-t="stkB"></span>
+  </div>
+  <div class="feats rv">
+    <div class="feat"><i style="background:#FFC21A">🍟</i><div><b data-t="f1"></b><span data-t="f1s"></span></div></div>
+    <div class="feat"><i style="background:#E3141B">🥫</i><div><b data-t="f2"></b><span data-t="f2s"></span></div></div>
+    <div class="feat"><i style="background:#F2E3C5">🧂</i><div><b data-t="f3"></b><span data-t="f3s"></span></div></div>
+  </div>
+</div></section>
+
+<section class="band" id="fries"><div class="wrap">
+  <div class="head rv"><div><span class="kick" data-t="friesKick"></span><h2 data-t="friesH"></h2></div><p data-t="friesP"></p></div>
+  <div class="cards">
+    <article class="card rv"><span class="card__tag" data-t="tagS"></span><div class="card__img"><img class="mul" src="./img/pack.webp" alt=""></div><h3 data-t="sizeS"></h3><div class="meta" data-t="metaS"></div><div class="row"><b class="price" data-p="s">18,000</b><a class="btn-s" href="../app/index.html" data-t="orderS"></a></div></article>
+    <article class="card rv"><span class="card__tag" data-t="tagM"></span><div class="card__img"><img class="mul" src="./img/bowl.webp" alt=""></div><h3 data-t="sizeM"></h3><div class="meta" data-t="metaM"></div><div class="row"><b class="price" data-p="m">25,000</b><a class="btn-s" href="../app/index.html" data-t="orderS"></a></div></article>
+    <article class="card rv"><span class="card__tag" data-t="tagL"></span><div class="card__img"><img class="mul" src="./img/box.webp" alt=""></div><h3 data-t="sizeL"></h3><div class="meta" data-t="metaL"></div><div class="row"><b class="price" data-p="l">33,000</b><a class="btn-s" href="../app/index.html" data-t="orderS"></a></div></article>
+  </div>
+  <div class="rules rv"><span data-t="r1"></span><span data-t="r2"></span><span data-t="r3"></span></div>
+</div></section>
+
+<section class="sec" id="drinks"><div class="wrap">
+  <div class="head rv"><div><span class="kick" data-t="drKick"></span><h2 data-t="drH"></h2></div>
+    <div class="tabs" id="fmt"><button class="on" data-f="juice" data-t="fBottle"></button><button data-f="can" data-t="fCan"></button><button data-f="pouch" data-t="fPouch"></button></div></div>
+  <div class="drinks">
+    <div class="dk rv"><div class="im"><img class="mul" data-d="mango" src="./img/juice-mango.webp" alt=""></div><h4 data-t="jMango"></h4><span class="price" data-p="mango">17,000</span></div>
+    <div class="dk rv"><div class="im"><img class="mul" data-d="berry" src="./img/juice-berry.webp" alt=""></div><h4 data-t="jBerry"></h4><span class="price" data-p="berry">17,000</span></div>
+    <div class="dk rv"><div class="im"><img class="mul" data-d="lemon" src="./img/juice-lemon.webp" alt=""></div><h4 data-t="jLemon"></h4><span class="price" data-p="lemon">17,000</span></div>
+    <div class="dk rv"><div class="im"><img class="mul" data-d="orange" src="./img/juice-orange.webp" alt=""></div><h4 data-t="jOrange"></h4><span class="price" data-p="orange">17,000</span></div>
+    <div class="dk dk--water rv"><div class="im"><img class="mul" src="./img/water.webp" alt=""></div><h4 data-t="water"></h4><span class="price" data-p="water">5,000</span></div>
+  </div>
+</div></section>
+
+<section class="sec" id="sauces" style="padding-top:0"><div class="wrap duo">
+  <div class="panel rv"><span class="kick" data-t="saKick"></span><h3 data-t="saH"></h3><p data-t="saP"></p>
+    <div class="grid4">
+      <div class="mini"><img class="mul" src="./img/sauce-ketchup.webp" alt=""><b data-t="sKetchup"></b><small class="price" data-p="ketchup">4,000</small></div>
+      <div class="mini"><img class="mul" src="./img/sauce-cheese.webp" alt=""><b data-t="sCheese"></b><small class="price" data-p="cheese">4,000</small></div>
+      <div class="mini"><img class="mul" src="./img/sauce-garlic.webp" alt=""><b data-t="sGarlic"></b><small class="price" data-p="garlic">4,000</small></div>
+      <div class="mini"><img class="mul" src="./img/sauce-bbq.webp" alt=""><b data-t="sBbq"></b><small class="price" data-p="bbq">4,000</small></div>
+    </div></div>
+  <div class="panel rv" id="spices"><span class="kick" data-t="spKick"></span><h3 data-t="spH"></h3><p data-t="spP"></p>
+    <div class="shelf">
+      <div class="j"><img class="mul" src="./img/jar-classic.webp" alt=""><b data-t="xClassic"></b></div>
+      <div class="j"><img class="mul" src="./img/jar-cheddar.webp" alt=""><b data-t="xCheese"></b></div>
+      <div class="j"><img class="mul" src="./img/jar-chili.webp" alt=""><b data-t="xSpicy"></b></div>
+      <div class="j"><img class="mul" src="./img/jar-bbq.webp" alt=""><b data-t="xBbq"></b></div>
+      <div class="j"><img class="mul" src="./img/jar-parmesan.webp" alt=""><b data-t="xGarlic"></b></div>
+      <div class="j"><img class="mul" src="./img/jar-herbs.webp" alt=""><b data-t="xHerbs"></b></div>
+      <div class="j"><img class="mul" src="./img/jar-sour.webp" alt=""><b data-t="xSour"></b></div>
+    </div>
+    <div class="note"><span data-t="n1"></span><span data-t="n2"></span><span data-t="n3"></span></div></div>
+</div></section>
+
+<section class="sec" id="how" style="padding-top:0"><div class="wrap">
+  <div class="head rv"><div><span class="kick" data-t="howKick"></span><h2 data-t="howH"></h2></div></div>
+  <div class="steps">
+    <div class="step rv"><h4 data-t="s1"></h4><p data-t="s1p"></p></div>
+    <div class="step rv"><h4 data-t="s2"></h4><p data-t="s2p"></p></div>
+    <div class="step rv"><h4 data-t="s3"></h4><p data-t="s3p"></p></div>
+    <div class="step rv"><h4 data-t="s4"></h4><p data-t="s4p"></p></div>
+  </div>
+</div></section>
+
+<section class="wrap rv"><div class="game">
+  <img src="./assets/karto-face.png" alt="">
+  <div><h3 data-t="gH"></h3><p data-t="gP"></p></div>
+  <button class="pill pill--red" id="play" type="button"><i>🎮</i><span data-t="gB"></span></button>
+</div></section>
+
+<section class="sec" id="find"><div class="wrap">
+  <div class="head rv"><div><span class="kick" data-t="fKick"></span><h2 data-t="fH"></h2></div></div>
+  <div class="find">
+    <div class="info rv"><small data-t="iAddr"></small><b data-t="addr"></b></div>
+    <div class="info rv"><small data-t="iHours"></small><b class="price">10:00 – 23:00</b></div>
+    <div class="info rv"><small data-t="iPhone"></small><b class="price" id="phone">+998</b></div>
+    <div class="info rv"><small data-t="iSocial"></small><b>Instagram @karto.uz<br>Telegram @karto_uz</b></div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><img src="./assets/karto-logo.png" alt="KARTO"><p data-t="foot"></p><a class="pill pill--red" href="../app/index.html"><i>📱</i><span data-t="appBtn"></span></a></div></footer>
+
 <script src="./config.js"></script>
 <script>(function(){var b=(window.KARTO_API||'').replace(/\/$/,'');if(!b)return;window.KARTO_SERVER=true;var f=window.fetch.bind(window);window.fetch=function(u,o){if(typeof u==='string'&&u.indexOf('/api')===0)u=b+u;return f(u,o)};var E=window.EventSource;window.EventSource=function(u,c){if(typeof u==='string'&&u.indexOf('/api')===0)u=b+u;return new E(u,c)}})();
 if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js').catch(function(){});
 (function(){try{var q=new URLSearchParams(location.search);if(q.get('from')==='hub')sessionStorage.setItem('karto-hub',document.referrer||'../index.html');var h=sessionStorage.getItem('karto-hub');if(!h)return;var go=function(){if(document.getElementById('karto-back'))return;var a=document.createElement('a');a.href=h;a.textContent='← النظام';a.setAttribute('style','position:fixed;z-index:9999;bottom:calc(86px + env(safe-area-inset-bottom,0px));left:10px;background:#FFC21A;color:#241A14;border:3px solid #241A14;border-radius:999px;padding:6px 14px;font:800 14px/1.2 system-ui,sans-serif;box-shadow:3px 3px 0 #241A14;text-decoration:none;direction:rtl');document.body.appendChild(a)};document.readyState==='loading'?addEventListener('DOMContentLoaded',go):go()}catch(e){}})();</script>
-<script>window.KARTO_START="/site";window.KARTO_SINGLE=true</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="/app"]');if(!a)return;e.preventDefault();e.stopPropagation();location.href='../app/index.html'},true);</script>
-<div id="root"></div>
-<script src="./assets/karto-i18n.js"></script><script src="./assets/karto-lite.js"></script><script src="./assets/karto-fun.js"></script><script>KARTO.guard('site');KARTO.promos('site');KARTO.adSlot('site')</script>
-<script type="module" src="./assets/index--3ulsPoV.js"></script>
-
+<script>
+(function(){
+const T={
+nFries:["Kartoshka","Картошка","Fries","البطاطا"],nDrinks:["Ichimliklar","Напитки","Drinks","المشروبات"],nSauces:["Sous va ziravor","Соусы и специи","Sauces & spices","صوصات وبهارات"],nHow:["Qanday ishlaydi","Как это работает","How it works","كيف بتطلب"],nFind:["Manzil","Где мы","Find us","وين تلاقينا"],
+order:["Buyurtma","Заказать","Order now","اطلب الآن"],seeMenu:["Menyu","Смотреть меню","See the menu","شوف المنيو"],
+kick:["Toshkentda yangi","Новое в Ташкенте","New in Tashkent","جديد بطشقند"],
+h1:["Oltin<br><em>kartoshka</em><br>o‘zingcha","Золотая<br><em>картошка</em><br>по-твоему","Golden<br><em>fries,</em><br>your way","بطاطا<br><em>ذهبية</em><br>على ذوقك"],
+lead:["Hajmni tanla, 3 tagacha ziravor qo‘sh va sevimli sousingni ol. Har porsiyaga 1 sous bepul.","Выбери размер, добавь до 3 специй и любимый соус. Один соус к каждой порции — бесплатно.","Pick your size, add up to 3 spices and your favourite sauce. One sauce comes free with every meal.","اختار الحجم، زيد لحد 3 بهارات وصوصك المفضل. صوص واحد مجاني مع كل وجبة."],
+stkA:["Qarsildoq","Хрустящая","Crispy &","مقرمشة"],stkB:["va mazali!","и вкусная!","Tasty!","وطيبة!"],
+f1:["3 xil hajm","3 размера","3 sizes","3 أحجام"],f1s:["Kichik, o‘rta va katta — har biri o‘z qutisida.","Маленький, средний и большой — у каждого своя упаковка.","Small, medium and large — each in its own pack.","صغير ووسط وكبير — كل واحد بعلبته."],
+f2:["1 sous bepul","1 соус бесплатно","1 free sauce","صوص مجاني"],f2s:["Ketchup, pishloq, sarimsoq yoki BBQ.","Кетчуп, сырный, чесночный или BBQ.","Ketchup, cheese, garlic or BBQ.","كاتشب، جبنة، ثوم أو باربكيو."],
+f3:["7 ziravor","7 специй","7 spices","7 بهارات"],f3s:["Kichik 1, o‘rta 2, katta 3 tasi bepul.","Маленький 1, средний 2, большой 3 — бесплатно.","Small 1, medium 2, large 3 free.","صغير 1، وسط 2، كبير 3 مجاناً."],
+friesKick:["Bizning kartoshka","Наша картошка","Our fries","بطاطتنا"],friesH:["Uch o‘lcham.<br>Bitta ta’m.","Три размера.<br>Один вкус.","Three sizes.<br>One taste.","ثلاث أحجام.<br>طعم واحد."],
+friesP:["Har porsiya buyurtma bilan qovuriladi va siz tanlagan ziravor bilan aralashtiriladi.","Каждую порцию жарим под заказ и перемешиваем с выбранными специями.","Every portion is fried to order and shaken with the spices you choose.","كل وجبة بتنقلى عالطلب وبتنخلط بالبهارات اللي بتختارها."],
+tagS:["Tez tamaddi","Быстрый перекус","Quick bite","سناك سريع"],tagM:["Eng mashhur","Хит","Most popular","الأكثر طلباً"],tagL:["Do‘stlar bilan","Для компании","For sharing","للمشاركة"],
+sizeS:["Kichik","Маленький","Small","صغير"],sizeM:["O‘rta","Средний","Medium","وسط"],sizeL:["Katta","Большой","Large","كبير"],
+metaS:["100 g · cho‘ntak qutisi, sous tortmasi bilan","100 г · пачка с отсеком для соуса","100 g · flip-top pack with a sauce drawer","100 غ · علبة صغيرة مع درج للصوص"],
+metaM:["150 g · dumaloq kosa","150 г · круглый стакан","150 g · round bowl","150 غ · صحن دائري"],
+metaL:["200 g · sous bo‘limli katta quti","200 г · большой бокс с отсеками для соусов","200 g · big box with sauce compartments","200 غ · بوكس كبير بأقسام للصوص"],
+orderS:["Buyurtma","Заказать","Order","اطلب"],
+r1:["🥫 1 sous bepul · qo‘shimchasi 4,000","🥫 1 соус бесплатно · доп. 4,000","🥫 1 free sauce · extra 4,000","🥫 صوص مجاني · الإضافي 4,000"],
+r2:["🧂 Qo‘shimcha ziravor 4,000","🧂 Доп. специя 4,000","🧂 Extra spice 4,000","🧂 بهار إضافي 4,000"],
+r3:["🛵 Yetkazib berish va olib ketish","🛵 Доставка и самовывоз","🛵 Delivery & pickup","🛵 توصيل واستلام"],
+drKick:["Sharbat va suv","Соки и вода","Juices & water","عصائر ومي"],drH:["Muzdek<br>4 xil ta’m","Ледяные<br>4 вкуса","Ice-cold<br>4 flavours","4 نكهات<br>باردة"],
+fBottle:["Shisha","Бутылка","Bottle","قنينة"],fCan:["Banka","Банка","Can","علبة"],fPouch:["Paket","Пакет","Pouch","كيس"],
+jMango:["Mango","Манго","Mango","مانجو"],jBerry:["Rezavor","Ягоды","Berry","توت"],jLemon:["Limon","Лимон","Lemon","ليمون"],jOrange:["Apelsin","Апельсин","Orange","برتقال"],water:["KARTO suvi 0,5 L","Вода KARTO 0,5 л","KARTO Water 0.5 L","مي KARTO 0.5 لتر"],
+saKick:["Souslar","Соусы","Sauces","الصوصات"],saH:["Uyda tayyorlangan souslar","Домашние соусы","House sauces","صوصات البيت"],
+saP:["Har porsiyaga bittasi bepul. Qo‘shimchasi — 4,000.","Один к каждой порции бесплатно. Дополнительный — 4,000.","One free with every meal. Each extra — 4,000.","واحد مجاني مع كل وجبة. الإضافي بـ 4,000."],
+sKetchup:["Ketchup","Кетчуп","Ketchup","كاتشب"],sCheese:["Pishloq","Сырный","Cheese","جبنة"],sGarlic:["Sarimsoq","Чесночный","Garlic","ثوم"],sBbq:["BBQ","BBQ","BBQ","باربكيو"],
+spKick:["Ziravorlar","Специи","Spices","البهارات"],spH:["7 ta ta’m","7 вкусов","7 flavours","7 نكهات"],
+spP:["Kartoshkangizga seping yoki uyga banka olib keting.","Посыпь картошку или забери баночку домой.","Shake them on your fries or take a jar home.","رشّها على بطاطتك أو خذ علبة للبيت."],
+xClassic:["Klassik","Классика","Classic","كلاسيك"],xCheese:["Pishloq","Сырная","Cheese","جبنة"],xSpicy:["Achchiq","Острая","Spicy","حار"],xBbq:["BBQ","Барбекю","BBQ","باربكيو"],xGarlic:["Sarimsoq","Чесночная","Garlic","ثوم"],xHerbs:["O‘tlar","Травы","Herbs","أعشاب"],xSour:["Smetana","Сметана","Sour Cream","قشطة"],
+n1:["Kichik: 1 bepul","Маленький: 1 бесплатно","Small: 1 free","صغير: 1 مجاناً"],n2:["O‘rta: 2 bepul","Средний: 2 бесплатно","Medium: 2 free","وسط: 2 مجاناً"],n3:["Katta: 3 bepul · banka 5,000","Большой: 3 бесплатно · баночка 5,000","Large: 3 free · jar 5,000","كبير: 3 مجاناً · العلبة 5,000"],
+howKick:["Oddiy","Просто","Simple","سهلة"],howH:["4 qadamda<br>buyurtma","Заказ<br>за 4 шага","Order in<br>4 steps","اطلب<br>بـ 4 خطوات"],
+s1:["Hajmni tanlang","Выбери размер","Pick a size","اختار الحجم"],s1p:["Kichik, o‘rta yoki katta.","Маленький, средний или большой.","Small, medium or large.","صغير، وسط أو كبير."],
+s2:["Ziravor qo‘shing","Добавь специи","Add spices","زيد البهارات"],s2p:["7 xil ta’mdan 3 tagacha.","До 3 из 7 вкусов.","Up to 3 of our 7 flavours.","لحد 3 من 7 نكهات."],
+s3:["Sous va ichimlik","Соус и напиток","Sauce & drink","صوص ومشروب"],s3p:["Bitta sous bepul, sharbat yoki suv qo‘shing.","Один соус бесплатно, добавь сок или воду.","One sauce is free; add a juice or water.","صوص مجاني، وزيد عصير أو مي."],
+s4:["Oling yoki kuting","Забери или жди","Pick up or relax","استلم أو استنى"],s4p:["Ilovada buyurtmani kuzating — kuryer olib keladi.","Следи за заказом в приложении — курьер привезёт.","Track it in the app — or we deliver to your door.","تابع طلبك بالتطبيق — أو بنوصله لبابك."],
+gH:["Kutyapsizmi? O‘ynang!","Ждёшь? Играй!","Waiting? Play!","ناطر؟ العب!"],gP:["KARTO Snake: kartoshka va sousni yig‘ib, rekordingni yangila.","KARTO Snake: собирай картошку и соус и побей рекорд.","KARTO Snake: collect fries and sauce, beat your best score.","KARTO Snake: اجمع البطاطا والصوص واكسر رقمك."],gB:["O‘ynash","Играть","Play now","العب الآن"],
+fKick:["Bizni toping","Приходи","Come by","زورنا"],fH:["Toshkentda<br>KARTO","KARTO<br>в Ташкенте","KARTO<br>Tashkent","KARTO<br>طشقند"],
+iAddr:["Manzil","Адрес","Address","العنوان"],iHours:["Ish vaqti","Часы работы","Opening hours","ساعات العمل"],iPhone:["Telefon","Телефон","Phone","الهاتف"],iSocial:["Ijtimoiy tarmoqlar","Соцсети","Social","التواصل"],
+addr:["Toshkent · manzil tez orada","Ташкент · адрес скоро","Tashkent · address coming soon","طشقند · العنوان قريباً"],
+foot:["© 2026 KARTO. Oddiy kartoshkadan ko‘proq.","© 2026 KARTO. Больше, чем картошка.","© 2026 KARTO. Beyond ordinary potatoes.","© 2026 KARTO. أكثر من مجرد بطاطا."],appBtn:["Ilovani ochish","Открыть приложение","Open the app","افتح التطبيق"]
+};
+const L=["uz","ru","en","ar"],CUR={uz:"so‘m",ru:"сум",en:"UZS",ar:"سوم"};
+let lang;try{lang=localStorage.getItem("karto-lang")}catch(e){}if(!L.includes(lang))lang="uz";
+const P={s:18000,m:25000,l:33000,mango:17000,berry:17000,lemon:17000,orange:17000,water:5000,ketchup:4000,cheese:4000,garlic:4000,bbq:4000};
+const fmt=n=>String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,",")+" "+CUR[lang];
+function apply(){const i=L.indexOf(lang);document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+ document.querySelectorAll("[data-t]").forEach(e=>{const v=T[e.dataset.t];if(v)e.innerHTML=v[i]});
+ document.querySelectorAll("[data-th]").forEach(e=>{const v=T[e.dataset.th];if(v)e.innerHTML=v[i]});
+ document.querySelectorAll("[data-p]").forEach(e=>{if(P[e.dataset.p]!=null)e.textContent=fmt(P[e.dataset.p])});
+ document.querySelectorAll("#lang button").forEach(b=>b.classList.toggle("on",b.dataset.l===lang));
+ document.title="KARTO · "+["Toshkent","Ташкент","Tashkent","طشقند"][i];}
+document.getElementById("lang").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;lang=b.dataset.l;try{localStorage.setItem("karto-lang",lang)}catch(x){}if(window.KARTO)KARTO.lang=lang;apply()});
+document.getElementById("burger").onclick=()=>document.getElementById("links").classList.toggle("open");
+document.querySelectorAll("#links a").forEach(a=>a.addEventListener("click",()=>document.getElementById("links").classList.remove("open")));
+document.getElementById("fmt").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;document.querySelectorAll("#fmt button").forEach(x=>x.classList.toggle("on",x===b));
+ document.querySelectorAll("[data-d]").forEach(img=>{img.style.opacity=0;setTimeout(()=>{img.src="./img/"+b.dataset.f+"-"+img.dataset.d+".webp";img.style.opacity=1},180)})});
+document.getElementById("play").onclick=()=>{if(window.KARTO&&KARTO.snake)KARTO.snake()};
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:0,rootMargin:"0px 0px -40px 0px"});setTimeout(()=>document.querySelectorAll(".rv").forEach(e=>{if(e.getBoundingClientRect().top<innerHeight)e.classList.add("in")}),60);
+document.querySelectorAll(".rv").forEach((el,k)=>{el.style.transitionDelay=(k%5)*70+"ms";io.observe(el)});
+apply();
+// live prices from the KARTO server (owner edits menu → site updates)
+if(!window.KARTO_PLAY)fetch("/api/menu").then(r=>r.ok?r.json():null).then(m=>{if(!m||!m.sizes)return;m.sizes.forEach(s=>P[s.id]=s.price);(m.drinks||[]).forEach(d=>P[d.id]=d.price);(m.sauces||[]).forEach(d=>P[d.id]=d.price);apply()}).catch(()=>{});
+if(!window.KARTO_PLAY)fetch("/api/status").then(r=>r.ok?r.json():null).then(s=>{if(s&&s.branch&&s.branch.phone&&!/_/.test(s.branch.phone))document.getElementById("phone").textContent=s.branch.phone}).catch(()=>{});
+})();
+</script>
+<script src="./assets/karto-i18n.js"></script><script src="./assets/karto-lite.js"></script><script src="./assets/karto-fun.js"></script>
 </body></html>
