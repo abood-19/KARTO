@@ -1,23 +1,66 @@
 <!doctype html>
-<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>KARTO Play</title>
-<link rel="icon" href="./img/cone-sm.webp"><meta name="theme-color" content="#E3141B">
-<link rel="stylesheet" href="./assets/index-BwPlixjC.css"><link rel="stylesheet" href="./assets/karto-lite.css"><link rel="stylesheet" href="./assets/karto-brand.css">
-<style>.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
-.tile{display:flex;flex-direction:column;gap:10px;padding:24px;border:3px solid var(--ink);border-radius:var(--r);box-shadow:6px 6px 0 var(--ink);text-decoration:none;color:var(--ink);min-height:180px}
-.tile .ic{font-size:46px;line-height:1}.tile b{font-family:var(--display);font-size:26px}.tile span{font-weight:700;opacity:.85}
-.a{background:var(--green-d);color:var(--cream)}.b{background:var(--orange);color:#fff}.c{background:var(--yellow)}.d{background:var(--cream-d)}.e{background:#8EC5FF}</style>
-</head><body>
-<header class="kl-top"><div class="wrap"><div><span class="kl-logo">KARTO</span><h1>نسخة التجربة — بدون تسجيل دخول</h1><p>افتح أي نظام وجرّبه مباشرة. كل الأقسام مفتوحة، والبيانات بتنحفظ بهالمتصفح بس.</p></div><div data-langbar="dark"></div></div></header>
-<div class="kl-check"></div>
-<main class="kl-main"><div class="wrap"><div class="tiles">
-  <a class="tile a" href="./owner/index.html?from=hub"><span class="ic">👑</span><b>صاحب الشركة</b><span>لوحة التحكم الكاملة، العروض، الحضور، الأقسام</span></a>
-  <a class="tile b" href="./restaurant/index.html?from=hub"><span class="ic">🏪</span><b>نظام المطعم</b><span>كاشير · مطبخ · شاشة عرض · توصيل · موظفين · مدير فرع</span></a>
-  <a class="tile c" href="./app/index.html?from=hub"><span class="ic">📱</span><b>تطبيق الزبون</b><span>اطلب، تابع طلبك، الفاتورة</span></a>
-  <a class="tile d" href="./site/index.html?from=hub"><span class="ic">🌐</span><b>الموقع</b><span>موقع KARTO للناس</span></a>
-  <a class="tile e" href="./courier/index.html?from=hub"><span class="ic">🛵</span><b>تطبيق المندوب</b><span>الطلبات الجاهزة والتوصيل</span></a>
+<html lang="uz" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KARTO · Demo</title>
+<link rel="icon" href="./assets/karto-face.png"><meta name="theme-color" content="#E3141B">
+<link rel="stylesheet" href="./assets/karto-fonts.css">
+<style>
+:root{--red:#E3141B;--yel:#FFC21A;--ink:#1C0F0D;--ink-2:#6A5148;--cream:#FFF8EC}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:600 16px/1.5 "Nunito","Tajawal",system-ui,sans-serif}
+[dir=rtl] body{font-family:"Tajawal","Nunito",system-ui,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+header{padding:28px 0 10px}header .wrap{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+header img{height:64px}
+.lang{margin-inline-start:auto;display:flex;background:#fff;border-radius:999px;padding:4px;gap:2px}
+.lang button{border:0;background:none;font:800 12px/1 inherit;padding:9px 11px;border-radius:999px;cursor:pointer;color:var(--ink-2)}.lang button.on{background:var(--yel);color:var(--ink)}
+h1{font:400 clamp(40px,6vw,72px)/.95 "Bebas Neue","Oswald","Lalezar",sans-serif;margin:24px 0 8px;text-transform:uppercase}
+[lang=ru] h1{font-weight:700}[dir=rtl] h1{line-height:1.2}
+.sub{color:var(--ink-2);margin:0 0 30px;max-width:640px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.tile{position:relative;display:flex;flex-direction:column;gap:8px;padding:24px;border-radius:28px;text-decoration:none;color:var(--ink);min-height:190px;background:#fff;transition:transform .25s,box-shadow .25s;overflow:hidden}
+.tile:hover{transform:translateY(-4px);box-shadow:0 24px 40px -26px rgba(80,20,10,.5)}
+.tile .ic{font-size:40px}.tile b{font:800 24px/1.1 "Baloo 2","Lalezar","Nunito",sans-serif}.tile span{color:var(--ink-2);font-size:14.5px}
+.tile.a{background:var(--ink);color:#fff}.tile.a span{color:#E9D9CC}.tile.b{background:var(--red);color:#fff}.tile.b span{color:#FFE1D9}.tile.c{background:var(--yel)}.tile.c span{color:#4A2A10}
+.flow{margin-top:26px;background:#fff;border-radius:22px;padding:18px 22px;font-weight:800}
+.acc{margin-top:18px;background:#fff;border-radius:22px;padding:18px 22px}
+.acc h3{margin:0 0 10px;font:800 18px/1.2 "Baloo 2","Lalezar","Nunito",sans-serif}
+.acc table{width:100%;border-collapse:collapse;font-size:14.5px}.acc td{padding:8px 6px;border-top:1px solid #F1E6DA}.acc td:last-child{font-weight:900;direction:ltr;unicode-bidi:isolate;text-align:end}
+footer{padding:30px 0;color:var(--ink-2);font-size:13px}
+</style></head><body>
+<header><div class="wrap"><img src="./assets/karto-logo.png" alt="KARTO"><div class="lang" id="lang"><button data-l="uz">UZ</button><button data-l="ru">RU</button><button data-l="en">EN</button><button data-l="ar">عربي</button></div></div></header>
+<main class="wrap">
+<h1 data-t="h"></h1><p class="sub" data-t="sub"></p>
+<div class="tiles">
+  <a class="tile a" href="./owner/index.html?from=hub"><span class="ic">👑</span><b data-t="t1"></b><span data-t="d1"></span></a>
+  <a class="tile b" href="./restaurant/index.html?from=hub"><span class="ic">🏪</span><b data-t="t2"></b><span data-t="d2"></span></a>
+  <a class="tile c" href="./app/index.html?from=hub"><span class="ic">📱</span><b data-t="t3"></b><span data-t="d3"></span></a>
+  <a class="tile" href="./site/index.html?from=hub"><span class="ic">🌐</span><b data-t="t4"></b><span data-t="d4"></span></a>
+  <a class="tile" href="./courier/index.html?from=hub"><span class="ic">🛵</span><b data-t="t5"></b><span data-t="d5"></span></a>
 </div>
-<p style="font-weight:700;color:var(--ink-2);margin-top:24px">جرّب: اطلب من تطبيق الزبون ← بيوصل للكاشير والمطبخ ← بيبين على شاشة العرض ← المندوب بيوصّله.</p>
-</div></main>
-<script src="./config.js"></script><script src="./assets/karto-i18n.js"></script><script src="./assets/karto-lite.js"></script>
-</body></html>
+<div class="flow" data-t="flow"></div>
+<div class="acc"><h3 data-t="accH"></h3><table>
+<tr><td data-t="r1"></td><td>demo / karto2026</td></tr>
+<tr><td data-t="r2"></td><td>PIN 2222</td></tr>
+<tr><td data-t="r3"></td><td>PIN 3333</td></tr>
+<tr><td data-t="r4"></td><td>PIN 4444</td></tr>
+<tr><td data-t="r5"></td><td>PIN 5555</td></tr>
+</table></div>
+</main>
+<footer class="wrap" data-t="foot"></footer>
+<script src="./config.js"></script>
+<script>
+(function(){const T={
+h:["Sinov versiyasi","Демо-версия","Demo version","نسخة التجربة"],
+sub:["Istalgan bo‘limni oching va darhol sinab ko‘ring. Ma’lumotlar faqat shu brauzerda saqlanadi.","Открой любой раздел и сразу попробуй. Данные хранятся только в этом браузере.","Open any part of the system and try it right away. Data is saved only in this browser.","افتح أي قسم وجرّبه مباشرة. البيانات بتنحفظ بهالمتصفح بس."],
+t1:["Kompaniya egasi","Владелец","Owner","صاحب الشركة"],d1:["To‘liq boshqaruv paneli, aksiyalar, davomat, bo‘limlar","Полная панель управления, акции, посещаемость, разделы","Full dashboard, offers, attendance, sections","لوحة التحكم الكاملة، العروض، الحضور، الأقسام"],
+t2:["Restoran tizimi","Система ресторана","Restaurant system","نظام المطعم"],d2:["Kassa · oshxona · ekran · yetkazish · xodimlar · menejer","Касса · кухня · экран · доставка · сотрудники · управляющий","Cashier · kitchen · screen · delivery · staff · manager","كاشير · مطبخ · شاشة · توصيل · موظفين · مدير الفرع"],
+t3:["Mijoz ilovasi","Приложение клиента","Customer app","تطبيق الزبون"],d3:["Buyurtma bering, kuzating, chek oling","Закажи, отслеживай, получи чек","Order, track your order, get the receipt","اطلب، تابع طلبك، الفاتورة"],
+t4:["Veb-sayt","Сайт","Website","الموقع الإلكتروني"],d4:["Mijozlar uchun KARTO sayti","Сайт KARTO для гостей","The public KARTO website","موقع KARTO للزبائن"],
+t5:["Kuryer ilovasi","Приложение курьера","Courier app","تطبيق المندوب"],d5:["Tayyor buyurtmalar va yetkazish","Готовые заказы и доставка","Ready orders and delivery","الطلبات الجاهزة والتوصيل"],
+flow:["Sinab ko‘ring: ilovadan buyurtma → kassa va oshxonaga keladi → ekranda chiqadi → kuryer yetkazadi.","Попробуй: закажи в приложении → заказ придёт на кассу и кухню → появится на экране → курьер доставит.","Try it: order in the app → it reaches the cashier and kitchen → shows on the screen → the courier delivers it.","جرّب: اطلب من التطبيق ← بيوصل للكاشير والمطبخ ← بيبين على الشاشة ← المندوب بيوصّله."],
+accH:["Sinov uchun kirish ma’lumotlari","Входы для демо","Demo logins","بيانات الدخول للتجربة"],
+r1:["Egasi (login / parol)","Владелец (логин / пароль)","Owner (username / password)","صاحب الشركة (اسم / كلمة سر)"],r2:["Filial menejeri","Управляющий","Branch manager","مدير الفرع"],r3:["Kassir","Кассир","Cashier","الكاشير"],r4:["Oshxona","Кухня","Kitchen","المطبخ"],r5:["Kuryer","Курьер","Courier","المندوب"],
+foot:["Bu faqat sinov uchun. Haqiqiy tizimda parollar va PIN-kodlar boshqacha.","Это только демо. В настоящей системе пароли и PIN другие.","This is a demo only. The real system uses different passwords and PINs.","هاي نسخة تجربة بس. بالنظام الحقيقي كلمات السر والـ PIN غير."]
+};const L=["uz","ru","en","ar"];let l;try{l=localStorage.getItem("karto-lang")}catch(e){}if(!L.includes(l))l="uz";
+function a(){const i=L.indexOf(l);document.documentElement.lang=l;document.documentElement.dir=l==="ar"?"rtl":"ltr";document.querySelectorAll("[data-t]").forEach(e=>e.textContent=T[e.dataset.t][i]);document.querySelectorAll("#lang button").forEach(b=>b.classList.toggle("on",b.dataset.l===l))}
+document.getElementById("lang").onclick=e=>{const b=e.target.closest("button");if(!b)return;l=b.dataset.l;try{localStorage.setItem("karto-lang",l)}catch(x){}a()};a()})();
+</script></body></html>

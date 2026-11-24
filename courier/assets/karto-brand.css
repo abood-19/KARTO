@@ -1,5 +1,5 @@
 /* KARTO 2026 identity: white ground, ketchup red + potato yellow, playful rounded type, official sticker logo */
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Baloo+Bhaijaan+2:wght@600;700;800&family=Nunito:wght@600;700;800;900&display=swap");
+@import url("karto-fonts.css");
 :root{
   --cream:#FFFFFF;--cream-d:#FFF7E8;--paper:#FFFFFF;--line:#F1E6DA;--line-2:#EADBC8;
   --green:#E3141B;--green-l:#FF4A3D;--green-d:#3A0D0A;
@@ -7,8 +7,8 @@
   --ink:#2B1210;--ink-2:#6E4B44;
   --gold-a:#FFD34D;--gold-b:#FFC21A;--gold-c:#F2A900;
   --soft:0 18px 40px -24px rgba(120,20,10,.35);--pop:0 12px 26px -16px rgba(120,20,10,.4);
-  --display:"Baloo 2","Baloo Bhaijaan 2","Nunito",system-ui,sans-serif;
-  --body:"Nunito","Baloo Bhaijaan 2",system-ui,sans-serif;
+  --display:"Baloo 2","Lalezar","Nunito",system-ui,sans-serif;
+  --body:"Nunito","Tajawal",system-ui,sans-serif;
 }
 html,body{background:#fff!important}
 body{font-family:var(--body)}
