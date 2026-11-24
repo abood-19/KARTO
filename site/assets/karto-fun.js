@@ -38,6 +38,14 @@
 .ksn__pad .e{visibility:hidden}
 .kgame-btn{display:flex;align-items:center;gap:10px;width:100%;margin:12px 0;border:0;border-radius:18px;padding:14px 16px;background:linear-gradient(90deg,#FFF1C6,#FFD84D);color:#2B1210;font:800 15px/1.3 system-ui,sans-serif;cursor:pointer;text-align:start}
 .kgame-btn b{font-size:26px}
+.kfmt{display:flex;gap:8px;margin:4px 0 14px;flex-wrap:wrap}
+.kfmt button{display:flex;align-items:center;gap:8px;border:2px solid #F0DCC8;background:#fff;border-radius:999px;padding:6px 14px 6px 6px;font:800 14px/1 var(--body,sans-serif);cursor:pointer;color:#2B1210}
+[dir=rtl] .kfmt button{padding:6px 6px 6px 14px}
+.kfmt button img{width:34px;height:34px;object-fit:contain;mix-blend-mode:multiply}
+.kfmt button.on{border-color:#E3141B;background:#FFF1EF;color:#B00E14}
+body.kf-bottle .addon--f-can,body.kf-bottle .addon--f-pouch,body.kf-can .addon--f-bottle,body.kf-can .addon--f-pouch,body.kf-pouch .addon--f-bottle,body.kf-pouch .addon--f-can{display:none!important}
+.kad__img img{height:86%!important;width:auto!important;max-width:96%!important;object-fit:contain!important}
+
 .kcat{max-width:1180px;margin:10px auto 34px;padding:0 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 @media(max-width:980px){.kcat{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.kcat{grid-template-columns:1fr}}
 .kcat a{position:relative;display:flex;flex-direction:column;border-radius:28px;padding:20px 20px 16px;text-decoration:none;color:#2B1210;min-height:300px;overflow:hidden;transition:transform .25s,box-shadow .25s}
@@ -127,6 +135,24 @@
     o.querySelector('.ksn__x').onclick = close; addEventListener('keydown', key); document.addEventListener('visibilitychange', vis);
     reset(); raf = requestAnimationFrame(loop);
   };
+
+
+  // juice format picker (bottle / can / pouch) in the builder
+  const FMT = [['bottle', 'juice', ['Shisha', 'Бутылка', 'Bottle', 'قنينة']], ['can', 'can', ['Banka', 'Банка', 'Can', 'علبة']], ['pouch', 'pouch', ['Paket', 'Пакет', 'Pouch', 'كيس']]];
+  const LI = { uz: 0, ru: 1, en: 2, ar: 3 };
+  const fmtTabs = () => {
+    const first = document.querySelector('.addon--f-bottle, .addon--f-can, .addon--f-pouch');
+    if (!first) return;
+    if (!/kf-/.test(document.body.className)) document.body.classList.add('kf-bottle');
+    const lang = (typeof K.lang === 'function' ? K.lang() : K.lang) || 'uz';
+    let bar = document.querySelector('.kfmt');
+    if (!bar) { bar = document.createElement('div'); bar.className = 'kfmt'; first.parentNode.insertBefore(bar, first);
+      bar.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; document.body.classList.remove('kf-bottle', 'kf-can', 'kf-pouch'); document.body.classList.add('kf-' + b.dataset.f); bar.querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b)); }); }
+    if (bar.dataset.l === lang) return; bar.dataset.l = lang;
+    const cur = (document.body.className.match(/kf-(\w+)/) || [, 'bottle'])[1];
+    bar.innerHTML = FMT.map(([f, img, n]) => `<button type="button" data-f="${f}" class="${f === cur ? 'on' : ''}"><img src="./img/${img}-mango-sm.webp" alt="">${n[LI[lang] ?? 0]}</button>`).join('');
+  };
+  new MutationObserver(fmtTabs).observe(document.documentElement, { childList: true, subtree: true });
 
   // ---------- animated ad slot ----------
   const BASE = [

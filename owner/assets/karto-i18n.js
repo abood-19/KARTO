@@ -418,5 +418,9 @@ window.KARTO_I18N = {
 'كاتشب':['كاتشب','Ketchup','Кетчуп','Ketchup'],
 'باربكيو':['باربكيو','BBQ','Барбекю','BBQ'],
 'سوم':['سوم','so‘m','сум','UZS'],
+'Beyond Ordinary Potatoes.':['أكثر من مجرد بطاطا.','Oddiy kartoshkadan ko‘proq.','Больше, чем просто картошка.','Beyond Ordinary Potatoes.'],
+'Beyond Ordinary Potatoes':['أكثر من مجرد بطاطا','Oddiy kartoshkadan ko‘proq','Больше, чем просто картошка','Beyond Ordinary Potatoes'],
+'MADE YOUR WAY':['على ذوقك','O‘ZINGGA MOS','ПО-ТВОЕМУ','MADE YOUR WAY'],
+'Made Your Way':['على ذوقك','O‘zingga mos','По-твоему','Made Your Way'],
 };
 window.KARTO_I18N_PRE={"Drink": ["مشروب", "Ichimlik", "Напиток", "Drink"], "Packaging": ["تغليف", "Qadoq", "Упаковка", "Packaging"], "Seasoning": ["بهار", "Ziravor", "Приправа", "Seasoning"], "Sauce cup": ["كاسة صوص", "Sous idishi", "Соус", "Sauce cup"]};

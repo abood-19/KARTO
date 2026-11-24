@@ -105,3 +105,56 @@ html body .acc-btns.in-side button:hover{background:#FFE7A1!important}
 .footer .logo{font-size:80px!important}
 
 .tv__photo img{object-fit:contain!important;mix-blend-mode:multiply}
+/* ===== product photos: always show the whole product, on white ===== */
+.hero__photo img,.serve__card img,.combo img,.opt img,.builder-hero img,.pos-pack img,.tv__photo img,.size img,.addon img,.list-card img,.promo img,.story__img img,.mi-pic img{object-fit:contain!important;background:#fff;mix-blend-mode:multiply}
+.combo img,.opt img{padding:6px}
+.builder-hero{height:260px!important;background:#fff!important;border:2px solid #F1E2D0!important}
+.builder-hero img{padding:10px 0}
+.builder-hero__tag{background:var(--red)!important;color:#fff!important;border:0!important}
+.tv__photo img{object-position:center!important;padding:8px!important}
+/* rewards: mascot never covers the points */
+.rewards{padding-inline-end:120px!important;min-height:150px}
+.rewards>div:first-child{right:6px!important;left:auto!important;bottom:-6px!important;opacity:1!important;width:100px}
+[dir=rtl] .rewards>div:first-child{right:auto!important;left:6px!important}
+.rewards>div:first-child img{width:96px!important;height:auto!important}
+/* stronger colours */
+.sec-title h3,.sec-title h2{color:var(--red)!important}
+.size-card.on,.opt.on,.opt--on,.size-card--on{box-shadow:0 0 0 3px var(--red)!important}
+.addon,.opt,.size-card,.combo,.list-card,.card{border-color:#F0DCC8!important}
+.app__tabs a.on,.tabbar a.active{background:var(--yellow)!important}
+.opt:has(img){background:#fff!important;color:var(--ink)!important}
+.opt[aria-pressed=true]{box-shadow:0 0 0 3px var(--red),0 14px 30px -18px rgba(227,20,27,.6)!important}
+.opt__check{background:var(--red)!important;border:0!important}
+/* ===== audit fixes ===== */
+.promo .kicker{color:var(--red)!important}
+.promo img{left:6px!important;right:auto!important;bottom:6px!important;width:44%!important;transform:none!important;top:auto!important}
+.promo__txt{max-width:56%!important;margin-inline-start:auto}
+[dir=ltr] .promo img{left:auto!important;right:6px!important}[dir=ltr] .promo__txt{margin-inline-start:0;margin-inline-end:auto}
+/* kitchen: light, clear columns */
+.kds__col{background:#FFF6EC!important;border:2px solid #F0DCC8;border-top:8px solid var(--yellow)!important;color:var(--ink)!important}
+.kds__col--prep{border-top-color:var(--orange)!important}.kds__col--ready{border-top-color:#2E9E57!important}
+.kds__col>*:first-child,.kds__col h2,.kds__col h3{color:var(--ink)!important}
+.kds-card{background:#fff!important;border:2px solid #F0DCC8!important}
+/* management contact pill */
+.kl-contact{background:var(--red)!important;color:#fff!important;border-color:var(--ink)!important}
+/* restaurant tiles */
+.tiles .tile{background:#fff!important;color:var(--ink)!important;border:2px solid #F0DCC8!important;box-shadow:0 18px 34px -26px rgba(120,20,10,.5)!important}
+.tiles .tile *{color:var(--ink)!important}
+.tiles .tile.t1{background:var(--red)!important}.tiles .tile.t1 *{color:#fff!important}
+.tiles .tile.t2{background:var(--yellow)!important}
+.tiles .tile:hover{transform:translateY(-3px)}
+/* phone headers never overflow */
+@media(max-width:600px){
+ .st-bar{flex-wrap:wrap!important;height:auto!important;row-gap:6px;padding:8px 10px!important}
+ .st-bar nav{order:3;width:100%;overflow-x:auto;white-space:nowrap}
+ .st-bar .st-who{display:none!important}
+ .st-bar__r{gap:6px!important;margin-inline-start:auto}
+ .kl-top .wrap{flex-wrap:wrap!important;row-gap:10px}
+ .kl-top .wrap>*{max-width:100%}
+ .kds{grid-template-columns:1fr!important}
+}
+/* play-mode back pill: small, top centre, never over content */
+#karto-back{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important;left:8px!important;top:auto!important;width:40px;height:40px;padding:0!important;border-radius:50%!important;font-size:0!important;display:grid;place-items:center;box-shadow:2px 2px 0 #241A14!important;opacity:.9}
+#karto-back::before{content:"⌂";font-size:20px;line-height:1}
+.addon img{width:68px!important;height:68px!important;border:0!important;border-radius:16px!important;background:#fff;object-fit:contain!important}
+.addon--drink img{width:96px!important;height:96px!important}
