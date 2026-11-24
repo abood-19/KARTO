@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>KARTO · صاحب الشركة</title>
 <meta name="robots" content="noindex,nofollow">
-<link rel="icon" href="./icon-192.png"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#123D27"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><style>a[href="/staff/kds"],a[href="/staff/pos"],a[href="/staff/tv"],a[href="/admin"],.st-bar a[href="/"],.ad-ext{display:none!important}</style>
-<link rel="stylesheet" href="./assets/index-BwPlixjC.css"><link rel="stylesheet" href="./assets/karto-lite.css">
+<link rel="icon" href="./icon-192.png"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#F4B63F"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><style>a[href="/staff/kds"],a[href="/staff/pos"],a[href="/staff/tv"],a[href="/admin"],.st-bar a[href="/"],.ad-ext{display:none!important}</style>
+<link rel="stylesheet" href="./assets/index-BwPlixjC.css"><link rel="stylesheet" href="./assets/karto-lite.css"><link rel="stylesheet" href="./assets/karto-brand.css">
 <style>.acc-btns.in-side{position:static;flex-direction:column;gap:4px;margin-top:12px;padding-top:12px;border-top:2px solid #ffffff22;z-index:auto}
 .acc-btns.in-side button,.acc-btns.in-side #bSys{min-height:42px;width:100%;display:flex!important;align-items:center;justify-content:flex-start;text-align:start;background:#ffffff12!important;color:var(--cream)!important;border:0!important;box-shadow:none!important;border-radius:14px!important;padding:0 14px!important;font-family:var(--body)!important;font-weight:800!important;font-size:15px}
 .acc-btns.in-side button:hover,.acc-btns.in-side #bSys:hover{background:#ffffff22!important}.acc-btns.in-side #bSys{background:var(--yellow)!important;color:var(--ink)!important}
@@ -17,22 +17,23 @@
   <div data-langbar style="margin:10px 0"></div><h2 id="gTitle" style="font-family:var(--display);margin:10px 0 4px"></h2>
   <p id="gLead" style="margin:0 0 16px;font-weight:700;color:var(--ink-2)"></p>
   <form id="fLogin" class="kl-form" hidden>
-    <label><span>اسم المستخدم</span><input name="username" autocomplete="username" required></label>
-    <label><span>كلمة السر</span><input name="password" type="password" autocomplete="current-password" required></label>
+    <input type="hidden" name="username" value="owner" autocomplete="username">
+    <label><span>كلمة السر</span><input name="password" type="password" autocomplete="current-password" required autofocus></label>
     <button class="btn btn--yellow btn--block">دخول</button>
     <button type="button" class="kl-link" data-go="forgot">نسيت كلمة السر؟</button>
   </form>
   <form id="fSetup" class="kl-form" hidden>
     <label id="keyRow" hidden><span>رمز التجهيز (بيطلع بشاشة السيرفر أول تشغيل)</span><input name="setupKey" dir="ltr"></label>
-    <label><span>اسم المستخدم</span><input name="username" autocomplete="username" minlength="3" required></label>
+    <input type="hidden" name="username" value="owner">
     <label><span>كلمة السر (8 أحرف أو أكثر)</span><input name="password" type="password" autocomplete="new-password" minlength="8" required></label>
+    <label><span>أعد كتابة كلمة السر</span><input name="password2" type="password" autocomplete="new-password" minlength="8" required></label>
     <label><span>البريد الإلكتروني (لاسترجاع كلمة السر)</span><input name="email" type="email" dir="ltr"></label>
-    <label><span>رقم التلفون</span><input name="phone" dir="ltr" placeholder="+998 90 123 45 67"></label>
-    <label><span>Telegram chat ID (اختياري — بيوصلك رمز الاسترجاع على تيليغرام)</span><input name="telegram" dir="ltr"></label>
+    <p style="margin:0;font-weight:700;color:var(--ink-2);font-size:14px">بعد الدخول: «حسابي» ← «ربط تيليغرام» لحتى يوصلك رمز الاسترجاع على تيليغرام كمان.</p>
     <button class="btn btn--yellow btn--block">إنشاء الحساب</button>
   </form>
   <form id="fForgot" class="kl-form" hidden>
-    <label><span>اسم المستخدم أو الإيميل أو التلفون</span><input name="login" required dir="auto"></label>
+    <input type="hidden" name="login" value="owner">
+    <p style="margin:0;font-weight:700">رح نبعتلك رمز من 6 أرقام على تيليغرام والإيميل المربوطين بالحساب.</p>
     <button class="btn btn--yellow btn--block">ابعتلي رمز</button>
     <button type="button" class="kl-link" data-go="login">رجوع للدخول</button>
   </form>
@@ -61,7 +62,7 @@ const data = (f) => Object.fromEntries(new FormData(f));
 function enter(r) { localStorage.setItem(TK, r.token); localStorage.setItem('karto-staff', JSON.stringify(r.staff)); boot(); }
 async function guard(f, fn) { const b = f.querySelector('button:not([type=button])'); b.disabled = true; $('gErr').textContent = ''; try { await fn(); } catch (e) { $('gErr').textContent = e.message; } b.disabled = false; }
 $('fLogin').onsubmit = (e) => { e.preventDefault(); guard(e.target, async () => enter(await KARTO.api('/auth/admin-login', { method: 'POST', body: data(e.target) }))); };
-$('fSetup').onsubmit = (e) => { e.preventDefault(); guard(e.target, async () => enter(await KARTO.api('/auth/admin-setup', { method: 'POST', body: data(e.target) }))); };
+$('fSetup').onsubmit = (e) => { e.preventDefault(); guard(e.target, async () => { const d = data(e.target); if (d.password !== d.password2) throw new Error(KARTO.t('كلمتين السر مش متطابقتين')); delete d.password2; enter(await KARTO.api('/auth/admin-setup', { method: 'POST', body: d })); }); };
 $('fForgot').onsubmit = (e) => { e.preventDefault(); guard(e.target, async () => { const r = await KARTO.api('/auth/admin-forgot', { method: 'POST', body: data(e.target) }); view('reset');
   $('gOk').textContent = r._code ? KARTO.t('نسخة تجريبية: الرمز هو {c}', { c: r._code }) : r.via && r.via.length ? KARTO.t('انبعت الرمز على: {v}', { v: r.via.join(', ') }) : KARTO.t('إذا البيانات صح، بيوصلك الرمز خلال دقيقة.'); }); };
 $('fReset').onsubmit = (e) => { e.preventDefault(); guard(e.target, async () => { await KARTO.api('/auth/admin-reset', { method: 'POST', body: data(e.target) }); view('login'); $('gOk').textContent = KARTO.t('تغيّرت كلمة السر. ادخل هلأ.'); }); };
@@ -71,6 +72,9 @@ let loaded = false;
 async function boot() {
   try { await KARTO.api('/admin/account'); } catch (e) {
     localStorage.removeItem(TK); localStorage.removeItem('karto-staff');
+    if (window.KARTO_PLAY && !boot.tried) { boot.tried = true; const cred = { username: 'demo', password: 'karto2026', name: 'KARTO Demo' };
+      try { return enter(await KARTO.api('/auth/admin-login', { method: 'POST', body: cred })); } catch {}
+      try { return enter(await KARTO.api('/auth/admin-setup', { method: 'POST', body: cred })); } catch {} }
     try { const s = await KARTO.api('/auth/admin-status'); view(s.setup ? 'login' : 'setup'); } catch (er) { view('login'); $('gErr').textContent = er.message; }
     return;
   }
@@ -87,13 +91,13 @@ function modal(html) { const m = document.createElement('div'); m.className = 'm
 async function account() {
   const a = await KARTO.api('/admin/account').catch(() => ({}));
   const m = modal(`<h2 style="font-family:var(--display);margin:0 0 12px">حسابي</h2><form class="kl-form" id="fAcc">
-  <label><span>اسم المستخدم</span><input name="username" value="${KARTO.esc(a.username)}"></label>
-  <label><span>البريد الإلكتروني</span><input name="email" type="email" dir="ltr" value="${KARTO.esc(a.email)}"></label>
-  <label><span>التلفون</span><input name="phone" dir="ltr" value="${KARTO.esc(a.phone)}"></label>
-  <label><span>Telegram chat ID</span><input name="telegram" dir="ltr" value="${KARTO.esc(a.telegram)}"></label>
+  <label><span>البريد الإلكتروني (لاسترجاع كلمة السر)</span><input name="email" type="email" dir="ltr" value="${KARTO.esc(a.email)}"></label>
+  <div class="kl-staff"><span>✈️ ${KARTO.t('تيليغرام')}: <b>${a.telegram ? KARTO.t('مربوط ✓') : KARTO.t('مش مربوط')}</b></span><button type="button" class="btn btn--sm" id="tgLink">${KARTO.t('ربط تيليغرام')}</button></div>
+  <p id="tgMsg" style="margin:0;font-weight:700"></p>
   <label><span>كلمة سر جديدة (اتركها فاضية إذا ما بدك تغيّر)</span><input name="password" type="password" autocomplete="new-password"></label>
   <label><span>كلمة السر الحالية (للتأكيد)</span><input name="currentPassword" type="password" autocomplete="current-password" required></label>
   <button class="btn btn--yellow btn--block">حفظ</button><p class="kl-err" id="aErr"></p></form>`);
+  m.querySelector('#tgLink').onclick = async () => { const o = m.querySelector('#tgMsg'); try { const r = await KARTO.api('/tg/link'); o.innerHTML = `<a href="${KARTO.esc(r.url)}" target="_blank" rel="noopener" class="btn btn--yellow btn--block">${KARTO.t('افتح البوت واضغط Start')}</a>`; } catch (er) { o.className = 'kl-err'; o.textContent = er.status === 404 || er.status === 501 ? KARTO.t('تيليغرام بيشتغل لما يكون السيرفر شغال ومعه TELEGRAM_BOT_TOKEN') : er.message; } };
   m.querySelector('#fAcc').onsubmit = async (e) => { e.preventDefault(); const d = data(e.target); if (!d.password) delete d.password;
     try { await KARTO.api('/admin/account', { method: 'PUT', body: d }); m.querySelector('#aErr').className = 'kl-ok'; m.querySelector('#aErr').textContent = 'انحفظ ✓'; } catch (er) { m.querySelector('#aErr').className = 'kl-err'; m.querySelector('#aErr').textContent = er.message; } };
 }

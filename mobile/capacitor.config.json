@@ -1,0 +1,8 @@
+{
+  "appId": "uz.karto.app",
+  "appName": "KARTO",
+  "webDir": "www",
+  "backgroundColor": "#FFFFFF",
+  "android": { "allowMixedContent": false },
+  "ios": { "contentInset": "always" }
+}

@@ -64,6 +64,27 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '
 const CORS = { 'access-control-allow-origin': '*', 'access-control-allow-headers': 'authorization, content-type', 'access-control-allow-methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS' };
 const send = (res, code, body, type = 'application/json') => { res.writeHead(code, { 'content-type': type, 'cache-control': 'no-store', ...CORS }); res.end(body); };
 
+// ---- Telegram bot poller (only when TELEGRAM_BOT_TOKEN is set) ----
+const TG = { token: process.env.TELEGRAM_BOT_TOKEN || '', username: '', pending: new Map(), offset: 0 };
+async function tgCall(m, body) { const r = await nativeFetch(`https://api.telegram.org/bot${TG.token}/${m}`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body || {}) }); return r.json(); }
+async function tgLoop() {
+  if (!TG.token) return;
+  try { const me = await tgCall('getMe'); TG.username = me.result && me.result.username || ''; console.log('  Telegram bot: @' + TG.username); } catch (e) { console.log('  Telegram bot error:', e.message); }
+  for (;;) {
+    try {
+      const u = await tgCall('getUpdates', { offset: TG.offset, timeout: 30 });
+      for (const up of (u.result || [])) {
+        TG.offset = up.update_id + 1; const msg = up.message; if (!msg || !msg.text) continue;
+        const m = /^\/start\s+([a-f0-9]{12})$/.exec(msg.text.trim()); const exp = m && TG.pending.get(m[1]);
+        if (exp && exp > Date.now()) {
+          TG.pending.delete(m[1]); const d = db(); if (d && d.admin) { d.admin.telegram = String(msg.chat.id); store[KEY] = JSON.stringify(d); save(); }
+          await tgCall('sendMessage', { chat_id: msg.chat.id, text: '✅ KARTO: Telegram ulandi. Parolni tiklash kodlari shu yerga keladi.' });
+        } else if (msg.text.startsWith('/start')) await tgCall('sendMessage', { chat_id: msg.chat.id, text: 'KARTO 🍟' });
+      }
+    } catch { await new Promise((r) => setTimeout(r, 5000)); }
+  }
+}
+
 http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://x');
   const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket.remoteAddress;
@@ -77,6 +98,14 @@ http.createServer(async (req, res) => {
       return;
     }
     // ---- owner media upload for offers (image / video, up to 80 MB) ----
+    // ---- Telegram link for password-reset codes: /api/tg/link gives a t.me deep link; the poller stores the chat id ----
+    if (url.pathname === '/api/tg/link' && req.method === 'GET') {
+      if (!TG.token) return send(res, 501, '{"error":"Telegram bot is not configured (TELEGRAM_BOT_TOKEN)"}');
+      const who = await api('/api/admin/account', { method: 'GET', headers: req.headers });
+      if (!who.ok) return send(res, 401, '{"error":"Admin login required"}');
+      const code = crypto.randomBytes(6).toString('hex'); TG.pending.set(code, Date.now() + 15 * 60e3);
+      return send(res, 200, JSON.stringify({ url: `https://t.me/${TG.username}?start=${code}` }));
+    }
     if (url.pathname === '/api/upload' && req.method === 'POST') {
       const who = await api('/api/admin/account', { method: 'GET', headers: req.headers });
       if (!who.ok) return send(res, 401, '{"error":"Admin login required"}');
@@ -138,3 +167,4 @@ http.createServer(async (req, res) => {
   console.log(`\n  KARTO is running\n  Website:  http://localhost:${PORT}/site/\n  Restaurant: http://localhost:${PORT}/restaurant/\n  Owner + full system: http://localhost:${PORT}/${ADMIN_PATH}/  (keep this link private)`);
   if (!d.admin) console.log(`  First admin setup key: ${SETUP_KEY}\n  First staff PINs: data/first-pins.txt (change them in Owner → Xodimlar)\n`);
 });
+tgLoop();

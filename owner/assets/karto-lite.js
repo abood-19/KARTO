@@ -24,14 +24,15 @@
     try { const es = new EventSource(base + '/api/events'); es.onmessage = (e) => { try { fn(JSON.parse(e.data)); } catch {} }; } catch {}
     setInterval(() => fn({ type: 'tick' }), 20000);
   };
-  K.money = (n) => String(Math.round(n || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' so‘m';
+  K.money = (n) => { const l = (typeof K.lang === 'function' ? K.lang() : K.lang) || 'uz'; return '\u2066' + String(Math.round(n || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' ' + ({ ru: 'сум', en: 'UZS', ar: 'سوم' }[l] || 'so‘m') + '\u2069'; };
   K.esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   // ---------- 4 languages: ar / uz / ru / en ----------
   const LANGS = ['uz', 'ru', 'en', 'ar'], IDX = { ar: 0, uz: 1, ru: 2, en: 3 };
   K.lang = (() => { try { const l = localStorage.getItem('karto-lang'); return LANGS.includes(l) ? l : 'uz'; } catch { return 'uz'; } })();
   const D = window.KARTO_I18N || {};
   K.t = (key, vars) => { const row = D[key]; let s = row ? row[IDX[K.lang]] : key; if (vars) for (const k in vars) s = s.split('{' + k + '}').join(vars[k]); return s; };
-  const tr = (txt) => { const k = txt.trim(); if (!k || !D[k]) return null; return txt.replace(k, D[k][IDX[K.lang]]); };
+  const PRE = window.KARTO_I18N_PRE || {};
+  const tr = (txt) => { const k = txt.trim(); if (!k) return null; if (D[k]) return txt.replace(k, D[k][IDX[K.lang]]); const m = k.match(/^([A-Za-z ]+): (.+)$/); if (m && PRE[m[1]]) { const r = m[2]; return txt.replace(k, PRE[m[1]][IDX[K.lang]] + ': ' + (D[r] ? D[r][IDX[K.lang]] : r)); } return null; };
   K.translate = (root) => {
     const w = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT);
     const nodes = []; while (w.nextNode()) nodes.push(w.currentNode);
@@ -165,5 +166,18 @@
     };
     const put = () => document.body.appendChild(b); document.readyState === 'loading' ? addEventListener('DOMContentLoaded', put) : put();
   };
+
+  // ---------- play mode (preview only): every section opens without PIN or password ----------
+  if (window.KARTO_PLAY) (async () => {
+    const p = location.pathname, LS = localStorage;
+    try { sessionStorage.setItem('karto-hub', '1'); } catch {}
+    const get = (k) => { try { return JSON.parse(LS.getItem(k) || 'null'); } catch { return null; } };
+    const login = async (keys) => { const r = await K.api('/auth/login', { method: 'POST', body: { pin: '2222' } }); keys.forEach(([t, s]) => { LS.setItem(t, r.token); LS.setItem(s, JSON.stringify(r.staff)); }); location.reload(); };
+    try {
+      if (/\/restaurant\/(pos|kitchen)\.html$/.test(p) && ((get('karto-staff') || {}).role !== 'manager' || !LS.getItem('karto-staff-token'))) await login([['karto-staff-token', 'karto-staff']]);
+      else if (/courier/.test(p) && !LS.getItem('karto-courier-token')) await login([['karto-courier-token', 'karto-courier']]);
+      else if (/\/restaurant\/manager\.html$/.test(p) && !LS.getItem('karto-manager-token')) await login([['karto-manager-token', 'karto-manager']]);
+    } catch {}
+  })();
   K.time = (iso) => { try { return new Date(iso).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }); } catch { return ''; } };
 })();
