@@ -1,0 +1,333 @@
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KARTO مصادر التوريد</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lalezar&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap">
+<style>
+/* Layout: sticky brand bar + section switcher; each section = grid of sourcing cards with one-tap marketplace buttons */
+:root{
+  --bg:#FFF6E6; --surface:#FFFFFF; --ink:#1E1A14; --muted:#6B5E4C; --line:#EADBC2;
+  --green:#E3141B; --yellow:#FFC21A; --red:#E8452C; --chip:#FFF0CC; --pdd:#E02E24; --ok:#1F7A4A;
+  --display:"Lalezar","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --body:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1A1110;--surface:#241816;--ink:#FFF4E0;--muted:#C8BBA3;--line:#3A2A24;--chip:#33231C;--green:#1A0E0C;--ok:#4CC38A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1A1110;--surface:#241816;--ink:#FFF4E0;--muted:#C8BBA3;--line:#3A2A24;--chip:#33231C;--green:#1A0E0C;--ok:#4CC38A;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:#E3141B}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{background:#E3141B;color:#FFF4E0;padding-block:22px 18px}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{font-family:var(--display);font-size:42px;line-height:1;color:#FFC83D;letter-spacing:.02em;direction:ltr}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(24px,4vw,34px);margin:6px 0 2px;text-wrap:balance}
+.sub{margin:0;opacity:.85;max-width:62ch}
+.check{height:10px;background:linear-gradient(90deg,#FFC21A,#E3141B)}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:2px solid var(--line)}
+.tabrow{display:flex;gap:8px;overflow-x:auto;padding-block:12px;scrollbar-width:thin}
+.tab{flex:0 0 auto;border:2px solid var(--ink);background:var(--surface);color:var(--ink);font:700 14px var(--body);padding:8px 14px;border-radius:999px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.tab[aria-selected="true"]{background:var(--yellow);color:#1E1A14;box-shadow:3px 3px 0 var(--ink)}
+.tab .n{font-size:12px;opacity:.7;font-variant-numeric:tabular-nums}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding-block:14px}
+.tools input[type=search]{flex:1 1 240px;min-width:0;font:600 15px var(--body);padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)}
+.prog{font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:8px;flex:1 1 120px;background:var(--line);border-radius:9px;overflow:hidden;max-width:220px}.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+main{padding-block:8px 60px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin:10px 0 14px}
+.sec-head h2{font-family:var(--display);font-weight:400;font-size:28px;margin:0}
+.sec-head p{margin:0;color:var(--muted);max-width:70ch}
+.note{background:var(--chip);border-inline-start:6px solid var(--yellow);border-radius:12px;padding:12px 16px;margin:0 0 16px;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card.done{border-color:var(--ok)}
+.card.done .t{text-decoration:line-through;text-decoration-color:var(--ok)}
+.chead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.t{font-weight:700;font-size:17px;margin:0}
+.where{font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.w-cn{background:#E02E2422;color:var(--pdd)}.w-uz{background:#1F7A4A22;color:var(--ok)}.w-both{background:#FFC83D33;color:var(--muted)}
+.spec{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.spec li{background:var(--chip);border-radius:8px;padding:2px 8px;font-size:13px;font-weight:600}
+.meta{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-weight:600}
+.meta b{color:var(--ink);font-variant-numeric:tabular-nums}
+.kw{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:6px 8px}
+.kw span{flex:1;min-width:0;font-size:15px;font-weight:700;overflow-wrap:anywhere}
+.kw button,.btns a,.btns button{font:700 13px var(--body);border-radius:10px;padding:8px 10px;cursor:pointer;text-decoration:none;text-align:center;border:2px solid transparent}
+.kw button{background:var(--surface);border-color:var(--line);color:var(--ink);padding:4px 10px}
+.btns{display:grid;grid-template-columns:2fr 1fr 1fr;gap:6px;margin-top:auto}
+.pdd{background:var(--pdd);color:#fff}.a1688{background:#FF6A00;color:#fff}.ali{background:var(--surface);color:var(--ink);border-color:var(--line)!important}
+.done-btn{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;color:var(--muted);cursor:pointer}
+.done-btn input{width:18px;height:18px;accent-color:var(--ok)}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+/* recipes */
+.rec-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.rec-tabs button{font:700 14px var(--body);padding:6px 12px;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.rec-tabs button[aria-pressed="true"]{border-color:var(--ink);background:var(--yellow);color:#1E1A14}
+.rec{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:16px;display:grid;gap:12px}
+.scale{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-weight:700}
+.scale input{width:90px;font:700 15px var(--body);padding:6px 10px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.tblwrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{text-align:start;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font-size:13px;color:var(--muted)}
+td.g{font-weight:700;white-space:nowrap}
+tfoot td{font-weight:700;border-top:2px solid var(--ink)}
+.steps{margin:0;padding-inline-start:22px;display:grid;gap:6px}
+.toast{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:#E3141B;color:#FFF4E0;padding:10px 18px;border-radius:12px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20}
+.toast.on{opacity:1}
+.empty{color:var(--muted);font-weight:700;padding:20px 0}
+@media (max-width:420px){.btns{grid-template-columns:1fr 1fr}.btns .pdd{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.cimg{display:block;background:#fff;border-radius:12px;margin:-4px -4px 2px}.cimg img{width:100%;height:170px;object-fit:contain;display:block}
+.dz-h{margin:26px 0 10px;font-size:18px}.dz{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}.dz figure{margin:0;background:#fff;border:1px solid #eee;border-radius:16px;padding:10px;text-align:center}.dz img{width:100%;height:190px;object-fit:contain}.dz figcaption{font-size:13px;font-weight:700;margin-top:6px;direction:ltr}
+</style>
+
+<div dir="rtl" lang="ar">
+<header class="top"><div class="wrap">
+  <div class="brand"><img class="logo" src="karto-logo.png" alt="KARTO" style="height:64px;width:auto"><span style="font-weight:700;opacity:.8">دليل التوريد من الصين · نوفمبر 2026</span></div>
+  <h1>كل مصادر المحل بمكان واحد</h1>
+  <p class="sub">اختار القسم، وكل منتج إله زر بيفتح البحث عنه مباشرة على 拼多多 (Pinduoduo) أو 1688 أو Alibaba، مع المواصفات اللي لازم تطلبها.</p>
+</div></header>
+<div class="check"></div>
+<nav class="tabs" aria-label="الأقسام"><div class="wrap tabrow" id="tabs" role="tablist"></div></nav>
+<div class="wrap tools">
+  <input type="search" id="q" placeholder="ابحث: قلاية، كاسة صوص، ثوم…" aria-label="بحث">
+  <span class="prog" id="prog"></span><span class="bar"><i id="barfill"></i></span>
+</div>
+<main class="wrap" id="main"></main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const PDD=k=>"https://mobile.yangkeduo.com/search_result.html?search_key="+encodeURIComponent(k);
+const S1688=k=>"https://s.1688.com/selloffer/offer_search.htm?charset=utf8&keywords="+encodeURIComponent(k);
+const ALI=k=>"https://www.alibaba.com/trade/search?SearchText="+encodeURIComponent(k);
+
+const SECTIONS=[
+{id:"guide",icon:"🧭",name:"كيف تشتري",lead:"拼多多 تطبيق تسوق صيني داخلي: بيوصّل داخل الصين بس. فبتحتاج عنوان وكيل شحن (转运) بالصين بيستلم ويبعت لطشقند."},
+{id:"machines",icon:"🍟",name:"ماكينات المطبخ",lead:"كل شي ستانلس SUS304، وكهرباء 220V أو 380V ثلاثي، وفيش أوروبي Type C/F."},
+{id:"cold",icon:"🧊",name:"التبريد",lead:"فريزر للبطاطا المجمدة، ثلاجة للصوصات، ثلاجة عرض للعصائر والمي."},
+{id:"pos",icon:"🖥️",name:"الكاشير والشاشات",lead:"نظام KARTO بيشتغل من المتصفح، فأي جهاز أندرويد مع Chrome بيمشي."},
+{id:"raw",icon:"🥔",name:"البطاطا والزيت",lead:"البطاطا المجمدة من الصين بحاوية مبرّدة. الزيت والمي أرخص من أوزبكستان."},
+{id:"spice",icon:"🌶️",name:"مواد البهارات",lead:"المكونات الخام للـ 7 خلطات. أغلبها موجود ببازار Chorsu، والبودرات الخاصة من الصين."},
+{id:"recipes",icon:"🧪",name:"الوصفات",lead:"وصفات الـ 7 بهارات والـ 4 صوصات. غيّر الكمية وبتنحسب الغرامات لحالها."},
+{id:"pack",icon:"📦",name:"التغليف بالشعار",lead:"ملمس مطفي، ألوان KARTO، حبر غذائي. ابعت اللوغو AI/PDF واطلب عينة مطبوعة قبل الإنتاج."},
+{id:"shop",icon:"🏪",name:"تجهيز المحل",lead:"اللافتة، الكاونتر، اليونيفورم، الفلايرات."},
+{id:"design",icon:"🎨",name:"مرجع التصاميم",lead:"صور مرجعية لكل منتج بهوية KARTO الجديدة، للمصممين والمصانع. اضغط على الصورة لتفتحها بالحجم الكامل."},
+{id:"ship",icon:"🚚",name:"الشحن والجمارك",lead:"مدة وتكلفة تقديرية من الصين لطشقند، والأوراق المطلوبة."}
+];
+
+// [id, section, name, where(cn|uz|both), specs[], qty, price, zh, en, note]
+const ITEMS=[
+["fryer","machines","قلاية كهربائية مزدوجة","cn",["حوضين 17–25 لتر","سلتين لكل حوض","50–200°C","حماية حرارة","حنفية تصريف","380V"],"2","600–2,000$","商用电炸炉 双缸双筛 立式","double tank electric deep fryer commercial",""],
+["autofry","machines","قلاية أوتوماتيكية مغلقة بدون شفاط","cn",["تغذية وتصبيب أوتوماتيك","فلتر دخان داخلي","إطفاء حريق داخلي","CE"],"1–2","3,000–4,000$","全自动炸炉 封闭式 无油烟","automatic ventless fryer","بديل القلاية العادية + الشفاط"],
+["dump","machines","محطة تمليح وتسخين البطاطا","cn",["حوض بمصفاة","لمبة تسخين فوق","مكان للكونات"],"1","250–600$","薯条保温台 带照灯","french fry dump station warmer",""],
+["filter","machines","جهاز فلترة زيت","cn",["عربة مع مضخة","ورق فلتر","لزيت 200°C"],"1","400–900$","滤油车 炸油过滤机","fryer oil filter machine cart",""],
+["hood","machines","شفاط + منقي دخان","cn",["ستانلس بفلاتر Baffle","أطول من القلايات 15 سم","منقي كهروستاتيكي"],"1","500–1,500$","不锈钢油烟罩 静电油烟净化器","commercial kitchen hood baffle filter","مع القلاية العادية بس"],
+["sink","machines","مغسلة حوضين + مغسلة يدين","cn",["ستانلس","حنفية بالركبة أو حساس"],"1+1","150–400$","不锈钢双池水槽 洗手池","stainless double sink hand sink",""],
+["table","machines","طاولات شغل وأرفف","cn",["ستانلس","حسب مخطط المحل"],"2–3","80–250$ للقطعة","不锈钢工作台 货架","stainless steel work table shelf",""],
+["juicer","machines","عصّارة تجارية + خلاط","cn",["عصارة بطيئة أو طرد مركزي","خلاط 1.5–2 لتر"],"1+1","150–500$","商用榨汁机 商用料理机","commercial juicer blender",""],
+["sealer","machines","ماكينة تعبئة وختم أكياس العصير","cn",["للأكياس الواقفة","ختم حراري أو تسكير فوهة"],"1","80–800$","吸嘴袋灌装旋盖机 封口机","spout pouch filling capping machine",""],
+["scale","machines","ميزان + مجارف بطاطا","cn",["ميزان 0–5 كغ بدقة 1 غ","مجارف بمقابض"],"1+2","20–60$","电子秤 薯条铲","digital portion scale fry scoop",""],
+["peeler","machines","قشّارة وقطّاعة بطاطا (اختياري)","cn",["بس إذا بطاطا طازة بدل المجمدة"],"1+1","200–700$","土豆去皮机 薯条切条机","potato peeler french fry cutter",""],
+["fire","machines","طفاية حريق Class F + بطانية","uz",["للزيت","بشهادة محلية للتفتيش"],"1+1","محلي","","","اشتريها من طشقند"],
+
+["freezer","cold","فريزر عمودي للبطاطا","cn",["بابين","500–900 لتر","−18 لـ −22°C","No frost"],"1","700–1,500$","立式冷冻柜 双门 不锈钢","upright freezer 2 door stainless",""],
+["undercounter","cold","ثلاجة تحت الكاونتر","cn",["1.5 متر","+2 لـ +8°C","طاولة شغل فوقها"],"1","450–900$","冷藏工作台 平台雪柜","undercounter refrigerator worktable",""],
+["display","cold","ثلاجة عرض للعصائر والمي","cn",["باب زجاج","إضاءة LED","لوغو KARTO فوق"],"1","350–800$","立式展示柜 饮料柜 定制logo","glass door beverage display cooler custom logo",""],
+
+["posterm","pos","شاشة كاشير لمس","cn",["15.6 إنش","أندرويد 11+","4GB RAM","طابعة 80mm مدمجة","شاشة للزبون (اختياري)"],"1","200–450$","安卓收银机 带打印 双屏","android POS terminal built-in printer",""],
+["printer","pos","طابعة فواتير","cn",["حرارية 80mm","قص أوتوماتيك","USB + LAN/Wi-Fi","ESC/POS"],"1","40–120$","80mm热敏小票打印机 网口","80mm thermal receipt printer LAN","جرّب وحدة قبل الكمية"],
+["drawer","pos","درج نقود","cn",["5 ورق + 8 فراطة","RJ11","مفتاح"],"1","25–60$","收银钱箱 五格","cash drawer RJ11",""],
+["kds","pos","تابلت المطبخ","cn",["10–12 إنش","مقاوم للزيت","حامل حائط"],"1","120–250$","商用平板 壁挂 安卓","wall mount android tablet commercial",""],
+["tv","pos","شاشة العرض للزباين","cn",["43–55 إنش","≥500 nit","أندرويد مدمج","تشغيل 24/7"],"1–2","250–600$","广告机 安卓 壁挂","android digital signage display wall mount",""],
+["label","pos","طابعة ستيكرات (اختياري)","cn",["58mm","لتاريخ العصير والتوصيل"],"1","30–80$","热敏标签打印机","thermal label printer",""],
+["router","pos","راوتر + إنترنت احتياطي","uz",["Wi-Fi قوي","شريحة 4G احتياط"],"1","محلي","","",""],
+
+["fries","raw","بطاطا مجمدة","cn",["7×7 أو 9×9 مم","مغلّفة Coated","درجة A","أكياس 2.5 كغ × 4","−18°C"],"شهري","حسب العرض","冷冻薯条 裹粉 7mm","frozen french fries coated 7mm","مصانع: Snow Valley، Simplot Ningxia، McCain Harbin، Aviko Inner Mongolia — بالجملة من 1688/Alibaba بحاوية مبرّدة. أول شهر من مستورد محلي."],
+["oil","raw","زيت القلي","both",["دوار شمس عالي الأوليك أو بالم أولين","نقطة دخان >230°C","جركن 10–20 لتر"],"أسبوعي","محلي أرخص","煎炸油 高油酸葵花籽油","high oleic sunflower frying oil","الأفضل زيت دوار شمس مكرر محلي"],
+["conc","raw","مركزات عصير (احتياط)","both",["مانجو، توت، ليمون، برتقال","أكياس Aseptic"],"حسب الحاجة","—","浓缩果汁 无菌袋","fruit juice concentrate aseptic bag","الأفضل فواكه أوزبكية طازة"],
+["water","raw","مي KARTO 0.5 لتر","uz",["تعبئة Private label بمصنع محلي","القنينة المصنفرة من قسم التغليف"],"شهري","محلي","","","ابعت للمصنع القنينة والليبل، والمي من عندهم"],
+
+["salt","spice","ملح ناعم Extra","uz",["ملح طعام ناعم","اطحنه أنعم بمطحنة"],"كل الخلطات","محلي","","","Korzinka / Makro — ما بتحتاج ملح بحري"],
+["bpep","spice","فلفل أسود مطحون","both",["ناعم جداً"],"كلاسيك · باربكيو · ثوم","—","黑胡椒粉 纯","black pepper powder","أو حب من Chorsu واطحنه"],
+["wpep","spice","فلفل أبيض","both",["ناعم"],"كلاسيك","—","白胡椒粉","white pepper powder",""],
+["garlic","spice","ثوم بودرة","both",["ناعم 80–100 mesh"],"كل الخلطات","—","大蒜粉 纯","garlic powder","الصين من أكبر منتجي بودرة الثوم"],
+["onion","spice","بصل بودرة","both",["ناعم"],"كل الخلطات","—","洋葱粉 纯","onion powder",""],
+["sugar","spice","سكر بودرة","uz",["سكر ناعم"],"أغلب الخلطات","محلي","","",""],
+["paprika","spice","بابريكا حلوة","both",["لون أحمر قوي"],"باربكيو · جبنة · حار · أعشاب","—","甜椒粉 红椒粉","sweet paprika powder",""],
+["smoked","spice","بابريكا مدخنة","cn",["طعم دخان"],"باربكيو + الصوصات","—","烟熏红椒粉","smoked paprika powder",""],
+["tomato","spice","بودرة طماطم","cn",["مجففة رذاذ"],"باربكيو","—","番茄粉 食品级","tomato powder food grade",""],
+["cumin","spice","كمون مطحون","both",["ناعم"],"باربكيو · حار","—","孜然粉","cumin powder","Chorsu"],
+["chili","spice","فلفل أحمر حار (قزل قلمبير)","both",["مطحون ناعم"],"حار","—","辣椒粉 细","chili powder fine","Chorsu"],
+["cayenne","spice","كايين حار جداً","cn",["حرارة عالية"],"باربكيو · حار","—","卡宴辣椒粉","cayenne pepper powder",""],
+["sourcream","spice","بودرة قشطة (سميتانا)","cn",["حلال","مع شهادة صحية"],"قشطة","—","酸奶油粉 调味","sour cream powder seasoning","مش بالبازار — أو Wildberries/Ozon للتجربة"],
+["cheddar","spice","بودرة جبنة شيدر","cn",["حلال","لون برتقالي"],"جبنة + صوص الجبنة","—","切达奶酪粉 撒粉","cheddar cheese powder","مش بالبازار — أو Wildberries/Ozon للتجربة"],
+["parm","spice","بودرة بارميزان","cn",["مجففة ناعمة"],"ثوم","—","帕玛森芝士粉","parmesan cheese powder","مش بالبازار — أو Wildberries/Ozon للتجربة"],
+["milk","spice","حليب بودرة","uz",["كامل الدسم"],"قشطة · جبنة · ثوم","محلي","","",""],
+["dill","spice","شبت مجفف","uz",["مطحون"],"قشطة","محلي","","","Chorsu"],
+["parsley","spice","بقدونس مجفف","both",["رقائق ناعمة"],"قشطة · ثوم · أعشاب","—","干欧芹碎","dried parsley flakes",""],
+["citric","spice","حامض الليمون","uz",["غذائي"],"قشطة · حار","محلي","","","Korzinka"],
+["mustard","spice","بودرة خردل","both",["ناعم"],"جبنة","—","芥末粉 黄芥末","mustard powder",""],
+["turmeric","spice","كركم","both",["للون"],"جبنة","—","姜黄粉","turmeric powder","Chorsu"],
+["oregano","spice","أوريجانو مجفف","cn",["أوراق مجففة"],"أعشاب","—","牛至叶 碎","dried oregano",""],
+["basil","spice","ريحان مجفف","both",["أوراق مفرومة ناعمة"],"أعشاب","—","干罗勒叶 碎","dried basil leaves",""],
+["thyme","spice","زعتر أوروبي (Thyme) مجفف","both",["أوراق ناعمة"],"أعشاب","—","百里香 干 碎","dried thyme",""],
+["cheeseslice","spice","جبنة شرائح مطبوخة + زبدة + نشا","uz",["لصوص الجبنة","Korzinka / Makro"],"صوص الجبنة","محلي","","",""],
+["e551","spice","مانع تكتل E551","cn",["Silicon dioxide","غذائي"],"1% عند الرطوبة","—","二氧化硅 食品级 抗结剂","silicon dioxide food grade anti caking",""],
+["mayo","spice","مايونيز جاهز للمطاعم 67%","uz",["جركن 5–10 كغ"],"صوص الثوم","محلي","","","ما تعمل مايونيز ببيض نيّئ"],
+["grinder","spice","مطحنة بهارات + منخل","cn",["مطحنة كهربائية 500 غ","منخل ناعم 60–80 mesh"],"1+1","30–120$","粉碎机 五谷杂粮 商用 + 筛网","commercial spice grinder + sieve",""],
+["jars","spice","علب تخزين محكمة","cn",["PET أو ستانلس","سعة 1–2 كغ"],"10","—","密封罐 食品级 大号","airtight food storage container",""],
+
+["fpack","pack","علبة البطاطا الصغيرة (Flip-top) مع درج صوص","cn",["كرتون غذائي 350 غ مقاوم للدهون","أبيض مطفي + موجة صفرا وحمرا","درج منزلق لكاسة الصوص","100 غ بطاطا"],"10k+","0.06–0.14$","薯条盒 翻盖 带酱料抽屉 定制logo 防油","custom flip top french fry box with sauce drawer","الحجم الصغير · ابعت الصورة المرجعية للمصنع"],
+["fbowl","pack","صحن البطاطا الدائري (الوسط)","cn",["كرتون 300 غ + طبقة PE","أبيض + موجة صفرا وحمرا","150 غ بطاطا","للمحل والتيك أواي"],"10k+","0.04–0.10$","纸碗 薯条杯 圆形 定制logo 防油","custom printed round paper fry bowl","الحجم الوسط"],
+["fbox","pack","بوكس البطاطا الكبير بأقسام للصوص","cn",["كرتون مضلّع E-flute","غطا بيتسكّر","قسم بطاطا + 3 أقسام صوص","200 غ بطاطا"],"5k+","0.15–0.35$","薯条盒 分格 酱料格 披萨式 定制logo","custom fries box with sauce compartments","الحجم الكبير"],
+["saucecup","pack","كاسة صوص 30 مل بغطا مطبوع","cn",["PP غذائي شفاف","غطا بليبل KARTO لكل صوص","كاتشب · جبنة · ثوم · باربكيو"],"20k–50k","0.02–0.04$","酱料杯 带盖 PP 1oz 定制贴纸","1oz PP sauce cup with printed lid",""],
+["jar","pack","برطمان بهار زجاج بغطا خشب","cn",["زجاج مربع 100–150 مل","غطا خشب بامبو","ليبل لكل نكهة (7)","للبيع وللعرض"],"1k–5k","0.30–0.70$","玻璃调料瓶 竹木盖 方形 定制标签","glass spice jar bamboo lid square custom label",""],
+["jbottle","pack","قنينة عصير PET (فلاسك)","cn",["PET قاسي شفاف","330 مل","غطا ألمنيوم فضي","ليبل KARTO لكل نكهة"],"5k+","0.12–0.25$","PET方形扁瓶 果汁瓶 铝盖 330ml","330ml PET flask juice bottle aluminum cap","مانجو · توت · ليمون · برتقال"],
+["jcan","pack","علبة عصير PET شفافة","cn",["PET شفاف 330–350 مل","غطا سحّاب أو لولبي","ماكينة تسكير صغيرة"],"5k+","0.10–0.22$","PET易拉罐 透明 饮料罐 封罐机","clear PET can with easy open lid juice","بتحتاج ماكينة تسكير علب (封罐机)"],
+["pouch","pack","كيس عصير واقف بشلمونة","cn",["PET/PE غذائي شفاف","300 مل","مع شلمونة","طباعة KARTO لكل نكهة"],"رقمي 1k+ · محفور 10k+","0.05–0.15$","透明吸嘴袋 自立 果汁 定制 带吸管","clear stand up juice pouch with straw custom",""],
+["wbottle","pack","قنينة مي مصنفرة بغطا ألمنيوم","cn",["PET مصنفر 500 مل","غطا ألمنيوم","طباعة بسيطة"],"5k+","0.10–0.20$","磨砂PET瓶 铝盖 500ml 矿泉水瓶","frosted PET water bottle aluminum cap 500ml","أو المصنع المحلي اللي بيعبّي المي"],
+["whitebag","pack","كيس تيك أواي أبيض بمقبض","cn",["ورق 120 غ","مقبض مسطّح","موجة صفرا وحمرا + الشعار"],"5k–10k","0.08–0.20$","白色牛皮纸手提袋 定制logo","custom white paper takeaway bag",""],
+["kraftbag","pack","كيس كرافت + ستيكر الشعار","cn",["كرافت 100 غ","بدون مقبض","ستيكر دائري"],"10k+","0.03–0.08$","牛皮纸袋 方底 定制 贴纸","kraft paper bag flat bottom",""],
+["potatobag","pack","كيس حمل على شكل بطاطا","cn",["قص خاص Die-cut","مقبض بالقص","للهدايا والعروض"],"3k+","0.15–0.40$","异形手提袋 土豆造型 定制","custom die cut shaped carrier bag","تصميم خاص — اطلب عينة"],
+["chipsbag","pack","كيس سناك مطبوع","cn",["ألمنيوم مطبوع","ختم حراري"],"5k+","0.03–0.08$","零食包装袋 定制印刷 铝箔","custom printed snack bag",""],
+["grease","pack","ورق مقاوم للدهون بالشعار","cn",["38–45 غ","نقشة الشعار"],"20k+ ورقة","0.005–0.02$","防油纸 定制印刷 logo","custom printed greaseproof paper",""],
+["label","pack","ليبلات القناني والبرطمانات","cn",["BOPP مقاوم للمي","مطفي","لكل نكهة"],"حسب العدد","—","瓶贴 BOPP 不干胶 定制","custom BOPP bottle label",""],
+["napkin","pack","مناديل بالشعار","cn",["2 طبقة","33×33 سم","أحمر KARTO"],"50k+","—","定制logo餐巾纸","custom logo napkins",""],
+["fork","pack","شوك خشب للبطاطا","cn",["بتولا","8.5 سم","لوغو ليزر"],"50k+","0.005–0.01$","木叉 薯条叉 定制logo","wooden fry fork custom logo",""],
+["sticker","pack","ستيكر ختم الطلب","cn",["دائري 4–5 سم","وجه KARTO + الشعار"],"5k+","—","封口贴纸 定制 圆形","custom round seal sticker",""],
+["delivery","pack","شنطة توصيل حرارية","cn",["معزولة 40–52 لتر","أحمر KARTO","شريط عاكس"],"50–100","10–25$","外卖保温箱 定制logo","delivery insulated bag custom logo",""],
+["sign","shop","لافتة الواجهة المضيئة","cn",["حروف بارزة LED","أكريليك + ستانلس","IP65"],"1","300–1,500$","发光字 门头招牌 定制","LED channel letter sign custom",""],
+["neon","shop","لافتة نيون داخلية","cn",["أكثر من مجرد بطاطا · Beyond Ordinary Potatoes","12V"],"1","80–250$","LED霓虹灯 定制","custom LED neon sign",""],
+["counter","shop","كاونتر الكاشير والتسليم","cn",["سطح ستانلس أو كوارتز","واجهة بألوان KARTO","أدراج + رف برطمانات البهارات"],"1","800–3,000$","快餐店收银台 定制","fast food counter custom design","ابعت مخطط المحل بالمقاسات"],
+["mount","shop","حامل الشاشة + منيو مضيء","cn",["حامل حائط 43–55 إنش","لوحة منيو احتياط"],"1","30–200$","电视支架 灯箱菜单","TV wall mount LED menu light box",""],
+["uniform","shop","يونيفورم","cn",["بولو قطن + مريول + كاب","لوغو مطرّز","أحمر وأصفر"],"50–100","5–15$ للقطعة","工作服 定制刺绣logo 围裙 帽子","custom embroidered uniform apron cap",""],
+["jarshelf","shop","رف عرض برطمانات البهارات","cn",["خشب","7 برطمانات بالترتيب № 01–07","إضاءة LED خفيفة"],"1","40–150$","调料瓶展示架 木质 定制","wooden spice jar display shelf",""],
+["flyer","shop","فلاير المسكوت المطوي","cn",["كرتون 300 غ مطفي","قص بشكل بطاطتين","بينطوي وبينفتح"],"3k+","0.03–0.10$","异形模切折页 定制","die cut folded flyer custom",""],
+["tiles","shop","بلاط مانع انزلاق + ألواح ستانلس","uz",["R11","خلف القلايات"],"—","محلي","","","الأرخص محلياً"],
+["clean","shop","قفازات ونظافة","uz",["نيتريل أسود","سلال بدواسة"],"—","محلي","","",""]
+];
+
+const SPICES=[
+ ["classic","كلاسيك",{"ملح ناعم Extra":600,"فلفل أسود":200,"فلفل أبيض":20,"ثوم بودرة":80,"بصل بودرة":60,"سكر بودرة":40}],
+ ["cheese","جبنة",{"ملح ناعم Extra":120,"ثوم بودرة":40,"بصل بودرة":50,"سكر بودرة":30,"بابريكا حلوة":60,"بودرة شيدر":550,"حليب بودرة":120,"بودرة خردل":20,"كركم":10}],
+ ["spicy","حار",{"ملح ناعم Extra":220,"ثوم بودرة":100,"بصل بودرة":60,"سكر بودرة":100,"بابريكا حلوة":200,"كمون":10,"فلفل أحمر حار":250,"كايين":40,"حامض الليمون":20}],
+ ["bbq","باربكيو",{"ملح ناعم Extra":180,"فلفل أسود":20,"ثوم بودرة":80,"بصل بودرة":80,"سكر بودرة":200,"بابريكا حلوة":130,"بابريكا مدخنة":220,"بودرة طماطم":60,"كمون":20,"كايين":10}],
+ ["garlic","ثوم",{"ملح ناعم Extra":120,"فلفل أسود":30,"ثوم بودرة":200,"بصل بودرة":40,"بودرة بارميزان":450,"حليب بودرة":80,"بقدونس مجفف":80}],
+ ["herbs","أعشاب",{"ملح ناعم Extra":250,"ثوم بودرة":150,"بصل بودرة":80,"سكر بودرة":50,"بابريكا حلوة":50,"فلفل أسود":40,"أوريجانو":120,"ريحان":100,"زعتر أوروبي":60,"بقدونس مجفف":100}],
+ ["sour","قشطة",{"ملح ناعم Extra":160,"ثوم بودرة":40,"بصل بودرة":180,"سكر بودرة":40,"بودرة قشطة":350,"حليب بودرة":120,"شبت مجفف":50,"بقدونس مجفف":30,"حامض الليمون":30}]
+];
+const SAUCES=[
+ ["ketchup","كاتشب KARTO",{"معجون طماطم 25–28%":400,"مي":350,"سكر":150,"خل 9%":70,"ملح":20,"بصل بودرة":5,"ثوم بودرة":3,"بابريكا":2},"اخلط وغلّي على نار هادية 15–20 دقيقة مع التحريك. الثلاجة 2–5°C، لغاية 14 يوم."],
+ ["cheese-sauce","صوص الجبنة",{"حليب":550,"جبنة شرائح مطبوخة":250,"بودرة شيدر":100,"زبدة":50,"نشا ذرة":30,"ملح":5,"بودرة خردل":5,"كركم":2},"سخّن الحليب والزبدة، ضيف النشا مذوّب بشوية مي بارد، بعدين الجبنة والبودرة وحرّك لحد ما ينعم. حافظة حرارية 60°C طول الدوام، أو الثلاجة لغاية 3 أيام."],
+ ["garlic-sauce","صوص الثوم",{"مايونيز جاهز 67%":850,"عصير ليمون":45,"ثوم بودرة":25,"بقدونس مجفف":5,"سكر":10,"ملح":5,"فلفل أبيض":5},"اخفق بارد بدون طبخ، واتركه ساعة بالثلاجة ليطلع طعم الثوم. الثلاجة، لغاية 3 أيام."],
+ ["bbq-sauce","صوص باربكيو",{"كاتشب KARTO":500,"مي":160,"سكر بني":150,"خل تفاح":80,"صويا صوص":40,"خردل":30,"بابريكا مدخنة":15,"ثوم بودرة":8,"بصل بودرة":8,"ملح":5,"فلفل أسود":4},"غلّي 20–25 دقيقة لحد ما يثخن. الثلاجة، لغاية 14 يوم."]
+];
+const IMG={fpack:"pack",fbowl:"bowl",fbox:"box",saucecup:"sauce-ketchup",jar:"jar-classic",jbottle:"bottle-mango",jcan:"can-mango",pouch:"pouche-mango",wbottle:"water",whitebag:"whitebag",kraftbag:"kraftbag",potatobag:"potatobag",chipsbag:"chipsbag",jarshelf:"jars-group",label:"bottles-group"};
+const WHERE={cn:["w-cn","من الصين"],uz:["w-uz","من طشقند"],both:["w-both","طشقند أو الصين"]};
+const $=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let done={}; try{done=JSON.parse(localStorage.getItem("karto-src-done")||"{}")}catch(e){}
+const saveDone=()=>{try{localStorage.setItem("karto-src-done",JSON.stringify(done))}catch(e){}};
+let cur="machines"; try{const h=location.hash.slice(1); if(SECTIONS.some(s=>s.id===h)) cur=h;}catch(e){}
+
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("on"),1600)}
+async function copy(txt){try{await navigator.clipboard.writeText(txt);toast("تم النسخ ✓ — الصقه ببحث 拼多多")}catch(e){toast("انسخ الكلمة يدوياً")}}
+
+function card(it){
+ const [id,,name,w,specs,qty,price,zh,en,note]=it, [wc,wl]=WHERE[w];
+ const links = zh ? `<div class="kw"><span lang="zh">${esc(zh)}</span><button type="button" data-copy="${esc(zh)}">نسخ</button></div>
+  <div class="btns"><a class="pdd" href="${PDD(zh)}" target="_blank" rel="noopener">افتح على 拼多多</a><a class="a1688" href="${S1688(zh)}" target="_blank" rel="noopener">1688</a><a class="ali" href="${ALI(en)}" target="_blank" rel="noopener">Alibaba</a></div>` : "";
+ return `<article class="card${done[id]?" done":""}" data-id="${id}">
+  ${IMG[id]?`<a class="cimg" href="design/${IMG[id]}.webp" target="_blank" rel="noopener"><img src="design/${IMG[id]}.webp" alt="" loading="lazy"></a>`:""}<div class="chead"><h3 class="t">${esc(name)}</h3><span class="where ${wc}">${wl}</span></div>
+  <ul class="spec">${specs.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>
+  <div class="meta"><span>الكمية: <b>${esc(qty)}</b></span><span>السعر التقديري: <b>${esc(price)}</b></span></div>
+  ${note?`<div class="meta">💡 ${esc(note)}</div>`:""}
+  ${links}
+  <label class="done-btn"><input type="checkbox" data-done="${id}" ${done[id]?"checked":""}> انطلب / تم</label>
+ </article>`;
+}
+
+function guide(){return `<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">
+ <article class="card"><h3 class="t">الطريقة 1: وكيل شراء (الأسهل)</h3><ol class="steps">
+  <li>اختار المنتجات من هالدليل وابعت الكلمات الصينية أو روابط المنتج للوكيل.</li>
+  <li>الوكيل بيشتري من 拼多多 أو 1688 بحسابه وبيدفع بـ WeChat/Alipay.</li>
+  <li>بيجمّع كل شي بمستودعه (Yiwu أو Guangzhou أو Urumqi) وبيفحصه وبيصوّره.</li>
+  <li>بيشحنه لطشقند مع التخليص، وإنت بتدفع سعر البضاعة + عمولة + الشحن.</li></ol>
+  <div class="kw"><span lang="zh">代购 转运 乌兹别克斯坦 塔什干</span><button type="button" data-copy="代购 转运 乌兹别克斯坦 塔什干">نسخ</button></div>
+  <div class="meta">ابحث بهالكلمة على WeChat أو Google لتلاقي وكلاء لطشقند.</div></article>
+ <article class="card"><h3 class="t">الطريقة 2: تشتري بنفسك من 拼多多</h3><ol class="steps">
+  <li>نزّل تطبيق 拼多多 من App Store أو Google Play.</li>
+  <li>التسجيل غالباً بيطلب رقم صيني أو حساب WeChat.</li>
+  <li>الدفع: Alipay أو WeChat Pay (Alipay بيقبل بطاقات Visa الأجنبية).</li>
+  <li>عنوان التوصيل: عنوان مستودع وكيل الشحن بالصين، مع كود العميل تبعك.</li>
+  <li>اضغط زر «افتح على 拼多多» بأي منتج هون. إذا ما فتح البحث، اضغط «نسخ» والصق الكلمة ببحث التطبيق.</li></ol></article>
+ <article class="card"><h3 class="t">قبل ما تدفع</h3><ol class="steps">
+  <li>قارن 3 بائعين لكل منتج: التقييم، عدد المبيعات، الصور الحقيقية من الزباين.</li>
+  <li>الماكينات: اطلب فيديو تشغيل، و220V/380V، وفيش أوروبي، وقطع غيار.</li>
+  <li>التغليف بالشعار: اطلب عينة مطبوعة قبل الكمية الكبيرة.</li>
+  <li>المواد الغذائية: اطلب شهادة صحية وتاريخ إنتاج حديث.</li>
+  <li>الطلبيات الكبيرة: Alibaba مع Trade Assurance أضمن من 拼多多.</li></ol></article>
+ <article class="card"><h3 class="t">أي منصة لشو؟</h3><ul class="spec" style="flex-direction:column;gap:8px">
+  <li><b>拼多多</b> — قطع صغيرة وأدوات وبهارات بكميات قليلة، أرخص سعر بالتجزئة.</li>
+  <li><b>1688</b> — جملة من المصانع: تغليف بالشعار، ماكينات، كميات كبيرة.</li>
+  <li><b>Alibaba</b> — نفس مصانع 1688 بالإنجليزي، دفع محمي، شحن دولي.</li></ul></article>
+ </div>`}
+
+function shipping(){return `<div class="tblwrap"><table><thead><tr><th>الطريقة</th><th>المدة لباب المحل</th><th>السعر التقديري</th><th>لشو</th></tr></thead><tbody>
+ <tr><td class="g">شاحنة (عبر قيرغيزستان)</td><td>10–18 يوم</td><td>1.20–1.80$/كغ</td><td>المعدات والتغليف</td></tr>
+ <tr><td class="g">قطار</td><td>14–22 يوم</td><td>0.80–1.50$/كغ</td><td>الكميات الكبيرة والحاويات</td></tr>
+ <tr><td class="g">جوي</td><td>3–7 أيام</td><td>4–7$/كغ</td><td>العينات بس</td></tr></tbody></table></div>
+ <div class="grid" style="margin-top:14px">
+ <article class="card"><h3 class="t">الأوراق المطلوبة من المورد</h3><ul class="spec"><li>عقد بيع</li><li>Commercial invoice</li><li>Packing list</li><li>شهادة منشأ</li><li>مواصفات فنية</li><li>شهادات مطابقة</li></ul>
+ <div class="meta">ضريبة استيراد VAT حوالي 12% فوق الجمرك. <a href="https://www.tonlexing.com/shipping-from-china-to-uzbekistan/" target="_blank" rel="noopener">المصدر</a></div></article>
+ <article class="card"><h3 class="t">الأسهل</h3><p style="margin:0">اتفق مع وكيل الشحن على «خدمة شاملة لباب المحل مع التخليص». قبل أول شحنة، خلي مخلّص جمركي بطشقند يراجع القائمة ويقلك شو بده شهادات.</p>
+ <div class="kw"><span lang="zh">中国到塔什干 双清包税 门到门</span><button type="button" data-copy="中国到塔什干 双清包税 门到门">نسخ</button></div></article></div>`}
+
+let recKind="spice", recId="classic", batch=1;
+function recipes(){
+ const list = recKind==="spice"?SPICES:SAUCES, r=list.find(x=>x[0]===recId)||list[0];
+ const rows=Object.entries(r[2]), tot=rows.reduce((a,[,g])=>a+g,0);
+ const fmt=g=>{const v=g*batch; return v>=1000?(v/1000).toFixed(v%1000?2:0)+" كغ":(Math.round(v*10)/10)+" غ"};
+ return `<div class="rec-tabs" role="group" aria-label="النوع"><button type="button" data-kind="spice" aria-pressed="${recKind==="spice"}">🌶️ البهارات (7)</button><button type="button" data-kind="sauce" aria-pressed="${recKind==="sauce"}">🥫 الصوصات (4)</button></div>
+ <div class="rec-tabs" role="group" aria-label="الوصفة">${list.map(x=>`<button type="button" data-rec="${x[0]}" aria-pressed="${x[0]===r[0]}">${esc(x[1])}</button>`).join("")}</div>
+ <div class="rec"><div class="scale"><label for="batch">الكمية:</label><input id="batch" type="number" min="0.1" step="0.1" value="${batch}" inputmode="decimal"> كغ <span style="color:var(--muted);font-weight:600">· للتجربة حط 0.1 (يعني 100 غ)</span></div>
+ <div class="tblwrap"><table><thead><tr><th>المادة</th><th>الكمية</th><th>النسبة</th></tr></thead><tbody>
+ ${rows.map(([n,g])=>`<tr><td>${esc(n)}</td><td class="g">${fmt(g)}</td><td>${(g/tot*100).toFixed(1)}%</td></tr>`).join("")}</tbody>
+ <tfoot><tr><td>المجموع</td><td class="g">${fmt(tot)}</td><td>100%</td></tr></tfoot></table></div>
+ ${recKind==="spice"?`<ol class="steps"><li>أوزن بميزان دقته 1 غ.</li><li>اطحن الملح والسكر والأعشاب لحد ما يصيروا متل الطحين.</li><li>انخل كل شي واخلط 3–5 دقائق بوعاء ناشف.</li><li>عبّي بعلب مسكرة. بدون ألبان: لغاية 6 أشهر. بالألبان: لغاية 3 أشهر.</li><li>الاستعمال: 3 / 4 / 5 غ للصغير / الوسط / الكبير، على البطاطا وهي سخنة.</li></ol>`:`<p style="margin:0;font-weight:600">${esc(r[3])}</p><p class="meta" style="margin:0">المايونيز ببيض نيّئ خطر بمحل، فالصوصات البيضاء على مايونيز جاهز 67%.</p>`}
+ </div>`}
+
+const DESIGN=[["التغليف (علب ومكاييس)", [["box", "Large box · pizza-style with sauce compartments"], ["bowl", "Medium round bowl"], ["pack", "Small flip-top pack + sauce drawer"], ["chipsbag", "Snack fries bag"], ["whitebag", "White takeaway bag"], ["kraftbag", "Kraft paper bag"], ["potatobag", "Potato-shaped carrier"]]], ["العصير — قنينة", [["bottle-mango", "Juice bottle · Mango"], ["bottle-berry", "Juice bottle · Berry"], ["bottle-lemon", "Juice bottle · Lemon"], ["bottle-orange", "Juice bottle · Orange"]]], ["العصير — علبة", [["can-mango", "Clear PET can · Mango"], ["can-berry", "Clear PET can · Berry"], ["can-lemon", "Clear PET can · Lemon"], ["can-orange", "Clear PET can · Orange"]]], ["العصير — كيس بشلمونة", [["pouche-mango", "Stand-up pouch · Mango"], ["pouche-berry", "Stand-up pouch · Berry"], ["pouche-lemon", "Stand-up pouch · Lemon"], ["pouche-orange", "Stand-up pouch · Orange"]]], ["المي", [["water", "KARTO water 0.5 L · frosted bottle"]]], ["البهارات (برطمانات بغطا خشب)", [["jar-classic", "Spice jar · Classic"], ["jar-cheese", "Spice jar · Cheese"], ["jar-spicy", "Spice jar · Spicy"], ["jar-bbq", "Spice jar · BBQ"], ["jar-garlic", "Spice jar · Garlic"], ["jar-herbs", "Spice jar · Herbs"], ["jar-sour", "Spice jar · Sour Cream"]]], ["الصوصات (كاسات 30 مل بغطا)", [["sauce-ketchup", "Sauce cup · Ketchup"], ["sauce-cheese", "Sauce cup · Cheese"], ["sauce-garlic", "Sauce cup · Garlic"], ["sauce-bbq", "Sauce cup · BBQ"]]]];
+function design(){return DESIGN.map(([t,l])=>`<h3 class="dz-h">${esc(t)}</h3><div class="dz">${l.map(([f,n])=>`<figure><a href="design/${f}.webp" target="_blank" rel="noopener"><img src="design/${f}.webp" alt="${esc(n)}" loading="lazy"></a><figcaption>${esc(n)}</figcaption></figure>`).join("")}</div>`).join("")}
+function render(){
+ const sec=SECTIONS.find(s=>s.id===cur), q=$("#q").value.trim();
+ const tabs=SECTIONS.map(s=>{const n=ITEMS.filter(i=>i[1]===s.id).length;return `<button class="tab" role="tab" data-tab="${s.id}" aria-selected="${s.id===cur&&!q}">${s.icon} ${s.name}${n?` <span class="n">${n}</span>`:""}</button>`}).join("");
+ $("#tabs").innerHTML=tabs;
+ let body;
+ if(q){const ql=q.toLowerCase(); const hits=ITEMS.filter(i=>(i[2]+" "+i[4].join(" ")+" "+i[7]+" "+i[8]+" "+i[9]).toLowerCase().includes(ql));
+  body=`<div class="sec-head"><h2>نتائج «${esc(q)}»</h2><p>${hits.length} منتج</p></div>`+(hits.length?`<div class="grid">${hits.map(card).join("")}</div>`:`<p class="empty">ما في نتائج. جرّب كلمة ثانية.</p>`);}
+ else{ const items=ITEMS.filter(i=>i[1]===cur);
+  body=`<div class="sec-head"><h2>${sec.icon} ${sec.name}</h2></div><p class="note">${esc(sec.lead)}</p>`+
+   (cur==="guide"?guide():cur==="recipes"?recipes():cur==="ship"?shipping():cur==="design"?design():`<div class="grid">${items.map(card).join("")}</div>`);}
+ $("#main").innerHTML=body;
+ const total=ITEMS.filter(i=>i[3]!=="uz").length, d=ITEMS.filter(i=>i[3]!=="uz"&&done[i[0]]).length;
+ $("#prog").textContent=`انطلب ${d} من ${total}`; $("#barfill").style.width=(d/total*100)+"%";
+}
+
+document.addEventListener("click",e=>{
+ const t=e.target.closest("[data-tab]"); if(t){cur=t.dataset.tab;$("#q").value="";try{history.replaceState(null,"","#"+cur)}catch(x){location.hash=cur}render();window.scrollTo({top:0,behavior:"smooth"});return}
+ const c=e.target.closest("[data-copy]"); if(c){copy(c.dataset.copy);return}
+ const k=e.target.closest("[data-kind]"); if(k){recKind=k.dataset.kind;recId=(recKind==="spice"?SPICES:SAUCES)[0][0];render();return}
+ const r=e.target.closest("[data-rec]"); if(r){recId=r.dataset.rec;render();return}
+});
+document.addEventListener("change",e=>{
+ const d=e.target.closest("[data-done]"); if(d){done[d.dataset.done]=d.checked;if(!d.checked)delete done[d.dataset.done];saveDone();render();}
+});
+document.addEventListener("input",e=>{
+ if(e.target.id==="q") render();
+ if(e.target.id==="batch"){const v=parseFloat(e.target.value);if(v>0){batch=v;const pos=e.target.selectionStart;render();const b=$("#batch");b.focus();try{b.setSelectionRange(pos,pos)}catch(x){}}}
+});
+addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(SECTIONS.some(s=>s.id===h)){cur=h;render()}});
+render();
+</script>
